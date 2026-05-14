@@ -1,0 +1,27 @@
+\chapter*{General Introduction}
+\addcontentsline{toc}{chapter}{General Introduction}
+\markboth{General Introduction}{General Introduction}
+
+Managing a large software platform is never only a matter of writing code. In
+the MES X.0 environment at Forvia Informatique Tunisie, teams work on a
+microservices-based Manufacturing Execution System deployed across several
+industrial sites. Azure DevOps supports this work by centralizing planning,
+source control, code review, and pipeline automation.
+
+The real difficulty lies in understanding how all of these development
+artifacts relate to one another. A single feature may involve several work
+items, multiple pull requests, and many commits spread across different
+repositories. Before this project, tracing those links required a largely
+manual process based on Azure DevOps navigation and spreadsheet tracking. The
+approach was slow, repetitive, and difficult to reproduce reliably.
+
+This internship addressed that problem by designing and implementing an
+automated traceability system able to reconstruct dependency chains directly
+from Azure DevOps data. The objective was not simply to save time, but to give
+developers and release engineers a clearer and more dependable view of the
+relationships between requirements, code changes, and release tags.
+
+The rest of this report follows the progression of that work. It first presents
+the industrial context and the project objectives, then formalizes the system
+requirements, explains the proposed architecture, and finally describes the
+implementation choices and the main results achieved during the internship.

@@ -1,0 +1,23 @@
+\chapter*{Abstract}
+\addcontentsline{toc}{chapter}{Abstract}
+
+Large software teams working with Azure DevOps need a reliable way to trace the
+links between work items, pull requests, commits, branches, and release tags.
+Within the MES X.0 environment at Forvia, this traceability was previously built
+through a manual process that was slow, repetitive, and error-prone.
+
+The \textbf{MES-X Dependency Management} project addresses this limitation by
+providing a read-only traceability service composed of a NestJS backend and a
+Vue~3 frontend. The backend integrates with Azure DevOps, traverses dependency
+graphs, resolves pull requests and commits, streams batch results, and
+identifies the tag context of each change. The frontend gives users an
+operational interface for launching analyses, following progress, and reviewing
+consolidated results.
+
+This report presents the project context, the formal requirements, the proposed
+architecture, the implementation choices made for both backend and frontend,
+and the main technical outcomes of the internship.
+
+\bigskip
+\textbf{Keywords:} NestJS, Azure DevOps, Vue~3, dependency management, traceability,
+internship report.
