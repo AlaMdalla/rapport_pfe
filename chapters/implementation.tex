@@ -501,7 +501,7 @@ maps backend contracts to typed frontend models.
   \texttt{/sprint/:sprintId/work-items} with lazy retrieval per expanded sprint.
   \item Batch result enrichment uses \texttt{/commits/tags/batch} grouped by
   repository.
-  \item Commit-level review actions call \texttt{/commits/review} from the
+  \item Commit-level review actions call \texttt{/commits/hf/review} from the
   decision dashboard when the operator requests an AI-generated assessment.
   \item Authentication failures trigger a controlled redirect when the backend
   returns an unauthorized response.
@@ -706,14 +706,14 @@ calls an external model to produce a structured review. This review is then
 surfaced in the decision dashboard, so release analysis can be complemented by
 code-level observations when needed.
 
-Both repositories keep their automation artifacts inside the codebase. On the
+Both repositories keep automation artifacts inside the codebase. On the
 backend, the \texttt{.github/agents/} directory defines dedicated roles such as
-architect, implementer, reviewer, and QA agent. On the frontend,
-\texttt{.github/agents/}, \texttt{.github/instructions/}, and
-\texttt{.github/skills/} capture UI guidelines, review rules, and reusable
-workflows for Vue, Quasar, styling, and quality checks. Keeping these files
-versioned alongside the source code makes the automation explicit, reviewable,
-and reproducible.
+architect, implementer, reviewer, and QA agent.
+
+On the frontend, dedicated \texttt{.github/} folders capture UI guidelines,
+review rules, and reusable workflows for Vue, Quasar, styling, and quality
+checks. Keeping these files versioned with the source code makes automation
+explicit, reviewable, and reproducible.
 
 In practice, these agents assisted with code drafting, refactoring, test
 scaffolding, documentation, and architecture reviews. The instruction files
@@ -730,18 +730,3 @@ useful across both development and runtime review support, while keeping
 accountability, technical rigor, and architectural coherence firmly in human
 hands.
 
-% ──────────────────────────────────────────────────────────────────────────────
-\section*{Conclusion}
-
-The implementation produced a modular traceability platform combining a
-graph-oriented backend, an operational frontend, and a deployment-ready runtime
-configuration. The result replaces a manual, fragmented analysis process with a
-structured workflow that is faster, easier to interpret, and better suited to
-release preparation.
-
-By combining layered design, iterative development, thorough validation, and
-careful integration with Azure DevOps, the project built a maintainable
-foundation for dependency analysis, release decision support, and future
-expansion of the traceability scope.
-
-\addcontentsline{toc}{section}{Conclusion}

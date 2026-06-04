@@ -4,22 +4,22 @@
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {2.1}{\ignorespaces Manual dependency tracking workflow before the MES-X Dependency Management system}}{14}{figure.caption.19}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Use Case Diagram of the MES-X Dependency Management System.}}{24}{figure.caption.27}%
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Use Case Diagram of the MES-X Dependency Management System.}}{23}{figure.caption.27}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {4.1}{\ignorespaces Global connection graph of the Trace UI and backend modules}}{30}{figure.caption.29}%
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Global connection graph of the Trace UI and backend modules}}{29}{figure.caption.29}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {5.1}{\ignorespaces Frontend technology used: Vue 3 for building the user interface}}{37}{figure.caption.30}%
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Frontend technology used: Vue 3 for building the user interface}}{36}{figure.caption.30}%
 \contentsline {figure}{\numberline {5.2}{\ignorespaces Backend technology used: NestJS for scalable server-side architecture}}{37}{figure.caption.31}%
-\contentsline {figure}{\numberline {5.3}{\ignorespaces Azure DevOps Platform}}{39}{figure.caption.32}%
-\contentsline {figure}{\numberline {5.4}{\ignorespaces Agile Scrum methodology applied during system development}}{39}{figure.caption.33}%
-\contentsline {figure}{\numberline {5.5}{\ignorespaces Backend class diagram for the work item, pull request, and commit modules}}{45}{figure.caption.41}%
-\contentsline {figure}{\numberline {5.6}{\ignorespaces Backend class diagram for the sprint and decision modules}}{45}{figure.caption.42}%
-\contentsline {figure}{\numberline {5.7}{\ignorespaces Sequence diagram for single-root related work-item processing}}{48}{figure.caption.43}%
-\contentsline {figure}{\numberline {5.8}{\ignorespaces Sequence diagram for batch related work-item aggregation}}{49}{figure.caption.44}%
-\contentsline {figure}{\numberline {5.9}{\ignorespaces UI route and component architecture for traceability workflows}}{51}{figure.caption.45}%
-\contentsline {figure}{\numberline {5.10}{\ignorespaces Sequence diagram for UI and backend integration in trace workflows}}{52}{figure.caption.46}%
-\contentsline {figure}{\numberline {5.11}{\ignorespaces Batching Work Items -- selection and SSE-driven progress}}{53}{figure.caption.48}%
-\contentsline {figure}{\numberline {5.12}{\ignorespaces Related Work Item -- single-root traceability graph view}}{54}{figure.caption.50}%
-\contentsline {figure}{\numberline {5.13}{\ignorespaces Discovered Commits -- commits found during traversal}}{55}{figure.caption.51}%
-\contentsline {figure}{\numberline {5.14}{\ignorespaces Decision -- work items grouped by state (Done vs. Other)}}{55}{figure.caption.54}%
-\contentsline {figure}{\numberline {5.15}{\ignorespaces Decision -- repository view with expected tags for promotion}}{56}{figure.caption.55}%
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Azure DevOps Platform}}{38}{figure.caption.32}%
+\contentsline {figure}{\numberline {5.4}{\ignorespaces Agile Scrum methodology applied during system development}}{38}{figure.caption.33}%
+\contentsline {figure}{\numberline {5.5}{\ignorespaces Backend class diagram for the work item, pull request, and commit modules}}{44}{figure.caption.41}%
+\contentsline {figure}{\numberline {5.6}{\ignorespaces Backend class diagram for the sprint and decision modules}}{44}{figure.caption.42}%
+\contentsline {figure}{\numberline {5.7}{\ignorespaces Sequence diagram for single-root related work-item processing}}{47}{figure.caption.43}%
+\contentsline {figure}{\numberline {5.8}{\ignorespaces Sequence diagram for batch related work-item aggregation}}{48}{figure.caption.44}%
+\contentsline {figure}{\numberline {5.9}{\ignorespaces UI route and component architecture for traceability workflows}}{50}{figure.caption.45}%
+\contentsline {figure}{\numberline {5.10}{\ignorespaces Sequence diagram for UI and backend integration in trace workflows}}{51}{figure.caption.46}%
+\contentsline {figure}{\numberline {5.11}{\ignorespaces Batching Work Items -- selection and SSE-driven progress}}{52}{figure.caption.48}%
+\contentsline {figure}{\numberline {5.12}{\ignorespaces Related Work Item -- single-root traceability graph view}}{53}{figure.caption.50}%
+\contentsline {figure}{\numberline {5.13}{\ignorespaces Discovered Commits -- commits found during traversal}}{54}{figure.caption.51}%
+\contentsline {figure}{\numberline {5.14}{\ignorespaces Decision -- work items grouped by state (Done vs. Other)}}{54}{figure.caption.54}%
+\contentsline {figure}{\numberline {5.15}{\ignorespaces Decision -- repository view with expected tags for promotion}}{55}{figure.caption.55}%
