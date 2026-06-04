@@ -5,39 +5,82 @@
 \vspace{0.5cm}
 \begingroup
 \small
-\renewcommand{\arraystretch}{1.15}
-\begin{longtable}{@{}>{\bfseries\color{primary}}p{2.8cm} p{10.8cm}@{}}
-\toprule
+\renewcommand{\arraystretch}{1.25}
+
+\begin{longtable}{|>{\bfseries\color{primary}}p{3.0cm}|p{10.4cm}|}
+
+\hline
 \textbf{Abbreviation} & \textbf{Definition} \\
-\midrule
+\hline
 \endfirsthead
-\toprule
+
+\hline
 \textbf{Abbreviation} & \textbf{Definition} \\
-\midrule
+\hline
 \endhead
-API     & Application Programming Interface \\
-CI/CD   & Continuous Integration / Continuous Delivery \\
-DTO     & Data Transfer Object \\
-DTOs    & Data Transfer Objects \\
-E2E     & End-to-End \\
-Epic    & High-level Azure DevOps work item used to group major business capabilities \\
-FR      & Functional Requirement \\
-Git     & Distributed version control system used by Azure DevOps repositories \\
-MES     & Manufacturing Execution System \\
-MES-X   & Forvia's Manufacturing Execution System platform context for this dependency-management service \\
-NFR     & Non-Functional Requirement \\
-NestJS  & Node.js framework used to build the backend \\
-PAT     & Personal Access Token \\
-PR      & Pull Request \\
-Quasar  & Vue-based UI framework used to build the frontend interface \\
-REST    & Representational State Transfer \\
-SSE     & Server-Sent Events \\
-TypeScript & Typed superset of JavaScript used in both backend and frontend development \\
-UI      & User Interface \\
-UML     & Unified Modeling Language \\
-UC      & Use Case \\
-Vite    & Frontend build tool used to bundle and serve the Vue application \\
-Vue     & Progressive JavaScript framework used for the frontend application \\
-\bottomrule
+
+% ───────────────────────────
+% GENERAL SOFTWARE ENGINEERING
+% ───────────────────────────
+API        & Application Programming Interface enabling communication between systems \\
+\hline
+REST       & Architectural style for designing networked applications using HTTP \\
+\hline
+DTO        & Data Transfer Object used to transfer structured data between application layers \\
+\hline
+E2E        & End-to-End testing covering full system workflow \\
+\hline
+CI/CD      & Continuous Integration and Continuous Delivery pipeline for automated software deployment \\
+\hline
+
+% ───────────────────────────
+% VERSION CONTROL / DEV PROCESS
+% ───────────────────────────
+Git        & Distributed version control system used for source code management \\
+\hline
+PR         & Pull Request used for code review and integration in Git workflows \\
+\hline
+Epic       & High-level work item in Azure DevOps grouping large functional features \\
+\hline
+PAT        & Personal Access Token used for authentication in Git and API access \\
+\hline
+
+% ───────────────────────────
+% ARCHITECTURE / SYSTEM DOMAIN
+% ───────────────────────────
+MES        & Manufacturing Execution System for managing production operations \\
+\hline
+MES-X      & Forvia MES platform context for the dependency management system \\
+\hline
+NFR        & Non-Functional Requirement defining system quality attributes \\
+\hline
+FR         & Functional Requirement defining system behaviors and features \\
+\hline
+UC         & Use Case describing system interactions with actors \\
+\hline
+
+% ───────────────────────────
+% BACKEND / FRONTEND TECHNOLOGIES
+% ───────────────────────────
+NestJS     & Node.js framework for building scalable backend applications \\
+\hline
+TypeScript & Strongly typed superset of JavaScript used in frontend and backend development \\
+\hline
+Vue        & Progressive JavaScript framework for building user interfaces \\
+\hline
+Quasar     & Vue-based UI framework for building responsive applications \\
+\hline
+Vite       & Fast frontend build tool and development server \\
+\hline
+SSE        & Server-Sent Events enabling real-time server-to-client communication \\
+\hline
+
+% ───────────────────────────
+% MODELING / DESIGN
+% ───────────────────────────
+UML        & Unified Modeling Language used for system design and visualization \\
+\hline
+
 \end{longtable}
+
 \endgroup
