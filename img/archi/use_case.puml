@@ -1,0 +1,94 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+skinparam actorStyle awesome
+skinparam shadowing false
+skinparam linetype ortho
+skinparam nodesep 50
+skinparam ranksep 60
+
+' ═══════════════════════════════════════
+' ACTORS
+' ═══════════════════════════════════════
+actor "Developer" as Dev
+actor "LLM Provider" as LLM
+
+' ═══════════════════════════════════════
+' FORCE LAYOUT: Developer | System | LLM
+' ═══════════════════════════════════════
+Dev        -[hidden]right-> MESXSystem
+MESXSystem -[hidden]right-> LLM
+
+' ═══════════════════════════════════════
+' SYSTEM BOUNDARY
+' ═══════════════════════════════════════
+rectangle "MES-X Dependency Traceability System" as MESXSystem {
+
+    package "Sprint Analysis" {
+        usecase "Inspect Sprint Scope" as UC_Sprint
+    }
+
+    package "Work Item Analysis" {
+        usecase "Trace Work Items" as UC_Work
+        usecase "Explore Related Items" as UC_Explore
+    }
+
+    package "Pull Request Integration" {
+        usecase "Get Linked Work Items" as UC_PR
+    }
+
+    package "Commit & Release Analysis" {
+        usecase "Analyze Changes" as UC_Analyze
+        usecase "Fetch Release Tags" as UC_Tags
+    }
+
+    package "AI Review" {
+        usecase "LLM Commit Review" as UC_LLM
+    }
+
+    package "Decision & Insights" {
+        usecase "Generate Dependency Overview" as UC_Decision
+    }
+}
+
+' Anchor actors to the horizontal flow and keep the system content stacked
+Dev -[hidden]- UC_Sprint
+LLM -[hidden]- UC_Decision
+
+' Keep the main internal flow horizontal inside the system boundary
+UC_Sprint  -[hidden]right-> UC_Work
+UC_Work    -[hidden]right-> UC_PR
+UC_PR      -[hidden]right-> UC_Analyze
+UC_Analyze -[hidden]right-> UC_LLM
+UC_LLM     -[hidden]right-> UC_Decision
+
+' ═══════════════════════════════════════
+' MAIN PIPELINE FLOW
+' ═══════════════════════════════════════
+UC_Sprint  --> UC_Work
+UC_Work    --> UC_PR
+UC_PR      --> UC_Analyze
+UC_Analyze --> UC_LLM
+UC_LLM     --> UC_Decision
+
+' ═══════════════════════════════════════
+' SECONDARY RELATIONS
+' ═══════════════════════════════════════
+UC_Explore ..> UC_PR
+UC_Analyze  --> UC_Tags
+UC_Tags     ..> UC_Decision
+
+' ═══════════════════════════════════════
+' DEVELOPER INTERACTIONS
+' ═══════════════════════════════════════
+Dev --> UC_Sprint
+Dev --> UC_Work
+Dev ..> UC_LLM
+Dev ..> UC_Decision
+
+' ═══════════════════════════════════════
+' LLM PROVIDER INTERACTIONS
+' ═══════════════════════════════════════
+LLM --> UC_LLM
+
+@enduml

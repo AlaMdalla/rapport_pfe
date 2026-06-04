@@ -1,6 +1,5 @@
 % ============================================================================
-% CHAPTER 2 -- REQUIREMENTS SPECIFICATION
-% End-of-Study Report -- MES-X Dependency Traceability System
+% CHAPTER 3 -- REQUIREMENTS SPECIFICATION
 % ============================================================================
 
 \chapter{Requirements Specification}
@@ -10,310 +9,273 @@
 \section{Introduction}
 \label{sec:req-intro}
 
-This chapter defines the requirements of the MES-X Dependency Management
-system. At this stage, the objective is to describe the expected behavior of
-the solution independently from implementation details, so that the later
-architecture and implementation can be evaluated against a clear baseline.
+This chapter describes what the MES-X Dependency Management system must do and
+how well it must do it. The goal at this stage is to describe the expectedfuse
+behavior independently of implementation choices, so the architecture and code
+can later be measured against a clear baseline.
 
-The requirements were derived from the manual workflow described in the
-previous chapter, discussions with developers and release engineers, and direct
-observation of the traceability tasks performed in the MES X.0 context. They
-cover both the services the system must provide and the quality constraints it
-must respect in daily use.
+The requirements come from studying the manual workflow described in the
+previous chapter, talking with developers and release engineers, and watching
+traceability tasks being carried out in the MES X.0 environment. They cover
+both what the system must do and the quality bar it must meet in daily use.
+
 
 % ----------------------------------------------------------------------------
 \section{Functional Requirements}
 \label{sec:functional-requirements}
 
-Functional requirements describe the behavior the system must provide from the
-user and process perspective. They define the capabilities needed to trace
-artifacts across work items, pull requests, commits, and tags.
-
-% ----------------------------------------------------------------------------
-\section{Work Item Traceability Requirements}
-\label{sec:req-work-items}
-
-Work items are the usual starting point for traceability analysis. They express
-the needs, tasks, and user stories that define the expected behavior of the
-software, and they serve as the roots for the dependency graph.
+The functional requirements define the main capabilities of the MES-X Dependency Management system.
+They describe how the system processes Azure DevOps data to build a complete traceability view across work items, source code, and release information.
 
 \begin{itemize}
-  \item \textbf{FR-WI-01 -- Single Work Item Retrieval}: The system must be able to retrieve a work item from Azure DevOps by its numeric identifier and return a normalized view of its metadata, including title, type, state, assignee, and all relation links.
 
-  \item \textbf{FR-WI-02 -- Relation Type Interpretation}: The system must be able to interpret the relation types used by Azure DevOps work items, including parent-child links, peer links, and artifact links to external objects such as pull requests. Each relation type must be handled correctly during graph construction.
+\item \textbf{FR-01 -- Pull Request Resolution} \\
+The system shall retrieve pull requests from Azure DevOps and associate them with their corresponding work items.  
+This enables the system to establish a consistent link between work tracking elements and source control changes, which forms the entry point of the traceability pipeline.
+\item \textbf{FR-02 -- Commit and Tag Contextualization} \\
+The system shall extract commits linked to each pull request and add contextual information, including branch details and repository tags.  
+This contextual information is required to determine the position of each change within the release lifecycle and to support release-level analysis.
 
-  \item \textbf{FR-WI-03 -- Dependency Graph Traversal}: The system must be able to explore the full dependency graph reachable from a root work item by following relation links across all hierarchy levels. The traversal must be cycle-safe and must support graphs of arbitrary depth without affecting correctness.
+\item \textbf{FR-03 -- Dependency Graph Construction} \\
+The system shall construct a dependency graph starting from one or multiple root work items.  
+It shall traverse all related entities through Azure DevOps relationships, including parent-child links, pull request associations, and commit references, in order to reconstruct the full dependency chain.
 
-  \item \textbf{FR-WI-04 -- Multi-Root Batch Analysis}: The system must be able to accept several work item identifiers as the starting points of one analysis session, traverse the graph for each root, and return one aggregated and deduplicated result covering all reachable work items.
+\item \textbf{FR-04 -- Aggregation and Decision Output} \\
+The system shall aggregate all retrieved entities into a unified data model.  
+This includes normalization of work items, pull requests, and commits, as well as removal of duplicates caused by multi-path traversal.  
+The final output shall provide a structured view that supports release analysis and decision-making.
 
-  \item \textbf{FR-WI-05 -- Pull Request Reference Extraction}: While traversing work item relations, the system must identify and extract all references to associated pull requests, producing a deduplicated list of pull request identifiers for later resolution.
+\item \textbf{FR-05 -- End-to-End Read-Only Traceability} \\
+The system shall provide a complete traceability view across all relevant artifact levels: work items, pull requests, commits, branches, and tags.  
+All interactions with Azure DevOps shall be strictly read-only, ensuring that no modification, creation, or deletion of external data is performed by the system.
+\item \textbf{FR-06 -- Sprint-Based and Multi-Sprint Dependency Resolution} \\
+The system shall support dependency analysis starting from one or more sprints, as well as from work items belonging to multiple sprints.  
+It shall retrieve all related work items and trace their dependencies across pull requests, commits, and repository versions.
 
-  \item \textbf{FR-WI-06 -- Progressive Streaming for Large Datasets}: For analysis sessions involving many work items, the system must support a progressive delivery mode in which partial results are streamed to the client as they are discovered, so the user can follow progress in real time instead of waiting for the full traversal to finish.
+The system shall also identify the corresponding release versions associated with these work items in order to support validation of transitions between environments (e.g., development, pre-production, production).  
+This enables the system to determine which changes are required to move a set of work items to the next environment.
 \end{itemize}
-
-% ----------------------------------------------------------------------------
-\section{Pull Request Traceability Requirements}
-\label{sec:req-pull-requests}
-
-Pull requests form the bridge between work tracking and source control. They are
-the point where implementation work becomes a formal change set in Azure
-DevOps, so the system must resolve them accurately and enrich them with useful
-context.
-
-\begin{itemize}
-  \item \textbf{FR-PR-01 -- Pull Request Metadata Resolution}: The system must be able to retrieve the full metadata of a pull request from the Azure DevOps Git API using its identifier, including title, status, source and target branches, and the repository identifier.
-
-  \item \textbf{FR-PR-02 -- Linked Work Item Retrieval}: The system must be able to retrieve the work items formally linked to a pull request on the Git side of Azure DevOps. This list may differ from the work items linked from the work-tracking side, and both views must be supported.
-
-  \item \textbf{FR-PR-03 -- Repository Identity Propagation}: For each resolved pull request, the system must extract and propagate the repository name so that downstream components can group and classify results without making additional API calls.
-
-  \item \textbf{FR-PR-04 -- Traceability Chain Bridging}: The system must use resolved pull request information to extend the traceability chain from work items into source control. PR resolution must produce the structured context needed for commit and tag resolution.
-\end{itemize}
-
-% ----------------------------------------------------------------------------
-\section{Commit Traceability Requirements}
-\label{sec:req-commits}
-
-Commits are the most detailed part of the traceability chain. They capture the
-actual code changes behind a requirement and provide the context needed to
-relate those changes to branches and release tags.
-
-\begin{itemize}
-  \item \textbf{FR-CO-01 -- Commit Resolution via Pull Request}: The system must be able to retrieve the commits merged as part of a specific pull request using the Azure DevOps Git API. This is the main path from work items to code changes when a formal PR flow was used.
-
-  \item \textbf{FR-CO-02 -- Commit Resolution via Work Item}: The system must be able to retrieve commits directly linked to a work item through Azure DevOps relation metadata, independently of any pull request.
-
-  \item \textbf{FR-CO-03 -- Commit Deduplication}: When the same commit is reachable through multiple paths, such as a direct work item link and a pull request link, the system must keep only one instance in the final result. Deduplication must happen by commit identifier before downstream processing.
-
-  \item \textbf{FR-CO-04 -- Branch Context Resolution}: For a given repository and commit reference, the system must be able to retrieve the branch references that contain the commit, so the development stream can be identified.
-
-  \item \textbf{FR-CO-05 -- Tag Context Resolution}: For a given repository and commit reference, the system must be able to identify the repository tags associated with the commit, specifically the most recent tag reachable from the commit on the relevant branch. This tag context is the main input for release classification.
-
-  \item \textbf{FR-CO-06 -- Batch Tag Resolution}: The system must support a batch mode for tag resolution in which the tag context of several commits in the same repository is resolved in a single API interaction. This is necessary to keep performance acceptable on large graphs.
-\end{itemize}
-
-% ----------------------------------------------------------------------------
-\section{Data Aggregation Requirements}
-\label{sec:req-aggregation}
-
-Aggregation requirements govern how the system consolidates the data collected
-across the traceability pipeline. The goal is to produce one coherent result
-that is normalized, deduplicated, and suitable for both automated use and human
-review.
-
-\begin{itemize}
-  \item \textbf{FR-AG-01 -- Cross-Domain Result Consolidation}: The system must consolidate the normalized results from work item traversal, pull request resolution, commit resolution, and tag enrichment into one unified data structure representing the complete dependency view.
-
-  \item \textbf{FR-AG-02 -- Global Deduplication}: During consolidation, the system must remove duplicate work items, pull request references, and commit identifiers that arise from multi-path traversal. Each entity must appear only once in the final result.
-
-  \item \textbf{FR-AG-03 -- Referential Consistency}: The aggregated result must remain internally consistent. Every pull request reference must correspond to a resolved PR record, every commit reference must correspond to a commit record, and every repository name must be used consistently across the result.
-
-  \item \textbf{FR-AG-04 -- Decision Classification}: The system must apply a classification rule to the aggregated trace data that groups work items by completion state and repositories into release-relative decision buckets based on commit tag context. The output must be ready for release-readiness assessment without additional manual interpretation.
-
-  \item \textbf{FR-AG-05 -- Structured Output Format}: All aggregated outputs must be returned as typed, structured responses that follow documented data contracts. The output structure must be stable, versioned, and independent of internal implementation details.
-\end{itemize}
-
-% ----------------------------------------------------------------------------
-\section{Analysis and Reporting Requirements}
-\label{sec:req-analysis}
-
-The system is not only a retrieval tool. It must also turn traceability data
-into something that helps people make decisions about scope, integration, and
-release readiness.
-
-\begin{itemize}
-  \item \textbf{FR-AN-01 -- Dependency Relationship Identification}: The system must explicitly expose the relationships between development artifacts at every level of the chain: which work items are related to which other work items, which pull requests are associated with which work items, and which commits are associated with which pull requests and repositories.
-
-  \item \textbf{FR-AN-02 -- Repository-Based Grouping}: The system must be able to group resolved commits and pull requests by repository, producing a per-repository view of the changes associated with the analyzed work items. This is important for release engineers who work service by service.
-
-  \item \textbf{FR-AN-03 -- Release Context Interpretation}: The system must interpret the tag context of each commit to determine its position relative to a release boundary, classifying it as preceding, following, or straddling a specified release tag. The interpretation must be applied consistently across all repositories.
-
-  \item \textbf{FR-AN-04 -- Multi-Level Traceability View}: The system must produce a complete traceability view across all relevant abstraction levels: epics and features, user stories and tasks, pull requests, commits, and repository tags. This full-chain view must be available in a single analysis session.
-
-  \item \textbf{FR-AN-05 -- Read-Only Operation}: All system operations must be read-only with respect to Azure DevOps. The system must not create, modify, or delete any artifact in Azure DevOps under any circumstances.
-\end{itemize}
-
 % ----------------------------------------------------------------------------
 \section{Non-Functional Requirements}
 \label{sec:nonfunctional-requirements}
 
-Non-functional requirements define the quality attributes the system must meet
-to be suitable for use in the Forvia industrial environment. They constrain how
-the functional requirements are delivered, with attention to performance,
-scalability, reliability, security, and maintainability.
+Non-functional requirements define the quality attributes that the system must
+respect to be usable in an industrial MES X.0 environment. They ensure that the
+system is not only functionally correct, but also efficient, secure,
+maintainable, and scalable in a distributed microservices context.
 
 % ----------------------------------------------------------------------------
-\section{Performance Requirements}
+\section{Performance}
 \label{sec:req-performance}
 
-Performance is a core concern because the system is meant to replace a slow
-manual process. If the automated version is not clearly faster, adoption will be
-limited even if the functional behavior is correct.
+Performance requirements focus on ensuring that dependency analysis remains
+efficient even in a large and interconnected microservices ecosystem.
 
 \begin{itemize}
-  \item \textbf{NFR-PE-01 -- Analysis Response Time}: For single work item trace operations involving a dependency graph of typical size, up to thirty related work items across two or three hierarchy levels, the system must return a complete result within a response time that is practical for interactive use.
+  \item \textbf{NFR-PE-01 -- Efficient Graph Traversal}: The system must rely on
+  optimized graph traversal strategies such as BFS and DFS to explore work item
+  relationships, ensuring controlled and complete dependency resolution without
+  redundant processing.
 
-  \item \textbf{NFR-PE-02 -- Batch Processing Efficiency}: For batch analysis sessions involving multiple work item roots, the system must complete processing in a time that grows sub-linearly with the number of roots, using parallel execution and shared caching of common subgraphs.
+  \item \textbf{NFR-PE-02 -- Batch Processing Strategy}: The system must reduce
+  external API overhead by using batching techniques when interacting with Azure
+  DevOps, grouping requests where possible and avoiding repeated calls for the
+  same entities.
 
-  \item \textbf{NFR-PE-03 -- API Call Minimization}: The system must minimize the number of API calls issued to Azure DevOps for a given analysis session by using batch requests, caching, and deduplication. Unnecessary calls are not acceptable, both for performance and for rate-limit protection.
+  \item \textbf{NFR-PE-03 -- Caching and Deduplication}: Intermediate results
+  (work items, pull requests, commits) must be cached and deduplicated during
+  traversal to avoid repeated computation and improve response efficiency.
 
-  \item \textbf{NFR-PE-04 -- Responsive User Feedback}: For operations that take more than a few seconds, the system must provide continuous progress feedback through progressive streaming so the interface stays responsive and informative.
+  \item \textbf{NFR-PE-04 -- Streaming Feedback}: Long-running analysis
+  operations must provide progressive feedback to the user through streaming
+  updates to maintain usability and responsiveness.
 \end{itemize}
 
 % ----------------------------------------------------------------------------
-\section{Scalability Requirements}
+\section{Scalability}
 \label{sec:req-scalability}
 
-The MES X.0 platform continues to grow. New microservices are added, existing
-services expand, and the number of development artifacts increases over time.
-The traceability system must remain usable as that growth continues.
+Scalability ensures that the system remains stable as the number of work items,
+repositories, and services grows.
 
 \begin{itemize}
-  \item \textbf{NFR-SC-01 -- Work Item Volume Scalability}: The system must remain functional and performant as the number of work items in the analyzed Azure DevOps project grows, without requiring changes to the core traversal or resolution logic.
+  \item \textbf{NFR-SC-01 -- Algorithmic Scalability}: The use of BFS/DFS-based
+  traversal combined with caching ensures that the system scales with graph
+  complexity rather than naive repeated exploration.
 
-  \item \textbf{NFR-SC-02 -- Repository and Service Count Scalability}: The system must handle dependency graphs that span more repositories and microservices over time, while keeping commit and tag resolution efficient through batch processing.
+  \item \textbf{NFR-SC-02 -- Microservice Modularity}: The architecture follows
+  a strict separation of concerns aligned with SOLID principles, where each
+  service is responsible for a single domain (work items, PRs, commits,
+  aggregation), enabling independent evolution.
 
-  \item \textbf{NFR-SC-03 -- Extensibility for New Artifact Types}: The architecture must allow future additions, such as pipeline run artifacts, automated test results, or release deployment records, without forcing a redesign of the current components or their data contracts.
+  \item \textbf{NFR-SC-03 -- MES Pattern Compliance}: The system design follows
+  MES-oriented architectural patterns used in the platform, ensuring that new
+  services can be integrated without modifying existing ones.
 
-  \item \textbf{NFR-SC-04 -- Configuration-Driven Adaptability}: System behavior that is likely to vary across environments, such as the Azure DevOps organization, project identifiers, or API credentials, must be externalized into configuration so the system can be deployed in different contexts without code changes.
+  \item \textbf{NFR-SC-04 -- Dapr-Based Service Expansion}: The system uses
+  Dapr as a distributed application runtime to support service discovery,
+  state management, and secret handling, allowing horizontal scalability across
+  microservices.
 \end{itemize}
 
 % ----------------------------------------------------------------------------
-\section{Reliability Requirements}
+\section{Reliability}
 \label{sec:req-reliability}
 
-In an industrial setting, users need to trust the result. If analysis outputs are
-inconsistent or fragile, people will fall back to manual verification and lose
-the benefit of the system.
+Reliability ensures that results remain consistent and trustworthy in all
+execution scenarios.
 
 \begin{itemize}
-  \item \textbf{NFR-RE-01 -- Result Determinism}: Given identical inputs and the same Azure DevOps state, the system must produce identical results across successive analysis sessions. Non-deterministic behavior caused by race conditions, unordered concurrent results, or non-reproducible data access is not acceptable.
+  \item \textbf{NFR-RE-01 -- Deterministic Execution}: Given the same input and
+  system state, the system must always produce consistent results regardless of
+  execution order or concurrency.
 
-  \item \textbf{NFR-RE-02 -- Partial Failure Isolation}: If some Azure DevOps API calls fail during analysis because of transient network errors, rate limiting, or partial unavailability, the system must isolate the failure to the affected subset and continue processing the rest of the analysis. Partial failures must be reported clearly and must not silently corrupt the result.
+  \item \textbf{NFR-RE-02 -- Fault Isolation}: Failures in external services
+  (e.g., Azure DevOps API) must be isolated to prevent corruption of the full
+  analysis pipeline.
 
-  \item \textbf{NFR-RE-03 -- Data Integrity Preservation}: Throughout the traceability pipeline, the system must preserve the integrity of the data it processes. Entity identifiers, relation links, and commit references must remain accurate and unchanged from retrieval through normalization, aggregation, and final output.
+  \item \textbf{NFR-RE-03 -- Controlled Recovery}: The system must implement
+  retry mechanisms for transient failures while preserving partial results.
 
-  \item \textbf{NFR-RE-04 -- Transient Error Recovery}: For external API calls that fail with transient errors such as timeouts or temporary service unavailability, the system must implement a structured retry mechanism before reporting failure to the caller.
+  \item \textbf{NFR-RE-04 -- Data Consistency}: All entities (work items,
+  commits, PRs, tags) must remain consistent across all processing stages.
 \end{itemize}
 
 % ----------------------------------------------------------------------------
-\section{Maintainability Requirements}
+\section{Maintainability}
 \label{sec:req-maintainability}
 
-The system is expected to stay in use and evolve with the MES X.0 platform.
-Maintainability therefore matters over the long term: the code must remain easy
-to understand, change, and extend by engineers who did not build the first
-version.
+Maintainability ensures that the system remains easy to evolve and extend over
+time.
 
 \begin{itemize}
-  \item \textbf{NFR-MA-01 -- Modular Component Structure}: The system must be organized into cohesive modules with clear responsibilities. Each module must be understandable and testable on its own.
+  \item \textbf{NFR-MA-01 -- Single Responsibility Design}: Each module must
+  have a single clear responsibility, following SOLID principles and reducing
+  coupling between components.
 
-  \item \textbf{NFR-MA-02 -- Minimal Inter-Component Coupling}: Modules must interact only through documented, typed data contracts. No module may depend on the internal implementation details of another module.
+  \item \textbf{NFR-MA-02 -- KISS Principle}: The system must favor simple and
+  readable implementations over unnecessary complexity, especially in core
+  traversal and aggregation logic.
 
-  \item \textbf{NFR-MA-03 -- Testability}: The architecture must support unit testing of individual services and utility functions without requiring a live Azure DevOps connection. Business logic must be separable from external API interaction.
+  \item \textbf{NFR-MA-03 -- Clean Separation of Concerns}: Business logic,
+  API integration, and data aggregation must remain separated to improve
+  testability and long-term maintainability.
 
-  \item \textbf{NFR-MA-04 -- Documentation}: All public API surfaces must be documented with automated tooling, specifically Swagger for the backend endpoints, so the reference stays accurate as the implementation evolves.
+  \item \textbf{NFR-MA-04 -- Reusable Components}: Core services must be
+  reusable across different MES modules without modification.
 
-  \item \textbf{NFR-MA-05 -- Naming and Code Consistency}: Naming conventions, code structure, and documentation style must remain consistent across the system to reduce the cognitive effort needed to navigate the codebase.
+  \item \textbf{NFR-MA-05 -- Standardized Code Structure}: Naming conventions,
+  module organization, and API contracts must remain consistent across the
+  system.
 \end{itemize}
 
 % ----------------------------------------------------------------------------
-\section{Security and Data Integrity Requirements}
+\section{Security and Data Integrity}
 \label{sec:req-security}
 
-The system runs in a controlled internal environment, but it still interacts with
-a corporate Azure DevOps instance and sensitive project data. Security and data
-integrity therefore need to be explicit requirements.
+Security ensures controlled access to industrial data and prevents unauthorized
+usage of the system.
 
 \begin{itemize}
-  \item \textbf{NFR-SE-01 -- Input Validation}: All data entering the system through API endpoints, including path parameters, query parameters, and request bodies, must be validated against typed schemas before processing begins. Invalid inputs must be rejected early with clear error responses.
+  \item \textbf{NFR-SE-01 -- Token-Based Authentication}: Both backend and
+  frontend must use Azure DevOps Personal Access Tokens (PAT) for secure API
+  access.
 
-  \item \textbf{NFR-SE-02 -- Credential Protection}: Azure DevOps API credentials, specifically Personal Access Tokens, must be managed through environment configuration and must never appear in API responses, log output, or any other externally visible artifact.
+  \item \textbf{NFR-SE-02 -- Role-Based Access Control}: The frontend must
+  restrict access to analysis features using authentication guards, ensuring
+  that only authorized users can access developer-level functionality.
 
-  \item \textbf{NFR-SE-03 -- Controlled External Access}: All access to Azure DevOps APIs must go through the dedicated integration layer. No other component may directly construct or issue requests to external Azure DevOps endpoints.
+  \item \textbf{NFR-SE-03 -- Secure Secret Management}: Sensitive credentials
+  and tokens must be managed using Dapr secret store integration, avoiding
+  hardcoded or exposed configuration values.
 
-  \item \textbf{NFR-SE-04 -- Read-Only Access Enforcement}: The Azure DevOps integration must be configured and implemented for read-only use only. Write access to Azure DevOps resources must be technically prevented by the credential configuration, not only by convention.
+  \item \textbf{NFR-SE-04 -- Controlled External Access}: All communication
+  with Azure DevOps must be routed through the backend integration layer,
+  preventing direct external access from the frontend.
+
+  \item \textbf{NFR-SE-05 -- Read-Only Enforcement}: The system must operate in
+  strict read-only mode with respect to Azure DevOps, ensuring no modification
+  of external artifacts.
 \end{itemize}
-
 % ----------------------------------------------------------------------------
+
 \section{Use Case Model}
 \label{sec:use-case-model}
 
-The use case model describes how the actors interact with the system to achieve
-traceability and analysis goals. It complements the requirement lists with a
+The use case model shows how the actors interact with the system to carry out
+traceability and analysis tasks. It complements the requirement lists with a
 behavioral view of the system.
 
 \subsection{Actors}
 \label{subsec:actors}
 
-The system has three actors. Two are human users, and one is an external system
-that provides the data.
+The use case diagram highlights the two primary actors shown in the figure:
+a Developer and an LLM Provider. The diagram is intended to make the main
+workflow and intelligence flow visible at a glance.
 
 \subsubsection{Developer and Release Engineer}
 
-This is the primary user of the system. Developers use it to understand the
-impact of a work item on the codebase, while release engineers use it to check
-release scope and confirm whether changes sit on the correct side of a release
-boundary.
+The primary user. Developers use the system to understand the impact of a work
+item on the codebase. Release engineers use it to check release scope and
+confirm whether changes sit on the correct side of a release boundary.
 
-This actor starts analysis sessions, selects analysis modes, reviews the
-aggregated results, and uses the Decision Dashboard output to support release,
+This actor starts analysis sessions, chooses the analysis mode, reviews
+results, and uses the Decision Dashboard output to support release,
 integration, and escalation decisions.
 
-\subsubsection{Administrator (DevOps)}
+\subsubsection{LLM Provider}
 
-This actor manages the operational configuration and availability of the
-system. They handle environment-level settings such as Azure DevOps organization
-identifiers, project defaults, API credential management, and deployment
-configuration. They do not normally use the analytical features directly.
+An external AI service used by the system to review commits and generate
+intelligent insights. This actor supports the "Review Commit with LLM" use
+case and is shown in the diagram as a cross-cutting service.
 
-\subsubsection{Azure DevOps System}
+\subsubsection{Additional Actors}
 
-This external actor represents Azure DevOps itself. The system interacts with it
-programmatically to retrieve work items, pull requests, commits, branches, and
-tags. It appears in the model because it is the exclusive data source for all
-retrieval use cases.
+Other actors are part of the overall model but are not illustrated in this
+view. The Administrator manages operational configuration and availability,
+and Azure DevOps is the external data source for work items, pull requests,
+commits, branches, and tags.
 
 \subsection{Use Case Descriptions}
 \label{subsec:use-cases}
 
-The following use cases describe the system behavior at the level visible to the
-actors.
+The following use cases describe what the system does from each actor's
+perspective.
 
-\subsubsection{Work Item Traceability Use Cases}
+\subsubsection{Work Item Use Cases}
 
 \begin{itemize}
-  \item \textbf{UC-01 -- Analyze Single Work Item}: The Developer / Release Engineer provides one work item identifier. The system traverses the full dependency graph rooted at that item, resolves related pull requests and commits, enriches commits with branch and tag context, and returns a complete normalized trace result.
+  \item \textbf{UC-01 -- Analyze Single Work Item}: The user provides one work item ID. The system traverses the full dependency graph, resolves related pull requests and commits, enriches commits with branch and tag context, and returns a complete normalized trace result.
 
-  \item \textbf{UC-02 -- Analyze Multiple Work Items}: The Developer / Release Engineer provides several work item identifiers. The system traverses each root, aggregates and deduplicates the results, and returns one consolidated trace result. This supports release scope analysis across a sprint or milestone.
+  \item \textbf{UC-02 -- Analyze Multiple Work Items}: The user provides several work item IDs. The system traverses each root, merges and deduplicates the results, and returns one consolidated trace. This supports release scope analysis across a sprint or milestone.
 
-  \item \textbf{UC-03 -- Stream Work Item Tasks}: The Developer / Release Engineer starts a batch analysis session. The system streams resolved work item tasks progressively to the client so progress is visible in real time and items can be selected for further analysis before the full dataset is loaded.
+  \item \textbf{UC-03 -- Stream Work Item Tasks}: The user starts a batch analysis session. The system streams resolved work item tasks progressively so progress is visible in real time, and items can be selected for further analysis before the full dataset has loaded.
 \end{itemize}
 
-\subsubsection{Pull Request Traceability Use Cases}
+\subsubsection{Pull Request Use Cases}
 
 \begin{itemize}
-  \item \textbf{UC-04 -- Retrieve Pull Request Work Items}: The system receives a pull request identifier, either directly from the user or from an upstream component, and returns the list of work items formally linked to that pull request on the Git side, together with the normalized PR summary including the repository name.
+  \item \textbf{UC-04 -- Retrieve Pull Request Work Items}: Given a pull request identifier, the system returns the work items formally linked to that PR on the Git side, along with the normalized PR summary including the repository name.
 \end{itemize}
 
-\subsubsection{Commit Traceability Use Cases}
+\subsubsection{Commit Use Cases}
 
 \begin{itemize}
-  \item \textbf{UC-05 -- Retrieve Commits by Work Item}: Given a work item identifier, the system returns the deduplicated list of commits linked to that work item, resolved through direct work item links and pull request expansion.
+  \item \textbf{UC-05 -- Retrieve Commits by Work Item}: Given a work item ID, the system returns the deduplicated list of commits linked to that item, resolved through direct links and pull request expansion.
 
-  \item \textbf{UC-06 -- Retrieve Commits by Pull Request}: Given a pull request identifier, the system returns the list of commits merged as part of that pull request.
+  \item \textbf{UC-06 -- Retrieve Commits by Pull Request}: Given a pull request ID, the system returns the list of commits merged as part of that PR.
 
-  \item \textbf{UC-07 -- List Repository Branches and Tags}: Given a repository identifier, the system returns the available branch and tag references needed to interpret commit positions.
+  \item \textbf{UC-07 -- List Repository Branches and Tags}: Given a repository ID, the system returns the available branch and tag references needed to interpret commit positions.
 
-  \item \textbf{UC-08 -- Resolve Commit Tag Context}: Given a repository and a commit reference, the system determines the tags associated with that commit, specifically the most recent tag reachable from the commit on the relevant branch.
+  \item \textbf{UC-08 -- Resolve Commit Tag Context}: Given a repository and a commit, the system determines the most recent tag reachable from that commit on the relevant branch.
 
-  \item \textbf{UC-09 -- Batch Resolve Commit Tag Context}: Given a repository and multiple commit references, the system resolves the tag context of all specified commits in one operation to reduce API usage on large graphs.
+  \item \textbf{UC-09 -- Batch Resolve Commit Tag Context}: Given a repository and multiple commits, the system resolves the tag context of all specified commits in one operation to reduce API usage on large graphs.
 \end{itemize}
 
 \subsubsection{Aggregation and Decision Use Cases}
 
 \begin{itemize}
-  \item \textbf{UC-10 -- Generate Dependency View}: After a work item trace is completed, the system aggregates all collected data, including work items, pull requests, commits, and tag context, into a single decision-ready dependency view that classifies work items by completion state and repositories by release-relative commit position.
+  \item \textbf{UC-10 -- Generate Dependency View}: After a trace is complete, the system aggregates all collected data — work items, pull requests, commits, and tag context — into a single decision-ready view. Work items are grouped by completion state and repositories are classified by their commit position relative to the target release.
 
   \item \textbf{UC-11 -- Configure System}: The Administrator updates environment-level configuration, including Azure DevOps connection settings, API credential management, and deployment parameters.
 \end{itemize}
@@ -321,15 +283,15 @@ actors.
 \subsection{Use Case Diagram}
 \label{subsec:use-case-diagram}
 
-Figure~\ref{fig:usecase-diagram} presents the complete use case diagram of the
-system, showing the relationship between the three actors and the eleven use
-cases.
+Figure~\ref{fig:usecase-diagram} shows the complete use case diagram, with the
+primary actors and all eleven use cases.
 
 \vspace{0.5em}
+\hspace{0em}
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.92\textwidth,keepaspectratio]{img/archi/use_case.png}
+  \includegraphics[width=1\textwidth,height=0.8\textheight,keepaspectratio]{img/archi/use_case.png}
   \caption{Use Case Diagram of the MES-X Dependency Management System.}
   \label{fig:usecase-diagram}
 \end{figure}
@@ -337,26 +299,24 @@ cases.
 \subsection{Scope Boundaries}
 \label{subsec:scope-boundaries}
 
-Two scope boundaries need to be stated clearly.
+Two boundaries are worth stating clearly.
 
-First, as established by \textbf{FR-AN-05}, all use cases are read-only. The
-system does not create, modify, or delete any artifact in Azure DevOps. It only
-retrieves and analyzes existing information, so Azure DevOps appears in the
-model only as a data provider.
+First, as set out in \textbf{FR-AN-05}, all use cases are read-only. The system
+does not create, modify, or delete anything in Azure DevOps. Azure DevOps
+appears in the model only as a data source.
 
-Second, notification and alerting capabilities, although mentioned in some
-internal notes as possible future extensions, are outside the scope of the
-current system. This specification covers only the traceability and analysis
-capabilities described above.
+Second, notification and alerting features, mentioned in some internal notes as
+possible future additions, are out of scope here. This specification covers
+only the traceability and analysis capabilities described above.
 
 % ----------------------------------------------------------------------------
 \section{Requirements Traceability Summary}
 \label{sec:req-traceability}
 
-Table~\ref{tab:req-traceability} summarizes how the functional requirement
-groups map to the system components in the proposed architecture. This mapping
-creates the link between specification and design and makes it clear which part
-of the system is responsible for each requirement set.
+Table~\ref{tab:req-traceability} shows how each functional requirement group
+maps to a system component. This makes clear which part of the system is
+responsible for which requirements, and creates the link between specification
+and design.
 
 \begin{table}[H]
   \centering
@@ -364,7 +324,7 @@ of the system is responsible for each requirement set.
   \label{tab:req-traceability}
   \begin{tabular}{|p{4.5cm}|p{3cm}|p{5.5cm}|}
     \hline
-    \textbf{Requirement Group} & \textbf{Requirement IDs} & \textbf{Addressing Component} \\
+    \textbf{Requirement Group} & \textbf{Requirement IDs} & \textbf{Responsible Component} \\
     \hline
     Work Item Traceability & FR-WI-01 to FR-WI-06 & Work Item Management Component \\
     \hline
@@ -383,20 +343,17 @@ of the system is responsible for each requirement set.
 \section{Conclusion}
 \label{sec:req-conclusion}
 
-This chapter defined the requirements for the MES-X Dependency Management
-system in a structured and traceable way. The functional requirements cover the
-five main capability areas of the solution: work item traceability, pull
-request resolution, commit enrichment, data aggregation, and analytical
-reporting. The non-functional requirements describe the quality constraints in
-the areas of performance, scalability, reliability, maintainability, and
-security. The use case model turns those requirements into eleven observable
-actor-system interactions.
+This chapter set out the full requirements for the MES-X Dependency Management
+system. The functional requirements cover five areas: work item traceability,
+pull request resolution, commit enrichment, data aggregation, and analytical
+reporting. The non-functional requirements set the bar for performance,
+scalability, reliability, maintainability, and security. The use case model
+translates those requirements into eleven concrete actor-system interactions.
 
-Taken together, these requirements establish the reference framework for the
-rest of the report. They explain not only what the system should do, but also
-the level of performance, reliability, and maintainability expected in the
-industrial environment in which it will be used.
+Together, these requirements form the reference baseline for the rest of the
+report. They define not just what the system must do, but the level of
+performance, reliability, and maintainability expected of it in real use.
 
-The next chapter presents the proposed solution and explains how the chosen
-architecture addresses these requirements through a layered design and a
+The next chapter presents the proposed architecture and explains how the chosen
+design addresses these requirements through a layered structure and a
 specialized traceability pipeline.

@@ -1,0 +1,88 @@
+\chapter*{Conclusion}
+\addcontentsline{toc}{chapter}{Conclusion}
+
+\section*{Introduction}
+This project started from a simple real-world problem: release preparation was
+slow, manual, and spread across multiple Azure DevOps screens. The goal of
+MES-X was to make that process clearer and more reliable by bringing related
+artifacts into one traceability workflow. During the internship, the work
+covered the full cycle: architecture, implementation, integration, validation,
+and deployment preparation.
+
+\section*{Key Achievements}
+The delivered system includes a modular backend and a practical frontend built
+around daily traceability needs.
+
+On the backend, dedicated modules were implemented for Work Items, Pull
+Requests, Commits, Sprints, Decision aggregation, and LLM-assisted review.
+These modules expose clear REST contracts, plus SSE streaming for progressive
+task loading.
+
+On the frontend, the main operator screens were implemented: single-root
+traceability, batch work item loading with live progress, sprint exploration,
+batch related results, and a decision dashboard. Together, these screens allow
+the user to go from selecting work items to reviewing dependency context and
+promotion-oriented summaries in one flow.
+
+\section*{Technical Impact}
+Technically, the biggest impact was moving from isolated lookups to a coherent
+pipeline.
+
+The backend handles recursive relationship traversal with cycle prevention,
+commit discovery, and repository tag context enrichment. DTO-based contracts
+made backend responses predictable and easier to consume. Batch-oriented
+operations reduced repeated calls in the heavy parts of analysis.
+
+On the UI side, typed service layers, explicit error handling, and fallback
+rendering improved robustness. SSE streaming improved usability by showing
+progress during long operations instead of leaving users waiting with no
+feedback.
+
+\section*{Business Value}
+The business value is clear: less manual effort, better visibility, and faster
+release-readiness decisions.
+
+By automatically linking work items, pull requests, commits, and tag context,
+the platform reduces investigation time and helps teams spot missing context
+earlier. Decision discussions are also easier because stakeholders can work
+from one consolidated view instead of navigating many disconnected pages.
+
+\section*{Lessons Learned}
+This implementation highlighted several practical lessons.
+
+First, incremental delivery worked well: building module by module made
+integration safer and easier to debug. Second, strict contracts between backend
+and frontend prevented many regressions. Third, observability matters: logging
+and clear error handling were essential for diagnosing multi-step flows.
+
+For AI integration, the key lesson was to keep it assistive, not mandatory.
+The LLM review feature adds value, but the core traceability flow remains
+usable without it, and final decisions stay in human hands.
+
+\section*{Future Perspectives}
+Future improvements are already clear from the current version.
+
+Testing can be extended with broader end-to-end scenarios and stronger CI
+quality gates. Performance can improve with deeper caching and wider adoption
+of batch-oriented calls across UI flows. On the product side, the decision
+dashboard can be enriched with clearer trend views and explainability support.
+
+Another promising direction is broader integration with other delivery and
+monitoring tools, so traceability can cover a wider operational scope.
+
+\section*{Broader Implications}
+Although MES-X was developed in one industrial context, the approach is
+transferable. Many software teams face the same challenge of connecting
+planning artifacts with code evidence before release decisions.
+
+The combination used here, graph-based traversal, typed contracts,
+progressive-loading UI patterns, and decision-focused summaries, can be reused
+for release governance, impact analysis, and audit-oriented traceability in
+other environments.
+
+\section*{Final Statement}
+This internship delivered more than a prototype. It delivered a working,
+modular platform that improves how dependency analysis is performed in practice.
+MES-X now provides a clearer and more reliable release-preparation workflow,
+while remaining extensible for future needs. The result is a strong foundation
+for continued operational use and gradual evolution.

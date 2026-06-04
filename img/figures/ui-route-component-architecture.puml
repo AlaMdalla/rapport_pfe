@@ -1,0 +1,118 @@
+@startuml
+title MES-X UI Route and Component Architecture
+caption Route-level screens orchestrate traceability workflows through shared UI services and dedicated backend endpoints.
+
+skinparam backgroundColor #F3F6FA
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam roundcorner 18
+skinparam defaultTextAlignment left
+skinparam ArrowColor #355070
+skinparam ArrowThickness 1.6
+skinparam PackageBorderColor #B9C6D3
+skinparam PackageBackgroundColor #E9EEF4
+skinparam PackageFontColor #1E3858
+skinparam RectangleBorderColor #2E8B57
+skinparam RectangleBackgroundColor #D9EBE2
+skinparam RectangleFontColor #1C3553
+skinparam RectangleFontSize 15
+skinparam packageTitleFontSize 22
+skinparam titleFontSize 30
+skinparam captionFontSize 15
+skinparam linetype ortho
+
+skinparam rectangle<<route>> {
+  BorderColor #2C9364
+  BackgroundColor #CFE2D8
+  FontColor #1C3553
+  RoundCorner 18
+}
+
+skinparam rectangle<<shared>> {
+  BorderColor #4D5CC8
+  BackgroundColor #E3E7F8
+  FontColor #1C3553
+  RoundCorner 18
+}
+
+skinparam rectangle<<endpoint>> {
+  BorderColor #D0732F
+  BackgroundColor #F9EFE2
+  FontColor #36506A
+  RoundCorner 18
+}
+
+package "UI Routes" as routes {
+  rectangle "<b>RelatedWorkItemTrace</b>\nSingle-root analysis screen\n- enter one work item id\n- launch dependency trace\n- inspect returned related artifacts" as RelatedRoute <<route>>
+
+  rectangle "<b>BatchWorkItemTrace</b>\nTask loading and selection screen\n- progressive SSE task loading\n- select multiple roots\n- prepare batch analysis" as BatchRoute <<route>>
+
+  rectangle "<b>SprintWorkItemsTrace</b>\nPlanning-driven selection screen\n- load sprints by project\n- lazy-load sprint work items\n- send selected items to batch related analysis" as SprintRoute <<route>>
+
+  rectangle "<b>BatchRelatedWorkItemTrace</b>\nAggregated result screen\n- display multi-root trace result\n- group data by repository\n- show commit and tag enrichment" as BatchRelatedRoute <<route>>
+
+  rectangle "<b>DecisionDashboard</b>\nEmbedded decision surface\n- aggregate done/other work items\n- classify repositories by tag context\n- trigger commit-level AI review" as DecisionView <<route>>
+}
+
+package "Shared UI Orchestration Layer" as shared {
+  rectangle "<b>Router and View Composition</b>\nnavigation, route params, page structure" as Routing <<shared>>
+
+  rectangle "<b>Trace State and Models</b>\nselected roots, result state, typed frontend models" as State <<shared>>
+
+  rectangle "<b>Feature Composables</b>\nuse-batch-stream, use-batch-related-results, use-sprints" as Composables <<shared>>
+
+  rectangle "<b>Trace + Decision API Layer</b>\nAxios/fetch backend integration" as Api <<shared>>
+
+  rectangle "<b>SSE Client</b>\nstream consumption for task loading" as Stream <<shared>>
+}
+
+package "Backend Endpoints Consumed by the UI" as api {
+  rectangle "GET /workitem/:id/related" as ESingle <<endpoint>>
+  rectangle "GET /workitem/tasks/stream" as ESse <<endpoint>>
+  rectangle "GET /sprint" as ESprints <<endpoint>>
+  rectangle "GET /sprint/:sprintId/work-items" as ESprintItems <<endpoint>>
+  rectangle "POST /decision/aggregate" as EDecisionAggregate <<endpoint>>
+  rectangle "GET /commits/hf/review" as ECommitReview <<endpoint>>
+  rectangle "POST /commits/tags/batch" as ETagsBatch <<endpoint>>
+}
+
+RelatedRoute --> Routing
+RelatedRoute --> State
+RelatedRoute --> Composables
+BatchRoute --> Routing
+BatchRoute --> State
+BatchRoute --> Stream
+BatchRoute --> Composables
+
+SprintRoute --> Routing
+SprintRoute --> Composables
+
+BatchRelatedRoute --> Routing
+BatchRelatedRoute --> State
+BatchRelatedRoute --> Composables
+BatchRelatedRoute --> Api
+BatchRelatedRoute --> DecisionView
+
+DecisionView --> Api
+Composables --> State
+Composables --> Api
+
+Api ..> ESingle
+Api --> ESprints
+Api --> ESprintItems
+Api --> EDecisionAggregate
+Api --> ECommitReview
+Api --> ETagsBatch
+Stream --> ESse
+Routing --> ESingle
+Stream ..> State
+
+RelatedRoute ..> Api
+SprintRoute ..> Api
+
+note bottom
+Suggested report usage:
+replace the placeholder figure with this SVG or export it to PNG if your LaTeX toolchain does not embed SVG directly.
+end note
+
+@enduml

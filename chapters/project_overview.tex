@@ -64,34 +64,23 @@ and traceability of the group's software delivery processes.
 
 \subsection{The MES X.0 Division}
 \label{subsec:mes-division}
+The project was done in the MES X.0 division of Forvia Informatique Tunisie. This team works on building and improving a modern Manufacturing Execution System. This system is used in factories to manage, control, and track production in real time.
 
-The project was carried out within the \textbf{MES X.0} division of Forvia
-Informatique Tunisie. This division is responsible for the design, development,
-and evolution of a next-generation Manufacturing Execution System — a class of
-industrial software that serves as the operational backbone of manufacturing
-plants by orchestrating, monitoring, and recording all production activities
-in real time.
 
-The MES X.0 platform is built on a \textbf{microservices architecture}, a
-deliberate technical choice that enables independent development, deployment,
-and scaling of each functional domain of the system. Rather than a single
-monolithic application, the platform is composed of dozens of specialized
-services — each responsible for a specific manufacturing concern such as
-production scheduling, quality control, equipment monitoring, or operator
-guidance — that communicate through well-defined APIs and messaging contracts.
 
-This architecture gives the platform exceptional flexibility and scalability:
-new manufacturing capabilities can be added as new services, existing services
-can be updated independently without impacting the whole system, and different
-plants can be equipped with different subsets of the platform's services
-according to their specific operational needs. The MES X.0 platform is deployed
-and actively used at multiple Forvia manufacturing sites around the world,
-processing real-time production data from industrial equipment and human
-operators simultaneously.
+The MES X.0 platform uses a microservices architecture. is composed of several small services, each responsible for a specific role, such as production planning, quality control, equipment monitoring, or helping operators on the shop floor. These services communicate with each other using APIs.
 
-However, this architectural flexibility comes with a corresponding increase in
-the complexity of the software development process — a complexity that directly
-motivated the project described in this report.
+
+
+This design makes the system more flexible. Each service can be developed and updated separately without affecting the whole system. It also allows each factory to use only the parts it needs.
+
+
+
+Today, the MES X.0 platform is used in several Forvia factories around the world and processes real-time data from machines and operators.
+
+
+
+However, this architecture is more complex to develop and maintain. This complexity is what led to the work presented in this report. 
 
 % ─────────────────────────────────────────────────────────────────────────────
 \section{Project Context and Problem Statement}
@@ -123,57 +112,52 @@ points.
 \caption{Azure DevOps environment used within the MES X.0 division, showing work item tracking and development workflow management}
 \label{fig:azure-devops-board}
 \end{figure}
+\subsection{Deployment Environments and Versioning Strategy}
+\label{subsec:environments-versioning}
+
+In the MES X.0 ecosystem, each microservice is deployed across several environments that represent the standard software delivery lifecycle. These environments include \textbf{Development (DEV)}, \textbf{Quality Assurance (QUA)}, \textbf{Pre-production (PREPROD)}, and \textbf{Production (PROD)}.
+
+Each environment plays a specific role in the validation and release process. The DEV environment is used for implementing and integrating new features. The QUA and PREPROD environments are used to validate functionality under conditions that are close to production, while the PROD environment hosts the live system used by manufacturing sites.
+
+A key characteristic of the platform is that each microservice follows its own versioning across these environments. As a result, a service may not necessarily run the same version in DEV, QUA, PREPROD, and PROD at the same time, depending on its deployment and release cycle.
+
+This versioning information is centralized in the \texttt{version.json} file located in the \textbf{infra repository}. This file defines the mapping between microservices and their deployed versions in each environment.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\linewidth]{img/overview/version_json_example.png}
+\caption{Excerpt from the version.json file showing microservice versions across DEV, QUA, PREPROD, and PROD environments}
+\label{fig:version-json}
+\end{figure}
+
+This file is essential for understanding the real state of the system at any given time. It is especially important during release analysis and dependency tracking, as it helps identify which version of each service was active in each environment.
+
+However, this environment-based versioning model also introduces additional complexity when analyzing system changes across services, particularly when trying to trace dependencies between work items and deployed versions.
 \subsection{The Traceability Challenge}
 \label{subsec:traceability-challenge}
 
-In this multi-service, high-velocity development environment, a single
-user-facing requirement — expressed as a work item at the Epic or Feature level
-in Azure DevOps — typically decomposes into dozens of lower-level tasks, each
-of which produces its own chain of development artifacts: a branch, one or more
-commits, a pull request, and eventually a repository tag when the change is
-released.
+In this multi-service development environment, a single user requirement, usually defined as an Epic or Feature in Azure DevOps, is not implemented in one place. It is broken down into smaller tasks that are distributed across different teams and services. Each task produces its own development artifacts such as branches, commits, pull requests, and finally a release tag when the change is delivered.
 
-Understanding the complete impact of a requirement — or conversely, understanding
-what requirements are affected by a change in a specific repository — requires
-navigating this artifact chain in its entirety. For a release engineer
-preparing a production deployment, this means answering questions such as:
+Because of this structure, understanding the full impact of a requirement, or identifying which requirements are affected by a change in a specific service, requires following the complete chain of artifacts.
+
+For a release engineer preparing a production deployment, this often means answering questions such as:
 
 \begin{itemize}
-  \item Which work items are included in this release, and are they all in a
-  completed state?
-  \item For each work item, which pull requests carried the implementation, and
-  in which repositories?
-  \item For each repository, which commits were produced, and do they appear
-  before or after the relevant release tag?
-  \item Are there any commits that straddle a release boundary — present in one
-  environment but not yet in another?
+  \item Which work items are included in this release, and are they completed?
+  \item For each work item, which pull requests were used and in which repositories?
+  \item For each repository, which commits were made, and do they belong before or after the release tag?
+  \item Are there commits that are part of one release but not yet included in another environment?
 \end{itemize}
 
-Before this project, answering these questions required a \textbf{manual and
-entirely ad-hoc process}. The release engineer or developer would begin from a
-work item in Azure DevOps, navigate to its linked pull requests, open each PR
-to identify the target repository, navigate to the repository's commit history,
-search for the relevant commits, check branch and tag references, and then
-repeat the entire sequence for every related work item. Data extracted at each
-step was typically recorded manually in spreadsheets to maintain a working
-reference.
+Before this project, answering these questions was a manual process. A release engineer would start from a work item in Azure DevOps, follow its linked pull requests, open each one to identify the repository, then check the commit history to find the related changes. This had to be repeated for every work item, and the information was usually stored in spreadsheets for tracking.
 
-This process presented several critical limitations:
+This process had several limitations:
 
 \begin{itemize}
-  \item \textbf{Time cost}: a complete dependency trace for a single feature
-  involving multiple services could require an entire working day to complete
-  manually.
-  \item \textbf{Error proneness}: the manual correlation of data across multiple
-  Azure DevOps interfaces introduced a significant risk of missed links,
-  incorrect associations, and incomplete coverage.
-  \item \textbf{Non-reproducibility}: two engineers performing the same trace
-  independently could arrive at different results depending on the path they
-  followed and the data they chose to record.
-  \item \textbf{Scalability failure}: as the number of microservices grew and
-  development velocity increased, the manual approach became increasingly
-  impractical, consuming disproportionate engineering time during critical
-  release preparation phases.
+  \item \textbf{Time-consuming}: tracing a single feature across multiple services could take a full working day.
+  \item \textbf{Error-prone}: manually linking information across Azure DevOps pages increased the risk of missing or incorrect data.
+  \item \textbf{Inconsistent}: different engineers could follow different paths and get different results.
+  \item \textbf{Not scalable}: as the number of microservices increased, the process became too slow for regular release cycles.
 \end{itemize}
 
 \subsection{Project Motivation}
@@ -214,11 +198,11 @@ of each code change is determined programmatically and consistently.
 
 \subsubsection{Comprehensive Dependency Mapping}
 
-The system must construct and expose complete traceability links across the full
-chain of development artifacts: from high-level work items through pull requests
-and commits down to repository branches and tags. This mapping must be complete
-— covering all levels of the work item hierarchy and all artifact types — and
-consistent across successive analysis sessions.
+The system should be able to build and provide clear traceability links across
+the whole chain of development artifacts, starting from high-level work items
+and going through pull requests and commits, down to branches and repository
+tags. This mapping should cover all levels of the work item hierarchy and all
+types of artifacts, and it should remain consistent each time the analysis is run.
 
 \subsubsection{Significant Reduction of Manual Effort}
 
@@ -229,150 +213,136 @@ analysis scenarios involving multiple work items and many repositories.
 
 \subsubsection{Improved Data Accuracy and Consistency}
 
-The system must eliminate the class of errors introduced by manual data
-extraction and correlation. All dependency data must be derived from the same
-authoritative source — the Azure DevOps APIs — through a standardized and
-reproducible process, ensuring that results are accurate and identical across
-successive runs for the same input.
+The system should remove errors caused by manual data extraction and linking.
+All dependency data should come directly from a single reliable source, which
+is the Azure DevOps APIs, using a standard and repeatable process. This ensures
+that the results are accurate and remain the same every time the analysis is
+performed with the same input.
 
 \subsubsection{End-to-End Traceability}
 
-The system must enable a user to trace any work item from its initial
-description to the exact commits and microservice tags it affected, entirely
-within a single analysis session. No cross-tool navigation or manual correlation
-should be required to obtain a complete dependency view.
+The system should allow a user to trace any work item from its initial
+description down to the exact commits and microservice tags it impacted,
+all within a single analysis session. The user should not need to switch
+between tools or manually connect information to get a complete view of
+the dependencies.
 
 \subsubsection{Reusable and Scalable Architecture}
 
-The system must be built on a modular, maintainable architecture that can be
-extended to support additional artifact types, additional analysis modes, or
-integration into other Forvia digital platforms — without requiring a
-fundamental redesign of the existing system.
-
+The system should be designed with a modular and maintainable architecture.
+It should be easy to extend in the future to support new types of artifacts,
+new analysis features, or integration with other Forvia platforms, without
+having to redesign the whole system.
 \subsection{Technical Scope}
 \label{subsec:technical-scope}
 
-The project encompasses the design and implementation of three interconnected
-technical components: a backend service, a frontend application, and an
-Azure DevOps integration layer.
+The project includes the design and development of three main parts: a backend
+service, a frontend application, and an integration layer with Azure DevOps.
 
 \subsubsection{Backend Development}
 
-The backend was developed using \textbf{NestJS} with TypeScript, a framework
-chosen for its native support of modular architecture, dependency injection,
-and TypeScript-first development — properties well-suited to the clean,
-maintainable design required by this project.
+\subsubsection{Backend Development}
 
-The backend's responsibilities include:
+The backend was developed using \textbf{NestJS} with TypeScript. This framework
+was chosen because it supports modular design and helps keep the code clean and
+easy to maintain.
+
+The backend is responsible for:
 
 \begin{itemize}
-  \item Secure integration with the Azure DevOps REST APIs using Personal Access
-  Token authentication.
-  \item Normalization of raw Azure DevOps responses into structured, typed Data
-  Transfer Objects that form the stable internal data model of the system.
-  \item Recursive traversal of work item dependency graphs across multiple
-  hierarchy levels and relation types.
-  \item Resolution of pull requests, commits, repository branches, and Git tags
-  for each node in the dependency graph.
-  \item Implementation of batch processing strategies to minimize API call
-  volume and respect rate limits.
-  \item Implementation of Server-Sent Events streaming for progressive delivery
-  of large analysis results.
-  \item Exposure of well-documented RESTful endpoints, complemented by
-  interactive Swagger documentation for developer exploration and testing.
+  \item Connecting securely to Azure DevOps using Personal Access Tokens.
+  \item Transforming raw data from Azure DevOps into structured and typed data
+  used inside the system.
+  \item Traversing work item dependencies across different levels.
+  \item Retrieving related pull requests, commits, branches, and tags.
+  \item Supporting analysis starting from different entry points such as
+  a single work item, multiple work items, or entire sprints.
+  \item Providing a Sprint module that allows retrieving all work items
+  related to one or more sprints, as well as their associated repository versions.
+  \item Integrating an LLM-based module to review commits based on MES patterns
+  and predefined rules, in order to verify that changes follow the expected
+  development standards.
+  \item Reducing the number of API calls using batch processing.
+  \item Streaming results progressively using Server-Sent Events.
+  \item Providing clear REST APIs with Swagger documentation for testing.
 \end{itemize}
 
 \subsubsection{Frontend Application}
 
-The frontend was developed using \textbf{Vue 3} with the Quasar framework,
-providing a production-grade, responsive interface for initiating and exploring
-dependency analyses. The frontend's role is not limited to presentation: it
-actively participates in the orchestration of analysis sessions by managing
-asynchronous backend calls, assembling view state from streamed results, and
-providing real-time progress feedback to the user.
 
-Key features of the frontend include:
+The frontend was built using \textbf{Vue 3} with the Quasar framework. It
+provides a responsive interface for running and exploring dependency analysis.
+
+The frontend is responsible for interacting with the backend and displaying
+results in a clear and structured way, including real-time updates during the
+analysis process.
+
+Main features include:
 
 \begin{itemize}
-  \item Interactive visualization of work item dependency graphs, presenting
-  hierarchical relationships, pull request links, and commit references in a
-  structured and navigable form.
-  \item Real-time batch processing interface powered by Server-Sent Events,
-  allowing users to observe analysis progress incrementally rather than waiting
-  for a single blocking response.
-  \item Clear presentation of relationships between work items, pull requests,
-  commits, branches, and tags, organized by repository and analysis mode.
-  \item A dedicated Decision Dashboard that presents the release classification
-  output of the aggregation component in an actionable, decision-ready format.
-  \item A responsive and operationally focused design, tailored for everyday
-  use by release engineers and development team leads.
+  \item Visualization of work item dependencies in a clear and structured way.
+  \item Support for different analysis entry points, such as a single work item,
+  multiple work items, or entire sprints.
+  \item Sprint-based views that allow users to explore all work items linked to
+  one or more sprints, along with their related repository versions.
+  \item Real-time progress updates using Server-Sent Events.
+  \item Display of relationships between work items, pull requests, commits,
+  branches, and tags.
+  \item A Decision Dashboard that summarizes release and dependency results.
+  \item A dedicated view for LLM-based commit review results, showing whether
+  commits respect MES patterns and coding guidelines.
+  \item A simple and practical design focused on daily use by engineers and
+  release teams.
 \end{itemize}
 
 \subsubsection{Azure DevOps Integration and Data Processing}
 
-The solution relies on the Azure DevOps REST API as its exclusive data source.
-The integration layer is responsible for all communication with this external
-system and implements several mechanisms to ensure reliability and efficiency:
+The system uses Azure DevOps REST APIs as its only data source. This integration
+layer handles all communication with Azure DevOps and ensures that the data is
+retrieved correctly and efficiently.
+
+It includes:
 
 \begin{itemize}
-  \item Authentication via Personal Access Tokens with secure credential
-  management.
-  \item Intelligent batching and concurrency control to respect Azure DevOps
-  API rate limits during high-volume analysis sessions.
-  \item A robust dependency resolution engine capable of recursive graph
-  traversal, entity deduplication, and cross-module result normalization.
-  \item Structured error handling and retry logic for transient API failures,
-  ensuring that partial external failures do not silently corrupt analysis
-  results.
+  \item Secure authentication using Personal Access Tokens.
+  \item Batch processing and control of API requests to avoid rate limits.
+  \item A dependency engine that explores relationships and removes duplicates.
+  \item Error handling and retry mechanisms to avoid incomplete results.
 \end{itemize}
 
 \subsection{Project Activities}
 \label{subsec:activities}
 
-The project followed a structured development lifecycle organized around the
-following phases:
+The project followed several main steps:
 
 \begin{itemize}
-  \item \textbf{Requirements Analysis}: study of the existing manual
-  traceability workflow, interviews with release engineers and developers, and
-  formalization of the system's functional and non-functional requirements.
+  \item \textbf{Requirements Analysis}: understanding the current manual process
+  and defining system needs with engineers.
 
-  \item \textbf{System Design and Architecture}: definition of the three-layer
-  architecture, identification of the four main backend components, design of
-  API contracts and data transfer objects, and preparation of the frontend
-  structure.
+  \item \textbf{System Design}: defining the architecture, backend components,
+  and data models.
 
-  \item \textbf{Backend Implementation}: development of the Azure DevOps
-  integration layer, recursive traversal logic, pull request resolution,
-  commit and tag processing services, and progressive streaming support.
+  \item \textbf{Backend Development}: building the integration with Azure DevOps
+  and implementing the dependency analysis logic.
 
-  \item \textbf{Frontend Development}: implementation of the main analysis
-  views, centralized state management with Pinia, integration of real-time SSE
-  updates, and development of the Decision Dashboard.
+  \item \textbf{Frontend Development}: creating the user interface and
+  integrating real-time updates.
 
-  \item \textbf{Testing and Validation}: unit testing of backend services and
-  utilities, validation of backend contracts against frontend needs, and
-  end-to-end checks for the main analysis scenarios.
+  \item \textbf{Testing}: verifying that the system works correctly and meets
+  requirements.
 
-  \item \textbf{Integration and Optimization}: performance tuning of graph
-  traversal and batch resolution, implementation of in-memory caching, and
-  verification of result consistency across analysis modes.
+  \item \textbf{Optimization}: improving performance and ensuring consistent results.
 
-  \item \textbf{Deployment Preparation}: backend containerization with Docker,
-  environment configuration, CI/CD pipeline setup, and completion of Swagger
-  documentation for developer handoff.
+  \item \textbf{Deployment Preparation}: preparing Docker setup, configuration,
+  and documentation.
 \end{itemize}
 
-% ─────────────────────────────────────────────────────────────────────────────
 \section{Conclusion}
 \label{sec:overview-conclusion}
 
-This chapter has presented the industrial setting of the MES-X Dependency
-Management project and clarified why dependency tracing had become a real
-operational issue. In a large microservices ecosystem, manual analysis no
-longer provides the speed, consistency, or reliability required for release
-preparation.
+This chapter presented the project context and explained why dependency
+traceability became a real issue. In a microservices environment, manual
+analysis is no longer efficient or reliable for release preparation.
 
-The next chapter translates that problem into a formal requirements
-specification. It defines what the system must deliver functionally and which
-quality constraints it must satisfy in practice.
+The next chapter will define the system requirements and describe what the
+solution must achieve.

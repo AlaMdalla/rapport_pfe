@@ -1,28 +1,25 @@
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {1.1}{\ignorespaces Azure DevOps environment used within the MES X.0 division, showing work item tracking and development workflow management}}{4}{figure.caption.7}%
+\contentsline {figure}{\numberline {1.1}{\ignorespaces Azure DevOps environment used within the MES X.0 division, showing work item tracking and development workflow management}}{3}{figure.caption.7}%
+\contentsline {figure}{\numberline {1.2}{\ignorespaces Excerpt from the version.json file showing microservice versions across DEV, QUA, PREPROD, and PROD environments}}{5}{figure.caption.8}%
 \addvspace {10\p@ }
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Manual dependency tracking workflow before the MES-X Dependency Management system}}{14}{figure.caption.19}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Use Case Diagram of the MES-X Dependency Management System.}}{24}{figure.caption.24}%
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Use Case Diagram of the MES-X Dependency Management System.}}{24}{figure.caption.27}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {4.1}{\ignorespaces Global three-layer architecture of the proposed solution.}}{28}{figure.caption.26}%
-\contentsline {figure}{\numberline {4.2}{\ignorespaces Sequence diagram — Work Item Management Component.}}{34}{figure.caption.32}%
-\contentsline {figure}{\numberline {4.3}{\ignorespaces Sequence diagram — Pull Request Resolution Component.}}{36}{figure.caption.37}%
-\contentsline {figure}{\numberline {4.4}{\ignorespaces Sequence diagram — Commit Aggregation Component.}}{38}{figure.caption.43}%
-\contentsline {figure}{\numberline {4.5}{\ignorespaces Sequence diagram — Decision Aggregation Component.}}{40}{figure.caption.48}%
-\contentsline {figure}{\numberline {4.6}{\ignorespaces End-to-end data flow across the four system components.}}{43}{figure.caption.49}%
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Global connection graph of the Trace UI and backend modules}}{30}{figure.caption.29}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {5.1}{\ignorespaces Frontend technology used: Vue 3 for building the user interface}}{51}{figure.caption.50}%
-\contentsline {figure}{\numberline {5.2}{\ignorespaces Backend technology used: NestJS for scalable server-side architecture}}{52}{figure.caption.51}%
-\contentsline {figure}{\numberline {5.3}{\ignorespaces Azure DevOps Platform}}{53}{figure.caption.52}%
-\contentsline {figure}{\numberline {5.4}{\ignorespaces Agile Scrum methodology applied during system development}}{53}{figure.caption.53}%
-\contentsline {figure}{\numberline {5.5}{\ignorespaces Backend module-level class diagram}}{57}{figure.caption.59}%
-\contentsline {figure}{\numberline {5.6}{\ignorespaces Sequence diagram of single-root related-work-item processing}}{59}{figure.caption.60}%
-\contentsline {figure}{\numberline {5.7}{\ignorespaces Sequence diagram of batch related-work-item aggregation}}{60}{figure.caption.61}%
-\contentsline {figure}{\numberline {5.8}{\ignorespaces UI route/component architecture for traceability workflows}}{61}{figure.caption.62}%
-\contentsline {figure}{\numberline {5.9}{\ignorespaces Sequence diagram of UI and backend integration in trace workflows}}{62}{figure.caption.63}%
-\contentsline {figure}{\numberline {5.10}{\ignorespaces Batching Work Items — selection and SSE-driven progress}}{63}{figure.caption.65}%
-\contentsline {figure}{\numberline {5.11}{\ignorespaces Related Work Item — single-root traceability graph view}}{63}{figure.caption.67}%
-\contentsline {figure}{\numberline {5.12}{\ignorespaces Discovered Commits — commits discovered during traversal}}{64}{figure.caption.68}%
-\contentsline {figure}{\numberline {5.13}{\ignorespaces Decision — work items grouped by state (Done vs Other)}}{64}{figure.caption.70}%
-\contentsline {figure}{\numberline {5.14}{\ignorespaces Decision — repository view with expected tags for promotion}}{65}{figure.caption.71}%
-\contentsline {figure}{\numberline {5.15}{\ignorespaces Backend Docker orchestration and runtime communication model}}{66}{figure.caption.72}%
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Frontend technology used: Vue 3 for building the user interface}}{37}{figure.caption.30}%
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Backend technology used: NestJS for scalable server-side architecture}}{37}{figure.caption.31}%
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Azure DevOps Platform}}{39}{figure.caption.32}%
+\contentsline {figure}{\numberline {5.4}{\ignorespaces Agile Scrum methodology applied during system development}}{39}{figure.caption.33}%
+\contentsline {figure}{\numberline {5.5}{\ignorespaces Backend class diagram for the work item, pull request, and commit modules}}{45}{figure.caption.41}%
+\contentsline {figure}{\numberline {5.6}{\ignorespaces Backend class diagram for the sprint and decision modules}}{45}{figure.caption.42}%
+\contentsline {figure}{\numberline {5.7}{\ignorespaces Sequence diagram for single-root related work-item processing}}{48}{figure.caption.43}%
+\contentsline {figure}{\numberline {5.8}{\ignorespaces Sequence diagram for batch related work-item aggregation}}{49}{figure.caption.44}%
+\contentsline {figure}{\numberline {5.9}{\ignorespaces UI route and component architecture for traceability workflows}}{51}{figure.caption.45}%
+\contentsline {figure}{\numberline {5.10}{\ignorespaces Sequence diagram for UI and backend integration in trace workflows}}{52}{figure.caption.46}%
+\contentsline {figure}{\numberline {5.11}{\ignorespaces Batching Work Items -- selection and SSE-driven progress}}{53}{figure.caption.48}%
+\contentsline {figure}{\numberline {5.12}{\ignorespaces Related Work Item -- single-root traceability graph view}}{54}{figure.caption.50}%
+\contentsline {figure}{\numberline {5.13}{\ignorespaces Discovered Commits -- commits found during traversal}}{55}{figure.caption.51}%
+\contentsline {figure}{\numberline {5.14}{\ignorespaces Decision -- work items grouped by state (Done vs. Other)}}{55}{figure.caption.54}%
+\contentsline {figure}{\numberline {5.15}{\ignorespaces Decision -- repository view with expected tags for promotion}}{56}{figure.caption.55}%

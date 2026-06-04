@@ -1,75 +1,111 @@
 \chapter{Study of the Existing}
 \label{chap:existing}
 
-\section{How Dependency Tracking Is Done Today}
+\section{Current Dependency Tracking Process}
 
-This chapter examines the manual process used before the introduction of the
-MES-X Dependency Management system. Understanding that workflow is important,
-because the design choices made later in the report are direct responses to its
-limitations.
+This chapter analyzes the manual workflow used prior to the introduction of the
+MES-X Dependency Management system. Understanding this existing process is
+essential, as the limitations identified here directly influence the design of
+the proposed solution.
 
-In the MES X.0 environment, the starting point is usually a \textbf{user
-story} in Azure DevOps. That story is often linked to several child tasks, and
-each task may produce its own pull request, commits, and release references in
-different repositories. Azure DevOps stores all of these artifacts, but it does
-not provide a single consolidated view of their dependency chain.
+In the MES X.0 environment, the process typically begins with a
+\textbf{user story} created in Azure DevOps. Each user story is often linked to
+multiple child tasks. In turn, each task may generate its own pull requests,
+commits, and release references across different repositories.
 
-In practice, a developer preparing a dependency report had to repeat the same
-sequence for \emph{each} user story under analysis:
+Although Azure DevOps stores all these artifacts, it does not provide a unified
+or consolidated view of their dependency relationships. As a result, developers
+must manually reconstruct the dependency chain.
+
+\vspace{0.3cm}
+\textbf{Manual Dependency Analysis Workflow}
+
+In practice, developers preparing a dependency report must follow a repetitive
+sequence of steps for each user story:
 
 \begin{enumerate}
-    \item Open the work item in Azure DevOps and note all linked child tasks and related
-          items.
-    \item Navigate to the \textbf{Development} panel of each item to find associated
-          pull requests.
-    \item Open every pull request individually, then switch to its \textbf{Commits} tab.
-    \item Inspect each commit message and the list of changed files to identify which
-          microservice is affected and extract any version tags present in the commit.
-    \item Record the collected information---work item ID, PR number, commit hash,
-          microservice name, tag---row by row in an Excel spreadsheet.
-    \item Repeat the entire sequence for every child work item linked to the original
-          story.
+\item Open the work item in Azure DevOps and identify all linked child tasks and related items.
+\item Navigate to the \textbf{Development} panel of each item to locate associated pull requests.
+\item Open each pull request individually and access its \textbf{Commits} tab.
+\item Analyze commit messages and modified files to determine the impacted microservice and extract version tags.
+\item Manually record all relevant data (work item ID, pull request number, commit hash, microservice name, tag) in a spreadsheet.
+\item Repeat the same process for every child work item linked to the main user story.
 \end{enumerate}
 
-During a typical sprint, with ten to fifteen user stories and several pull
-requests per story, this work could easily occupy most of a day. Every link had
-to be opened manually, and every relevant tag had to be checked one by one.
+\vspace{0.3cm}
+During a typical sprint, which may include multiple user stories and several
+pull requests per story, this process can consume a significant portion of a
+working day. Each dependency must be manually identified, verified, and recorded.
+As the number of services and work items increases, this manual approach becomes
+increasingly time-consuming and repetitive.
+
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\linewidth]{img/existing/dependency_before_process.png}
+\caption{Manual dependency tracking workflow before the MES-X Dependency Management system}
+\label{fig:dependency-before}
+\end{figure}
+
+% --------------------------------------------------------
 
 \section{Illustrative Example}
 
-Consider a user story such as \emph{``Update shared configuration service for
-plant B.''} The change may involve the configuration service itself, a dependent
-API gateway, and a deployment adjustment. In practice, that single story can be
-split into several child tasks, each with its own pull request and its own set
-of commits.
+Consider a user story such as \emph{``Update shared configuration service for a
+specific environment.''} This change may involve multiple components, including
+the configuration service, a dependent API gateway, and deployment adjustments.
 
-To build a dependency view for that story, the developer must inspect each pull
-request, identify the affected repository, review the associated commits, and
-locate the relevant release tags. Even in a modest case, this means opening
-several pull requests and reading through dozens of commits. Once this effort is
-multiplied across a full sprint, the workload becomes substantial and the risk
-of omission increases.
+In practice, this single user story is divided into several child tasks, each
+associated with its own pull request and set of commits.
 
-\section{Limitations and Their Consequences}
+To construct a complete dependency view, the developer must:
+\begin{itemize}
+\item Inspect each pull request,
+\item Identify the affected repository,
+\item Review associated commits,
+\item Extract and compare release tags.
+\end{itemize}
 
-The manual process creates four major problems.
+Additionally, commit tags must be analyzed to determine the most recent release
+version. It is also necessary to verify whether commits belong to a tagged
+release or fall between two versions.
 
-\textbf{Time consumption.} Preparing a complete dependency report for a sprint
-can take from several hours to a full working day. That time is repeatedly
-spent on navigation and transcription instead of implementation or review.
+Even in relatively simple scenarios, this requires navigating multiple pull
+requests and analyzing numerous commits. When repeated across an entire sprint,
+the workload becomes substantial and error-prone.
 
-\textbf{High error risk.} The result depends on careful human inspection. A
-single missed commit, an overlooked repository, or an incorrect tag reference
-can produce an incomplete report and lead to poor release decisions.
+% --------------------------------------------------------
 
-\textbf{Poor scalability.} The MES X.0 platform already contains many
-microservices, and its scope continues to grow. As more repositories are added,
-the manual approach becomes less realistic and more costly.
+\section{Limitations and Their Impact}
 
-\textbf{Lack of a shared source of truth.} Because the final result is often
-stored in spreadsheets, two engineers can produce different analyses for the
-same feature with no automatic way to reconcile the difference.
+The manual dependency tracking process introduces several key challenges:
 
-These limitations affect both productivity and reliability. They justify the
-need for a structured, automated solution, which is formalized in the next
-chapter through the system requirements.
+\vspace{0.2cm}
+\textbf{Time Consumption} \
+Generating a complete dependency report for a sprint can take several hours or
+even an entire day. Most of this time is spent navigating tools and manually
+collecting data rather than focusing on development tasks.
+
+\vspace{0.2cm}
+\textbf{High Risk of Errors} \
+The process relies entirely on manual verification. Missing a commit, overlooking
+a repository, or misidentifying a tag can result in incomplete or incorrect
+dependency reports, potentially impacting release decisions.
+
+\vspace{0.2cm}
+\textbf{Limited Scalability} \
+The MES X.0 platform consists of numerous microservices, with new ones being
+added continuously. As the system grows, the manual approach becomes increasingly
+difficult to maintain and scale.
+
+\vspace{0.2cm}
+\textbf{Lack of a Single Source of Truth} \
+Dependency data is typically stored in spreadsheets, leading to inconsistencies.
+Different engineers may produce different results for the same feature, with no
+centralized mechanism to validate or reconcile discrepancies.
+
+\vspace{0.3cm}
+Overall, these limitations negatively impact both efficiency and reliability.
+They clearly highlight the need for an automated solution, which will be
+introduced in the next chapter through the system requirements.
