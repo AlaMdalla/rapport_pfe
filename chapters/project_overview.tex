@@ -64,23 +64,25 @@ and traceability of the group's software delivery processes.
 
 \subsection{The MES X.0 Division}
 \label{subsec:mes-division}
-The project was done in the MES X.0 division of Forvia Informatique Tunisie. This team works on building and improving a modern Manufacturing Execution System. This system is used in factories to manage, control, and track production in real time.
+The project was carried out in the MES X.0 division of Forvia Informatique
+Tunisie. This team develops and continuously improves a modern Manufacturing
+Execution System used in factories to manage, control, and track production in
+real time.
 
+The MES X.0 platform is based on a microservices architecture composed of
+multiple services, each responsible for a specific role such as production
+planning, quality control, equipment monitoring, or operator assistance on the
+shop floor. These services communicate through APIs.
 
+This design increases system flexibility. Each service can be developed and
+updated independently without affecting the entire platform. It also allows
+each factory to use only the modules it needs.
 
-The MES X.0 platform uses a microservices architecture. is composed of several small services, each responsible for a specific role, such as production planning, quality control, equipment monitoring, or helping operators on the shop floor. These services communicate with each other using APIs.
+Today, the MES X.0 platform is deployed in several Forvia factories worldwide
+and processes real-time data from machines and operators.
 
-
-
-This design makes the system more flexible. Each service can be developed and updated separately without affecting the whole system. It also allows each factory to use only the parts it needs.
-
-
-
-Today, the MES X.0 platform is used in several Forvia factories around the world and processes real-time data from machines and operators.
-
-
-
-However, this architecture is more complex to develop and maintain. This complexity is what led to the work presented in this report. 
+However, this architecture also introduces significant development and
+maintenance complexity, which motivated the work presented in this report.
 
 % ─────────────────────────────────────────────────────────────────────────────
 \section{Project Context and Problem Statement}
@@ -198,7 +200,7 @@ of each code change is determined programmatically and consistently.
 
 \subsubsection{Comprehensive Dependency Mapping}
 
-The system should be able to build and provide clear traceability links across
+The system should be able to provide clear traceability links across
 the whole chain of development artifacts, starting from high-level work items
 and going through pull requests and commits, down to branches and repository
 tags. This mapping should cover all levels of the work item hierarchy and all
@@ -222,7 +224,7 @@ performed with the same input.
 \subsubsection{End-to-End Traceability}
 
 The system should allow a user to trace any work item from its initial
-description down to the exact commits and microservice tags it impacted,
+description down to the exact commits and microservice tags associated with its implementation,
 all within a single analysis session. The user should not need to switch
 between tools or manually connect information to get a complete view of
 the dependencies.
@@ -240,9 +242,6 @@ The project includes the design and development of three main parts: a backend
 service, a frontend application, and an integration layer with Azure DevOps.
 
 \subsubsection{Backend Development}
-
-\subsubsection{Backend Development}
-
 The backend was developed using \textbf{NestJS} with TypeScript. This framework
 was chosen because it supports modular design and helps keep the code clean and
 easy to maintain.
@@ -313,7 +312,7 @@ It includes:
 \subsection{Project Activities}
 \label{subsec:activities}
 
-The project followed several main steps:
+The project followed the main steps below:
 
 \begin{itemize}
   \item \textbf{Requirements Analysis}: understanding the current manual process

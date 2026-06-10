@@ -5,7 +5,6 @@
 \usepackage[utf8]{inputenc}
 \usepackage{lmodern}
 
-
 %% ─── PAGE GEOMETRY ──────────────────────────────────────────────────────────
 \usepackage[a4paper,
             top=2.5cm, bottom=2.5cm,
@@ -27,7 +26,6 @@
 \setlength{\parskip}{0.55em}
 
 %% ─── GRAPHICS ───────────────────────────────────────────────────────────────
-% Fast compile toggle: set \fastcompiletrue for draft (faster), \fastcompilefalse for final
 \newif\iffastcompile
 \fastcompilefalse
 \usepackage{graphicx}
@@ -39,12 +37,6 @@
 \usepackage{float}
 \usepackage{caption}
 \usepackage{subcaption}
-\captionsetup{
-  font={small,it},
-  labelfont={bf,color=primary},
-  labelsep=period,
-  skip=8pt
-}
 
 %% ─── TABLES ─────────────────────────────────────────────────────────────────
 \usepackage{booktabs}
@@ -52,7 +44,7 @@
 \usepackage{tabularx}
 \renewcommand{\arraystretch}{1.5}
 
-%% ─── HEADERS & FOOTERS ───────────────────────────────────────────────────────
+%% ─── HEADERS & FOOTERS ──────────────────────────────────────────────────────
 \usepackage{fancyhdr}
 \pagestyle{fancy}
 \fancyhf{}
@@ -61,140 +53,124 @@
 \fancyfoot[C]{\small\color{darkgray}\thepage}
 \fancyfoot[R]{\small\color{darkgray}ESPRIT -- 2024/2025}
 
-%% ─── HYPERLINKS ──────────────────────────────────────────────────────────────
-\usepackage[hyphens]{url}
+%% ─── HYPERLINKS ─────────────────────────────────────────────────────────────
 \usepackage[
   colorlinks=true,
   linkcolor=primary,
   urlcolor=accent,
   citecolor=accent,
-  bookmarks=true,
-  pdftitle={MES-X Dependency Management -- Internship Report},
-  pdfauthor={Alaa eddine Mdalla}
+  bookmarks=true
 ]{hyperref}
 
-%% ─── INLINE CODE ─────────────────────────────────────────────────────────────
-\newcommand{\code}[1]{\texttt{#1}}
-
-%% ─── COVER PAGE METADATA ────────────────────────────────────────────────────
+%% ─── REPORT METADATA ────────────────────────────────────────────────────────
 \newcommand{\reporttitle}{MES-X Dependency Management}
-\newcommand{\reportsubtitle}{Traceability and Release-Readiness Analysis on Azure DevOps}
-\newcommand{\reportauthorname}{Alaa Eddine Mdalla}
+\newcommand{\reportauthorname}{Ala Eddine Mdalla}
 \newcommand{\reporthostcompany}{Forvia Informatique Tunisie}
 \newcommand{\reportspecialty}{Software Engineering}
-\newcommand{\reportacademicyear}{2024/2025}
+\newcommand{\reportacademicsupervisor}{Wafa Boumaiza}
+\newcommand{\reportprofessionalsupervisor}{Khemiri Karima}
+\newcommand{\reportacademicyear}{2025/2026}
 
-%% ═══════════════════════════════════════════════════════════════════════════
-%%  DOCUMENT
-%% ═══════════════════════════════════════════════════════════════════════════
 \begin{document}
 
-\hypersetup{pageanchor=false}
-
+%% ── COVER PAGE ───────────────────────────────────────────────────────────
 \begin{titlepage}
 \thispagestyle{empty}
 \newgeometry{margin=0pt}
+
 \begin{tikzpicture}[remember picture,overlay]
-  \node[anchor=south west,inner sep=0] at (current page.south west) {
-    \includegraphics[width=\paperwidth,height=\paperheight]{img/cover/cover.png}
-  };
 
-  \node[
-    anchor=west,
-    text=black,
-    font=\bfseries\fontsize{16}{20}\selectfont
-  ] at ([xshift=7.4cm,yshift=16.9cm]current page.south west) {\reportspecialty};
+  % Background
+  \node[anchor=south west,inner sep=0] at (current page.south west) {%
+    \includegraphics[width=\paperwidth,height=\paperheight]{img/cover/cover.jpg}};
 
-  \node[
-    align=center,
-    text width=0.68\paperwidth,
-    text=black,
-    font=\bfseries\fontsize{24}{28}\selectfont
-  ] at ([yshift=-1.8cm]current page.center) {\reporttitle};
-
-  \node[
-    align=center,
-    text width=0.74\paperwidth,
-    text=darkgray,
-    font=\fontsize{14}{18}\selectfont
-  ] at ([yshift=-3.6cm]current page.center) {\reportsubtitle};
-
-  \node[
-    align=center,
-    text width=0.72\paperwidth,
-    text=black,
-    font=\fontsize{13}{17}\selectfont
-  ] at ([yshift=-6.3cm]current page.center) {%
-    Prepared by\\[0.35em]
-    \textbf{\reportauthorname}\\[1em]
-    Internship carried out at\\[0.35em]
-    \textbf{\reporthostcompany}%
-  };
-
-  \node[
-    align=center,
-    text width=4.8cm,
-    text=darkgray,
-    font=\bfseries\fontsize{11}{13}\selectfont
-  ] at ([xshift=4.15cm,yshift=4.6cm]current page.south) {Academic Year\\\reportacademicyear};
 \end{tikzpicture}
+
 \mbox{}
 \restoregeometry
 \end{titlepage}
 
-\pagenumbering{gobble}
+%% ── 2. ROMAN NUMBERING FOR FRONT MATTER ─────────────────────────────────────
+\pagenumbering{roman}
+\setcounter{page}{1}
 
-%% ── ACKNOWLEDGMENTS ─────────────────────────────────────────────────────────
+%% ── 3. ACKNOWLEDGMENTS ──────────────────────────────────────────────────────
 \include{chapters/acknowledgments}
-
 \newpage
 
-%% ── ABSTRACT ────────────────────────────────────────────────────────────────
+%% ── 4. ABSTRACT ─────────────────────────────────────────────────────────────
 \include{chapters/abstract}
-
 \newpage
 
-%% ── LIST OF FIGURES ─────────────────────────────────────────────────────────
+%% ── 5. TABLE OF CONTENTS ────────────────────────────────────────────────────
+\tableofcontents
+\newpage
+
+%% ── 6. LIST OF FIGURES ──────────────────────────────────────────────────────
 \addcontentsline{toc}{chapter}{List of Figures}
 \listoffigures
-
 \newpage
 
-%% ── LIST OF TABLES ──────────────────────────────────────────────────────────
+%% ── 7. LIST OF TABLES ───────────────────────────────────────────────────────
 \addcontentsline{toc}{chapter}{List of Tables}
 \listoftables
-
 \newpage
 
-%% ── LIST OF ACRONYMS ────────────────────────────────────────────────────────
-
+%% ── 8. LIST OF ACRONYMS ─────────────────────────────────────────────────────
 \include{chapters/acronyms}
-
 \newpage
 
-%% ── GENERAL INTRODUCTION ────────────────────────────────────────────────────
-\include{chapters/introduction}
+%% ════════════════════════════════════════════════════════════════════════════
+%%  PART II — BODY
+%% ════════════════════════════════════════════════════════════════════════════
 
-\newpage
+%% Switch to Arabic numbering
 \hypersetup{pageanchor=true}
 \pagenumbering{arabic}
+\setcounter{page}{1}
 
-%% ════════════════════════════════════════════════════════════════════════════
-\include{chapters/project_overview}
-
+%% ── 9. GENERAL INTRODUCTION ─────────────────────────────────────────────────
+\include{chapters/introduction}
 \newpage
-\include{chapters/study_existing}
 
-%% ════════════════════════════════════════════════════════════════════════════
+%% ── Chapter 1 — Project Overview ────────────────────────────────────────────
+\include{chapters/project_overview}
+\newpage
+
+%% ── Chapter 2 — Study of Existing Solutions ─────────────────────────────────
+\include{chapters/study_existing}
+\newpage
+
+%% ── Chapter 3 — Requirements Analysis ──────────────────────────────────────
 \include{chapters/requirements}
 \newpage
-\include{chapters/proposed_solution}
-\include{chapters/implementation}
-\include{chapters/conclusion}
 
+%% ── Chapter 4 — Proposed Solution ──────────────────────────────────────────
+\include{chapters/proposed_solution}
+\newpage
+
+%% ── Chapter 5 — Implementation ──────────────────────────────────────────────
+\include{chapters/implementation}
+\newpage
 
 %% ════════════════════════════════════════════════════════════════════════════
+%%  PART III — BACK MATTER
+%% ════════════════════════════════════════════════════════════════════════════
 
-% Content to follow
+%% ── General Conclusion ───────────────────────────────────────────────────────
+\include{chapters/conclusion}
+\newpage
+
+%% ── Bibliography ─────────────────────────────────────────────────────────────
+%% Uncomment and configure once your .bib file is ready:
+%% \bibliographystyle{plain}          % or ieeetr, apalike, unsrt …
+%% \bibliography{references}
+%% \addcontentsline{toc}{chapter}{Bibliography}
+%% \newpage
+
+%% ── Appendices ───────────────────────────────────────────────────────────────
+%% Uncomment if you have appendices:
+%% \appendix
+%% \include{chapters/appendix_a}
 
 \end{document}

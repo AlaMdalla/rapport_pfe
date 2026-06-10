@@ -1,4 +1,4 @@
-\chapter{Study of the Existing}
+\chapter{Study of Existing Solutions}
 \label{chap:existing}
 
 \section{Current Dependency Tracking Process}
@@ -82,25 +82,25 @@ the workload becomes substantial and error-prone.
 The manual dependency tracking process introduces several key challenges:
 
 \vspace{0.2cm}
-\textbf{Time Consumption} \
+\textbf{Time Consumption.}
 Generating a complete dependency report for a sprint can take several hours or
 even an entire day. Most of this time is spent navigating tools and manually
 collecting data rather than focusing on development tasks.
 
 \vspace{0.2cm}
-\textbf{High Risk of Errors} \
-The process relies entirely on manual verification. Missing a commit, overlooking
-a repository, or misidentifying a tag can result in incomplete or incorrect
-dependency reports, potentially impacting release decisions.
+\textbf{High Risk of Errors.}
+The process relies entirely on manual verification. Missing a commit,
+overlooking a repository, or misidentifying a tag can result in incomplete or
+incorrect dependency reports, potentially affecting release decisions.
 
 \vspace{0.2cm}
-\textbf{Limited Scalability} \
+\textbf{Limited Scalability.}
 The MES X.0 platform consists of numerous microservices, with new ones being
 added continuously. As the system grows, the manual approach becomes increasingly
 difficult to maintain and scale.
 
 \vspace{0.2cm}
-\textbf{Lack of a Single Source of Truth} \
+\textbf{Lack of a Single Source of Truth.}
 Dependency data is typically stored in spreadsheets, leading to inconsistencies.
 Different engineers may produce different results for the same feature, with no
 centralized mechanism to validate or reconcile discrepancies.
