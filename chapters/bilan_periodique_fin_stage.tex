@@ -1,0 +1,132 @@
+\chapter*{Bilan periodique - Fin du stage}
+\addcontentsline{toc}{chapter}{Bilan periodique - Fin du stage}
+\markboth{Bilan periodique - Fin du stage}{Bilan periodique - Fin du stage}
+
+Ce bilan de fin de stage presente l'avancement reel realise sur le projet
+MES-X Dependency Management au sein de Forvia Informatique Tunisie. Le travail
+effectue a couvert l'ensemble de la chaine, depuis la collecte des artefacts
+Azure DevOps jusqu'a la mise a disposition d'une vue de decision exploitable par
+les equipes de release.
+
+\section*{1. Objectifs de stage}
+
+Les objectifs fixes au demarrage etaient les suivants:
+
+\begin{itemize}
+  \item centraliser la tracabilite entre work items, pull requests, commits,
+  branches et tags;
+  \item reduire le temps d'analyse pre-release en remplacant la navigation
+  manuelle entre ecrans Azure DevOps;
+  \item fournir une interface unique pour l'analyse unitaire, batch et par
+  sprint;
+  \item proposer une aide a la revue de commits via LLM, sans impacter la
+  decision deterministe de readiness.
+\end{itemize}
+
+\section*{2. Travaux realises}
+
+\textbf{Conception et architecture}
+\begin{itemize}
+  \item Definition d'une architecture modulaire: Sprint, Work Item, Pull
+  Request, Commit, Decision, LLM.
+  \item Formalisation du flux de bout en bout: selection $\rightarrow$
+  extraction $\rightarrow$ enrichissement $\rightarrow$ aggregation
+  $\rightarrow$ decision.
+\end{itemize}
+
+\textbf{Implementation backend (NestJS + TypeScript)}
+\begin{itemize}
+  \item Mise en place des endpoints REST et du streaming SSE pour le suivi de
+  progression.
+  \item Integration des APIs Azure DevOps (Work Item API et Git API).
+  \item Reconstruction du graphe de dependances avec prevention des cycles,
+  dedoublonnage et traitement batch.
+  \item Enrichissement des commits (branches, tags, contexte repository) pour
+  l'analyse de readiness.
+  \item Ajout d'un module LLM assiste (declenchement a la demande, gestion des
+  erreurs, maintien d'une validation humaine obligatoire).
+  \item Structuration de l'observabilite via journalisation applicative
+  (log/warn/error/debug).
+\end{itemize}
+
+\textbf{Implementation frontend (Vue 3 + Quasar + Vite)}
+\begin{itemize}
+  \item Ecran d'analyse unitaire d'un work item et mode batch multi-elements.
+  \item Ecran d'exploration des sprints avec chargement progressif des work
+  items.
+  \item Vue de decision consolidee par repository avec etat de readiness.
+  \item Integration de l'action de revue LLM directement depuis la vue de
+  decision.
+  \item Amelioration de l'experience utilisateur via retour temps reel durant
+  les traitements longs.
+\end{itemize}
+
+\textbf{Qualite, integration et delivery}
+\begin{itemize}
+  \item Tests unitaires backend sur services et controleurs des modules
+  critiques.
+  \item Validation de scenario de bout en bout cote API.
+  \item Industrialisation de la build/deploiement via pipeline CI/CD et image
+  Docker.
+\end{itemize}
+
+\section*{3. Resultats obtenus}
+
+Les resultats atteints en fin de stage sont:
+
+\begin{itemize}
+  \item une plateforme de tracabilite fonctionnelle et deployee;
+  \item une vision unifiee des dependances cross-repositories a partir d'un
+  point d'entree metier (work item ou sprint);
+  \item une reduction des analyses manuelles repetitives grace a
+  l'automatisation de l'aggregation;
+  \item une meilleure fiabilite des decisions de promotion via une vue
+  consolidee par repository.
+\end{itemize}
+
+\section*{4. Difficultes rencontrees et solutions apportees}
+
+\begin{itemize}
+  \item \textbf{Heterogeneite des donnees Azure DevOps:} mise en place d'une
+  normalisation DTO pour stabiliser les traitements.
+  \item \textbf{Complexite du graphe de dependances:} adoption d'une traversal
+  avec dedoublonnage et controle des cycles.
+  \item \textbf{Performance sur gros volumes:} regroupement des appels API,
+  traitements batch et limitation des recalculs.
+  \item \textbf{Lisibilite du suivi d'execution:} ajout de logs structures et
+  d'un retour de progression cote UI.
+\end{itemize}
+
+\section*{5. Competences developpees}
+
+Au terme du stage, les competences suivantes ont ete consolidees:
+
+\begin{itemize}
+  \item conception d'architecture logicielle modulaire et orientee services;
+  \item developpement full-stack TypeScript (NestJS/Vue/Quasar);
+  \item integration d'APIs enterprise (Azure DevOps) et gestion des contrats de
+  donnees;
+  \item mise en place de pratiques de qualite (tests, logs, validation
+  incrementale);
+  \item execution projet en mode Agile Scrum avec livraison iterative.
+\end{itemize}
+
+\section*{6. Suite proposee}
+
+Pour la continuation du projet, les evolutions les plus pertinentes sont:
+
+\begin{itemize}
+  \item etendre les regles de decision a des cas release plus complexes
+  (strategies multi-branches et multi-tags);
+  \item renforcer la couverture de tests end-to-end automatisee cote frontend;
+  \item ajouter un assistant de planification proposant des chemins de mise a
+  niveau repository par repository a partir d'un work item.
+\end{itemize}
+
+\section*{7. Auto-evaluation de fin de stage}
+
+Les objectifs principaux du stage sont atteints. La valeur apportee est
+operationnelle (centralisation, acceleration d'analyse, support a la decision)
+et technique (base logicielle modulaire et evolutive). Les axes d'amelioration
+restent principalement lies a l'industrialisation avancee des tests et a
+l'enrichissement progressif des regles metier de readiness.

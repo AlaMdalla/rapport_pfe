@@ -90,8 +90,8 @@
 \restoregeometry
 \end{titlepage}
 
-%% ── 2. ROMAN NUMBERING FOR FRONT MATTER ─────────────────────────────────────
-\pagenumbering{roman}
+%% ── 2. PAGE NUMBERING FOR FRONT MATTER ─────────────────────────────────────
+\pagenumbering{arabic}
 \setcounter{page}{1}
 
 %% ── 3. ACKNOWLEDGMENTS ──────────────────────────────────────────────────────
@@ -126,8 +126,7 @@
 
 %% Switch to Arabic numbering
 \hypersetup{pageanchor=true}
-\pagenumbering{arabic}
-\setcounter{page}{1}
+
 
 %% ── 9. GENERAL INTRODUCTION ─────────────────────────────────────────────────
 \include{chapters/introduction}
@@ -151,6 +150,10 @@
 
 %% ── Chapter 5 — Implementation ──────────────────────────────────────────────
 \include{chapters/implementation}
+\newpage
+
+%% ── Internship Periodic Review ───────────────────────────────────────────────
+\include{chapters/bilan_periodique_fin_stage}
 \newpage
 
 %% ════════════════════════════════════════════════════════════════════════════

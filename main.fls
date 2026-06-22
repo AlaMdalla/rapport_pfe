@@ -269,6 +269,9 @@ INPUT chapters/proposed_solution.aux
 INPUT ./chapters/implementation.aux
 INPUT ./chapters/implementation.aux
 INPUT chapters/implementation.aux
+INPUT ./chapters/bilan_periodique_fin_stage.aux
+INPUT ./chapters/bilan_periodique_fin_stage.aux
+INPUT chapters/bilan_periodique_fin_stage.aux
 INPUT ./chapters/conclusion.aux
 INPUT ./chapters/conclusion.aux
 INPUT chapters/conclusion.aux
@@ -511,6 +514,12 @@ INPUT ./img/figures/decision-repo-tags.jpg
 INPUT ./img/figures/decision-repo-tags.jpg
 INPUT ./img/figures/decision-repo-tags.jpg
 INPUT ./img/figures/decision-repo-tags.jpg
+INPUT ./chapters/bilan_periodique_fin_stage.tex
+INPUT ./chapters/bilan_periodique_fin_stage.tex
+OUTPUT chapters/bilan_periodique_fin_stage.aux
+INPUT ./chapters/bilan_periodique_fin_stage.tex
+INPUT ./chapters/bilan_periodique_fin_stage.tex
+INPUT chapters/bilan_periodique_fin_stage.tex
 INPUT ./chapters/conclusion.tex
 INPUT ./chapters/conclusion.tex
 OUTPUT chapters/conclusion.aux
@@ -545,6 +554,9 @@ INPUT chapters/proposed_solution.aux
 INPUT ./chapters/implementation.aux
 INPUT ./chapters/implementation.aux
 INPUT chapters/implementation.aux
+INPUT ./chapters/bilan_periodique_fin_stage.aux
+INPUT ./chapters/bilan_periodique_fin_stage.aux
+INPUT chapters/bilan_periodique_fin_stage.aux
 INPUT ./chapters/conclusion.aux
 INPUT ./chapters/conclusion.aux
 INPUT chapters/conclusion.aux
