@@ -1,0 +1,1580 @@
+\documentclass[12pt,a4paper]{report}
+
+%% ─── FONTS & ENCODING ───────────────────────────────────────────────────────
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+
+%% ─── PAGE GEOMETRY ──────────────────────────────────────────────────────────
+\usepackage[a4paper,
+            top=2.5cm, bottom=2.5cm,
+            left=3cm,  right=2.5cm,
+            headheight=15pt]{geometry}
+
+%% ─── COLORS ─────────────────────────────────────────────────────────────────
+\usepackage[dvipsnames,svgnames,table]{xcolor}
+\definecolor{primary}{RGB}{31,73,125}
+\definecolor{accent}{RGB}{0,112,192}
+\definecolor{lightgray}{RGB}{245,245,245}
+\definecolor{midgray}{RGB}{220,220,220}
+\definecolor{darkgray}{RGB}{80,80,80}
+\definecolor{codered}{RGB}{192,0,0}
+\definecolor{codebg}{RGB}{248,248,248}
+\definecolor{screenshotbg}{RGB}{230,238,250}
+\definecolor{screenshotborder}{RGB}{31,73,125}
+\definecolor{diagrambg}{RGB}{235,245,235}
+\definecolor{diagramborder}{RGB}{34,100,34}
+
+%% ─── SPACING & LAYOUT ───────────────────────────────────────────────────────
+\usepackage{setspace}
+\onehalfspacing
+\setlength{\parindent}{1.5em}
+\setlength{\parskip}{0.55em}
+
+%% ─── MATH ────────────────────────────────────────────────────────────────────
+\usepackage{amsmath,amssymb}
+
+%% ─── GRAPHICS ───────────────────────────────────────────────────────────────
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{subcaption}
+\captionsetup{
+  font={small,it},
+  labelfont={bf,color=primary},
+  labelsep=period,
+  skip=8pt
+}
+
+%% ─── TABLES ─────────────────────────────────────────────────────────────────
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{multirow}
+\renewcommand{\arraystretch}{1.5}
+
+%% ─── LISTINGS / CODE ─────────────────────────────────────────────────────────
+\usepackage{listings}
+\lstset{
+  basicstyle=\ttfamily\small,
+  backgroundcolor=\color{codebg},
+  frame=single,
+  framesep=4pt,
+  rulecolor=\color{midgray},
+  keywordstyle=\color{accent}\bfseries,
+  stringstyle=\color{codered},
+  commentstyle=\color{darkgray}\itshape,
+  breaklines=true,
+  breakatwhitespace=true,
+  numbers=left,
+  numberstyle=\tiny\color{darkgray},
+  xleftmargin=1.5em,
+}
+
+%% ─── HEADERS & FOOTERS ───────────────────────────────────────────────────────
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{darkgray}\nouppercase{\leftmark}}
+\fancyhead[R]{\small\color{darkgray}MES-X Dependency Management}
+\fancyfoot[C]{\small\color{darkgray}\thepage}
+\fancyfoot[R]{\small\color{darkgray}ESPRIT -- 2024/2025}
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\footrulewidth}{0.5pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{primary}\leaders\hrule height \headrulewidth\hfill}}
+\renewcommand{\footrule}{\hbox to\headwidth{\color{primary}\leaders\hrule height \footrulewidth\hfill}}
+
+%% ─── TOC / MINITOC ───────────────────────────────────────────────────────────
+\usepackage{tocloft}
+\usepackage{minitoc}
+\usepackage{titletoc}
+\setcounter{tocdepth}{3}
+\setcounter{secnumdepth}{3}
+\renewcommand{\cfttoctitlefont}{\Large\bfseries\color{primary}}
+\renewcommand{\cftloftitlefont}{\Large\bfseries\color{primary}}
+\renewcommand{\cftlottitlefont}{\Large\bfseries\color{primary}}
+\renewcommand{\cftchapfont}{\bfseries\color{primary}}
+\renewcommand{\cftchappagefont}{\bfseries\color{primary}}
+\renewcommand{\contentsname}{Table of Contents}
+\renewcommand{\listtablename}{List of Tables}
+\renewcommand{\listfigurename}{List of Figures}
+\renewcommand{\cftchappresnum}{Chapter\ }
+\renewcommand{\cftchapaftersnum}{.\ }
+\setlength{\cftchapnumwidth}{7em}
+\renewcommand{\mtctitle}{Contents}
+\dominitoc
+
+%% ─── CHAPTER / SECTION TITLES ────────────────────────────────────────────────
+\usepackage{titlesec}
+
+\titleformat{\chapter}[display]
+  {\normalfont\bfseries\color{primary}}
+  {\filleft\Large\color{accent}\MakeUppercase{\chaptertitlename}\ 
+   \fontsize{60}{60}\selectfont\thechapter}
+  {-10pt}
+  {\titlerule[1.5pt]\vspace{6pt}\filright\fontsize{18}{22}\selectfont}
+  [\vspace{4pt}\titlerule]
+
+\titlespacing*{\chapter}{0pt}{10pt}{30pt}
+
+\titleformat{\section}
+  {\normalfont\fontsize{14}{17}\selectfont\bfseries\color{primary}}
+  {\thesection}{1em}{}
+  [\color{accent}\titlerule[0.4pt]]
+
+\titleformat{\subsection}
+  {\normalfont\fontsize{12}{15}\selectfont\bfseries\color{accent}}
+  {\thesubsection}{1em}{}
+
+\titleformat{\subsubsection}
+  {\normalfont\fontsize{11}{14}\selectfont\bfseries\color{darkgray}}
+  {\thesubsubsection}{1em}{}
+
+%% ─── HYPERLINKS ──────────────────────────────────────────────────────────────
+\usepackage[hyphens]{url}
+\usepackage[
+  colorlinks=true,
+  linkcolor=primary,
+  urlcolor=accent,
+  citecolor=accent,
+  bookmarks=true,
+  bookmarksopen=true,
+  pdftitle={MES-X Dependency Management -- Internship Report},
+  pdfauthor={Alaa eddine Mdalla},
+  pdfsubject={First Internship Report},
+  pdfkeywords={NestJS, Azure DevOps, Vue 3, dependency management, ESPRIT}
+]{hyperref}
+
+%% ─── MISC PACKAGES ───────────────────────────────────────────────────────────
+\usepackage{pdfpages}
+\usepackage{ragged2e}
+\usepackage{indentfirst}
+\usepackage{enumitem}
+\setlist[itemize]{leftmargin=2em, itemsep=3pt, topsep=5pt}
+\setlist[enumerate]{leftmargin=2em, itemsep=3pt, topsep=5pt}
+
+%% ─── COLORED BOXES ───────────────────────────────────────────────────────────
+\usepackage{tcolorbox}
+\tcbuselibrary{skins,breakable}
+
+%% Info box
+\newtcolorbox{infobox}[1][]{
+  enhanced, breakable,
+  colback=screenshotbg, colframe=primary,
+  boxrule=0.8pt, arc=3pt,
+  left=10pt, right=10pt, top=8pt, bottom=8pt,
+  fonttitle=\bfseries\small\color{white},
+  colbacktitle=primary,
+  title=#1
+}
+
+%% Diagram placeholder box (use-case or class diagrams)
+\newcommand{\umlplaceholder}[2][UML Diagram Placeholder]{%
+  \begin{figure}[H]
+    \centering
+    \begin{tcolorbox}[
+      enhanced,
+      colback=diagrambg,
+      colframe=diagramborder,
+      boxrule=1.2pt,
+      arc=5pt,
+      left=6pt, right=6pt, top=6pt, bottom=6pt,
+      width=\textwidth,
+      height=8cm,
+      valign=center,
+    ]
+      \centering
+      \color{diagramborder}
+      \large\bfseries [\,#1\,]\\[8pt]
+      \normalsize\normalfont\color{darkgray}
+      Insert your diagram image here:\\[4pt]
+      \ttfamily\small\color{darkgray}\textbackslash includegraphics[width=\textbackslash textwidth]\{img/#2\}
+    \end{tcolorbox}
+    \caption{#1}
+    \label{fig:#2}
+  \end{figure}%
+}
+
+%% Screenshot placeholder
+\newcommand{\screenshot}[2][Screenshot placeholder]{%
+  \begin{figure}[H]
+    \centering
+    \begin{tcolorbox}[
+      enhanced,
+      colback=screenshotbg,
+      colframe=screenshotborder,
+      boxrule=1pt,
+      arc=4pt,
+      left=4pt, right=4pt, top=4pt, bottom=4pt,
+      width=\textwidth,
+      height=7cm,
+      valign=center,
+    ]
+      \centering
+      \color{primary}
+      \large\bfseries [\,SCREENSHOT\,]\\[6pt]
+      \normalsize\normalfont\color{darkgray}#1
+    \end{tcolorbox}
+    \caption{#2}
+  \end{figure}%
+}
+
+%% Wide screenshot placeholder
+\newcommand{\screenshotwide}[2][Screenshot placeholder]{%
+  \begin{figure}[H]
+    \centering
+    \begin{tcolorbox}[
+      enhanced,
+      colback=screenshotbg,
+      colframe=screenshotborder,
+      boxrule=1pt,
+      arc=4pt,
+      left=4pt, right=4pt, top=4pt, bottom=4pt,
+      width=\textwidth,
+      height=9cm,
+      valign=center,
+    ]
+      \centering
+      \color{primary}
+      \large\bfseries [\,SCREENSHOT\,]\\[6pt]
+      \normalsize\normalfont\color{darkgray}#1
+    \end{tcolorbox}
+    \caption{#2}
+  \end{figure}%
+}
+
+%% Inline code
+\newcommand{\code}[1]{\texttt{\small\color{codered}#1}}
+
+%% ═══════════════════════════════════════════════════════════════════════════
+%%  DOCUMENT
+%% ═══════════════════════════════════════════════════════════════════════════
+\begin{document}
+
+\begin{titlepage}
+\thispagestyle{empty}
+
+% Remove margins ONLY for this page
+\newgeometry{margin=0pt}
+
+\noindent
+\includegraphics[width=\paperwidth,height=\paperheight]{img/cover/cover.png}
+
+% Restore normal margins
+\restoregeometry
+
+\end{titlepage}
+
+%% ─── FRONT MATTER ────────────────────────────────────────────────────────────
+\pagenumbering{roman}
+\pagestyle{fancy}
+
+%% ── DEDICATION ──────────────────────────────────────────────────────────────
+\newpage
+\thispagestyle{empty}
+\vspace*{3cm}
+\begin{center}
+  {\Large\bfseries\color{primary} Dedication}\\[0.5cm]
+  \textcolor{accent}{\rule{0.3\textwidth}{1pt}}
+\end{center}
+\vspace{2cm}
+
+\begin{center}
+\begin{minipage}{0.82\textwidth}
+\centering\itshape\large\setstretch{1.8}
+
+I dedicate this work to my parents, who have always supported me throughout my
+studies and given me the confidence to keep moving forward.
+
+\medskip
+To my father - for his strength, discipline, and constant encouragement.
+
+To my mother - for her patience, love, and unwavering prayers.
+
+\medskip
+To my sister Wafa and my brother Dhia, for their kindness and steady support.
+
+\medskip
+To everyone who believed in me and helped me stay focused until the end of this journey.
+
+\bigskip
+\normalfont\normalsize\color{darkgray}
+And finally, to myself --- because I reached this stage through persistence,
+discipline, and hard work.
+
+\end{minipage}
+\end{center}
+
+%% ── ACKNOWLEDGEMENTS ────────────────────────────────────────────────────────
+\newpage
+\thispagestyle{empty}
+\vspace*{3cm}
+\begin{center}
+  {\Large\bfseries\color{primary} Acknowledgements}\\[0.5cm]
+  \textcolor{accent}{\rule{0.3\textwidth}{1pt}}
+\end{center}
+\vspace{1.8cm}
+
+\begin{minipage}{0.88\textwidth}
+\setstretch{1.7}
+
+I would like to express my sincere gratitude to everyone who supported and guided
+me during this internship.
+
+\medskip
+First, I thank my academic supervisor \textbf{Wafa Boumaiza} for her thoughtful
+feedback, consistent availability, and the guidance that helped me continually
+improve the quality of this work.
+
+\medskip
+I also extend my thanks to \textbf{ESPRIT} for the solid academic foundation that
+prepared me to take on a real-world engineering challenge.
+
+\medskip
+I am grateful to the members of the project and development teams for their
+technical input, constructive discussions, and the collaborative environment they
+created throughout the internship period.
+
+\medskip
+Most importantly, I thank the people closest to me for their encouragement,
+patience, and support during this demanding but rewarding experience.
+
+\end{minipage}
+
+\vspace{1.5cm}
+\begin{flushright}
+\itshape Alaa eddine Mdalla
+\end{flushright}
+
+%% ── TABLE OF CONTENTS ───────────────────────────────────────────────────────
+\newpage
+\tableofcontents
+
+\newpage
+\addcontentsline{toc}{chapter}{List of Figures}
+\listoffigures
+
+\newpage
+\addcontentsline{toc}{chapter}{List of Tables}
+\listoftables
+
+\newpage
+
+%% ── LIST OF ABBREVIATIONS ───────────────────────────────────────────────────
+\chapter*{List of Abbreviations}
+\addcontentsline{toc}{chapter}{List of Abbreviations}
+\markboth{List of Abbreviations}{List of Abbreviations}
+
+\vspace{0.5cm}
+\begin{center}
+\begin{tabular}{@{}>{\bfseries\color{primary}}p{2.8cm} p{11.5cm}@{}}
+\toprule
+\textbf{\color{primary}Abbreviation} & \textbf{\color{primary}Definition} \\
+\midrule
+API         & Application Programming Interface \\
+Azure DevOps & Microsoft platform for source control, work tracking, and CI/CD \\
+CI/CD       & Continuous Integration / Continuous Delivery \\
+CORS        & Cross-Origin Resource Sharing \\
+Dapr        & Distributed Application Runtime \\
+DTO         & Data Transfer Object \\
+ESPRIT      & Higher School of Engineering and Technologies \\
+GET         & HTTP method used to retrieve resources \\
+Jest        & JavaScript testing framework used throughout the project \\
+MES-X       & The platform context of this dependency-management service \\
+NestJS      & Node.js framework used to build the backend \\
+OIDC        & OpenID Connect \\
+PAT         & Personal Access Token \\
+PR          & Pull Request \\
+SSE         & Server-Sent Events \\
+Swagger     & OpenAPI documentation interface generated by the backend \\
+TypeScript  & Statically typed superset of JavaScript used for the implementation \\
+UI          & User Interface \\
+UML         & Unified Modeling Language \\
+WIQL        & Work Item Query Language \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+%% ═══════════════════════════════════════════════════════════════════════════
+%%  MAIN MATTER
+%% ═══════════════════════════════════════════════════════════════════════════
+\newpage
+\pagenumbering{arabic}
+
+%% ════════════════════════════════════════════════════════════════════════════
+\chapter*{General Introduction}
+\addcontentsline{toc}{chapter}{General Introduction}
+\markboth{General Introduction}{General Introduction}
+
+\vspace{0.4cm}
+
+Modern software teams rely heavily on structured traceability to understand how
+work items, pull requests, commits, branches, and tags relate to one another.
+Without a dedicated service, this investigation is manual, repetitive, and
+error-prone. The \textbf{MES-X Dependency Management} project was born out of
+exactly this need.
+
+\medskip
+The solution spans two repositories within the same workspace: the NestJS backend
+in \code{mesx-proto-dependency-mgt-be} and the Vue\,3 trace UI in
+\code{mesx-proto-dependency-mgt-ui}. The backend serves as the authoritative
+integration layer with Azure DevOps, while the UI exposes the traceability
+features through dedicated screens for single work items, batch task loading, and
+batch related-item analysis.
+
+\medskip
+This was not a classic CRUD project. The objective was to build a read-only
+dependency-management service capable of answering practical questions: which
+commits are linked to a work item, which work items are linked to a pull request,
+which branches and tags belong to a repository, how a work-item graph can be
+traversed recursively, and how results can be rendered progressively in the
+frontend.
+
+\bigskip
+\noindent This report is organized into ten chapters:
+
+\begin{itemize}
+  \item \textbf{Chapter 1 - General Presentation:} project context, objectives, repositories, and delivered scope.
+  \item \textbf{Chapter 2 - Requirements and Architecture:} functional and non-functional constraints, module structure, and cross-repository flow.
+  \item \textbf{Chapter 3 - Work Item Module:} endpoint design, recursive traversal, SSE streaming, and frontend usage.
+  \item \textbf{Chapter 4 - Pull Request Module:} PR lookup, linked work-item resolution, and repository-summary enrichment.
+  \item \textbf{Chapter 5 - Commit Module:} commit aggregation, branch and tag discovery, and batch tag resolution.
+  \item \textbf{Chapter 6 - Decision Module:} aggregation input contract, classification rules, and repository-level decision output.
+  \item \textbf{Chapter 7 - Azure DevOps Integration:} secret retrieval, configuration modules, Swagger, validation, and CORS.
+  \item \textbf{Chapter 8 - Performance, Caching, and Reliability:} batching, concurrency limits, deduplication, and error handling.
+  \item \textbf{Chapter 9 - Testing, Tooling, and Delivery:} tests, scripts, Docker, pipelines, and frontend integration.
+  \item \textbf{Chapter 10 - Final Result and Conclusion:} outcome, lessons learned, limitations, and future improvements.
+\end{itemize}
+
+\section*{General Framework}
+
+This project was completed as part of engineering studies at \textbf{ESPRIT}. It
+offered the opportunity to work on a real dependency-management problem, deepen
+practical knowledge of Azure DevOps APIs, structure a maintainable NestJS backend,
+and align that backend with a Vue-based trace UI.
+
+%% ════════════════════════════════════════════════════════════════════════════
+\chapter{General Presentation of the Project}
+\startcontents
+\printcontents{}{}{}
+\newpage
+
+\section{Introduction}
+
+This chapter introduces the MES-X Dependency Management project, the repositories
+involved, the business need it addresses, and the concrete scope of the delivered
+solution.
+
+%% ── CONTEXT ────────────────────────────────────────────────────────────────
+\section{Project Context}
+
+Software teams that use Azure DevOps need to understand relationships between work
+items, pull requests, commits, branches, and tags. Without a dedicated integration
+layer, tracing these relationships requires navigating multiple Azure DevOps screens
+manually - a time-consuming and error-prone process.
+
+\medskip
+The MES-X Dependency Management solution centralizes these relationships through a
+consistent backend API and surfaces them through an operational trace UI with three
+main screens:
+
+\begin{itemize}
+  \item a single work-item trace screen;
+  \item a batch task-loading screen driven by SSE streaming;
+  \item a batch related-results screen that aggregates graphs and enriches commits
+        with tag context.
+\end{itemize}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{img/MES.png}
+  \caption{General platform overview - MES-X Dependency Management service in context}
+\end{figure}
+
+%% ── REPOSITORIES ────────────────────────────────────────────────────────────
+\section{Repositories and Delivered Scope}
+
+The delivered solution is distributed across two repositories, as summarized in
+Table~\ref{tab:workspace-repositories}.
+
+\begin{table}[H]
+\centering
+\caption{Workspace repositories and their roles}
+\label{tab:workspace-repositories}
+\rowcolors{2}{lightgray}{white}
+\begin{tabularx}{\textwidth}{|>{\ttfamily\small}p{5.2cm}|p{2.8cm}|X|}
+\hline
+\rowcolor{primary}
+  \textcolor{white}{\textbf{Repository}} &
+  \textcolor{white}{\textbf{Stack}} &
+  \textcolor{white}{\textbf{Role}} \\
+\hline
+mesx-proto-dependency-mgt-be &
+  NestJS 10, TypeScript, Swagger, Dapr &
+  Core backend service exposing traceability endpoints and Azure DevOps integration \\
+mesx-proto-dependency-mgt-ui &
+  Vue\,3, Quasar\,2, Pinia, Vite, Axios &
+  Trace UI exposing single-item, batch-stream, and batch-related analysis views \\
+\hline
+\end{tabularx}
+\end{table}
+
+%% ── USE-CASE DIAGRAM ────────────────────────────────────────────────────────
+\section{Use-Case Diagram}
+
+The following diagram illustrates the main actors and use cases of the system.
+The two primary actors are the \textbf{End User} (a developer or team member using
+the trace UI) and the \textbf{Azure DevOps Platform} (the external data source).
+
+\begin{figure}[p]
+    \centering
+    \vspace*{\fill}
+    \includegraphics[width=0.95\textwidth, height=0.92\textheight, keepaspectratio]{img/archi/use_case.png}
+    \caption{Use Case Diagram - MES-X Dependency Management}
+    \label{fig:usecase_diagram}
+    \vspace*{\fill}
+\end{figure}
+\noindent The main use cases include:
+\begin{itemize}
+  \item \textit{Trace a single work item} - visualize its related graph and linked commits;
+  \item \textit{Load task items via batch stream} - progressively receive work items through SSE;
+  \item \textit{Analyze batch related results} - select multiple roots and explore aggregated dependency data;
+  \item \textit{Resolve commit tags} - find the exact or surrounding tags for one or a batch of commits.
+\end{itemize}
+
+%% ── MY ROLE ────────────────────────────────────────────────────────────────
+\section{My Role in the Project}
+
+My contribution covered both the backend and the frontend alignment. On the backend
+side, I structured the domain modules, implemented controllers and services,
+normalized Azure DevOps payloads into stable DTOs, added traversal and batch
+algorithms, and set up the shared configuration and logging layers. On the frontend
+side, I aligned the three trace screens with the backend contracts and documented
+the real integration behavior between the two repositories.
+
+%% ── EXISTING NEED ───────────────────────────────────────────────────────────
+\section{Study of the Existing Need}
+
+Before building the solution, I identified the following concrete needs:
+
+\begin{itemize}
+  \item retrieve work items by ID with normalized relation data;
+  \item navigate recursively from a root work item to its children and PR-linked items;
+  \item stream large task result sets progressively rather than blocking the UI;
+  \item resolve work items linked to a given pull request;
+  \item retrieve commits linked to work items or pull requests;
+  \item list repository branches and tags;
+  \item resolve exact or surrounding tags for one or more commits;
+  \item expose all of the above through a documented API and a usable trace UI.
+\end{itemize}
+
+%% ── PROBLEM STATEMENT ───────────────────────────────────────────────────────
+\section{Problem Statement}
+
+The core challenge is that relationship data in Azure DevOps is scattered across
+several entity types and APIs. A work item may link directly to commits, indirectly
+to pull requests, and recursively to child work items. The UI needs deterministic
+and structured responses, not raw Azure DevOps payloads.
+
+\medskip
+The solution therefore had to:
+\begin{itemize}
+  \item connect to Azure DevOps securely and reliably;
+  \item normalize heterogeneous data into stable DTO contracts;
+  \item avoid duplicating work items, commits, and pull-request traversals;
+  \item remain maintainable and testable as features were added;
+  \item support both single-item and batch-oriented user flows.
+\end{itemize}
+
+%% ── PROPOSED SOLUTION ───────────────────────────────────────────────────────
+\section{Proposed Solution}
+
+To address these needs, I implemented a modular backend with four domain modules
+and an integrated trace UI:
+
+\begin{itemize}
+  \item \textbf{Work Item Module} - work-item lookup, recursive related-item traversal, and SSE task streaming;
+  \item \textbf{Pull Request Module} - PR-to-work-item resolution and repository-summary enrichment;
+  \item \textbf{Commit Module} - commit aggregation, branch and tag discovery, single and batch tag resolution;
+  \item \textbf{Decision Module} - post-processing aggregation that classifies work items and repository commits for decision support;
+  \item \textbf{Trace UI} - three dedicated routes for single, batch-stream, and batch-related analysis.
+\end{itemize}
+
+%% ── DEVELOPMENT APPROACH ────────────────────────────────────────────────────
+\section{Development Approach}
+
+I followed an incremental approach: first securing the Azure DevOps connection
+and configuration layer, then building the work-item flows, then pull-request
+resolution, then commit and tag features, then implementing the decision
+aggregation layer, and finally aligning the frontend trace flow with the actual
+backend behavior.
+
+\subsection{Methodological Choice}
+
+An iterative workflow suited this project better than a one-shot implementation
+because the modules are interdependent. Commit aggregation reuses work-item and
+PR logic; the work-item traversal depends on relation parsing, PR expansion, cache
+behavior, and commit aggregation. The Decision module then depends on structured
+inputs produced by prior modules (work-item state sets and repository tag
+position data), which reinforced the need for progressive validation. Developing
+feature by feature allowed issues to be caught and corrected early.
+
+\begin{table}[H]
+\centering
+\caption{Development approach comparison}
+\label{tab:dev-approach}
+\rowcolors{2}{lightgray}{white}
+\begin{tabular}{|p{3.2cm}|p{5.6cm}|p{5.6cm}|}
+\hline
+\rowcolor{primary}
+  \textcolor{white}{\textbf{Criteria}} &
+  \textcolor{white}{\textbf{Iterative approach}} &
+  \textcolor{white}{\textbf{One-shot approach}} \\
+\hline
+Change handling    & Easy to adapt while building and validating         & Hard to correct after the fact \\
+Validation         & Tested feature by feature                           & Validation happens late \\
+Risk               & Lower - issues are isolated earlier                 & Higher - problems accumulate \\
+Cross-module align & Backend and UI synchronized incrementally           & More likely to produce contract drift \\
+Maintainability    & Encourages clean abstractions                       & Encourages technical debt \\
+\hline
+\end{tabular}
+\end{table}
+
+\section{Conclusion}
+
+This chapter presented the context, repositories, scope, and the problem addressed
+by the project. The next chapter translates this need into concrete technical
+requirements and explains the implemented architecture.
+
+%% ════════════════════════════════════════════════════════════════════════════
+\chapter{Requirements Analysis and Architecture}
+
+\section{Introduction}
+
+This chapter translates the identified needs into concrete requirements and
+describes the architecture implemented across the backend and the trace UI.
+
+%% ── FUNCTIONAL REQUIREMENTS ─────────────────────────────────────────────────
+\section{Functional Requirements}
+
+The solution had to provide the following read-only capabilities:
+
+\begin{itemize}
+  \item get a work item by ID;
+  \item traverse related work items recursively for one root;
+  \item traverse multiple roots and return one aggregated response;
+  \item stream task work items progressively through SSE;
+  \item get work items linked to a pull request;
+  \item get commits linked to a work item or pull request;
+  \item list repository branches and tags;
+  \item resolve exact or surrounding tags for a single commit;
+  \item resolve exact or surrounding tags for a batch of up to 100 commits;
+  \item aggregate decision input into done/other work-item sets and repository commit groups;
+  \item expose all of the above through the trace UI.
+\end{itemize}
+
+%% ── NON-FUNCTIONAL REQUIREMENTS ─────────────────────────────────────────────
+\section{Non-Functional Requirements}
+
+Beyond feature delivery, the implementation had to respect the following
+technical constraints:
+
+\begin{itemize}
+  \item clean separation between controllers, services, DTOs, and helpers;
+  \item safe secret retrieval and external configuration loading via Dapr;
+  \item bounded concurrency when expanding pull requests or resolving commits;
+  \item deterministic, deduplicated result sets across all endpoints;
+  \item explicit input validation and structured error responses;
+  \item observability through a centralized logging layer;
+  \item testability, documented API contracts, and reproducible delivery scripts.
+\end{itemize}
+
+%% ── ARCHITECTURE OVERVIEW ───────────────────────────────────────────────────
+\section{Architecture Overview}
+
+The backend is organized around \code{AppModule}, which imports the following
+major sub-modules:
+
+\begin{center}
+\begin{tcolorbox}[
+  enhanced, colback=screenshotbg, colframe=primary, boxrule=0.8pt, arc=4pt,
+  width=0.80\textwidth, left=12pt, right=12pt, top=10pt, bottom=10pt,
+  title={\textbf{AppModule - imported modules}},
+  fonttitle=\bfseries\small\color{white},
+  colbacktitle=primary
+]
+\begin{itemize}[itemsep=2pt]
+  \item \code{WorkItemModule}
+  \item \code{PullRequestModule}
+  \item \code{CommitModule}
+  \item \code{DecisionModule}
+  \item \code{AppLoggerModule}
+  \item \code{AppConfigModule}
+  \item \code{AzureConfigModule}
+  \item \code{UrlApiConfigModule}
+\end{itemize}
+\end{tcolorbox}
+\end{center}
+
+\medskip
+The frontend uses Vue Router, Pinia, a shared Axios-based API layer, and
+dedicated composables for the batch trace flow.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{img/archi/diagramm.png}
+  \caption{High-level architecture: NestJS backend and Vue 3 trace UI}
+    \label{fig::High-level architecture}
+\end{figure}
+
+%% ── CLASS DIAGRAM ───────────────────────────────────────────────────────────
+\section{Class Diagram}
+
+The class diagram below shows the main domain classes and services, their
+attributes, and the relationships between them. The four domain modules
+(\textit{WorkItem}, \textit{PullRequest}, \textit{Commit}, \textit{Decision}) each follow the same
+layered pattern: \textbf{Controller} → \textbf{Service} → \textbf{DTO}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{img/archi/classdiag.png}
+  \caption{Class Diagram}
+\end{figure}
+
+\noindent Key relationships visible in the diagram include:
+\begin{itemize}
+  \item \code{WorkItemService} depends on \code{PullRequestService} for PR expansion during recursive traversal;
+  \item \code{CommitWorkItemService} calls \code{CommitPRService} to aggregate commits from PR links;
+  \item \code{AzureDevopsService} is injected into all three domain services as the single Azure DevOps connection point;
+  \item \code{CacheManagerService} is shared between \code{WorkItemService} and the traversal helpers.
+\end{itemize}
+
+%% ── ENDPOINT INVENTORY ──────────────────────────────────────────────────────
+\section{Implemented Endpoint Inventory}
+
+Table~\ref{tab:endpoint-inventory} summarizes the full public endpoint surface
+of the backend.
+
+\begin{table}[H]
+\centering
+\caption{Implemented backend endpoint inventory}
+\label{tab:endpoint-inventory}
+\rowcolors{2}{lightgray}{white}
+\begin{tabularx}{\textwidth}{|p{3.2cm}|p{5.5cm}|X|}
+\hline
+\rowcolor{primary}
+  \textcolor{white}{\textbf{Module}} &
+  \textcolor{white}{\textbf{Endpoint}} &
+  \textcolor{white}{\textbf{Purpose}} \\
+\hline
+Work Item    & \code{GET /workitem/:id}                     & Get one work item with normalized relations \\
+Work Item    & \code{GET /workitem/:id/related}             & Recursive related graph for one root \\
+Work Item    & \code{GET /workitem/related}                 & Aggregated graph for multiple roots \\
+Work Item    & \code{GET /workitem/tasks/stream}            & Stream task batches progressively over SSE \\
+Pull Request & \code{GET /pullrequests/:prId/workitems}     & Resolve work items linked to a PR \\
+Commit       & \code{GET /commits/workitems/:workItemId}    & Commits linked to a work item \\
+Commit       & \code{GET /commits/pullrequests/:prId}       & Commits linked to a pull request \\
+Commit       & \code{GET /commits/branches}                 & List repository branches and tags \\
+Commit       & \code{GET /commits/tags}                     & Exact or surrounding tags for one commit \\
+Commit       & \code{GET /commits/tags/batch}               & Batch tag resolution for up to 100 commits \\
+Decision     & \code{POST /decision/aggregate}              & Aggregate work-item states and repository tag-position groups \\
+\hline
+\end{tabularx}
+\end{table}
+
+%% ── CROSS-REPO FLOW ─────────────────────────────────────────────────────────
+\section{Cross-Repository Request Flow}
+
+A typical end-to-end request follows these steps:
+
+\begin{enumerate}
+  \item the user opens one of the three trace screens in the UI;
+  \item Vue Router activates the corresponding view component;
+  \item the view or composable delegates state management to \code{traceStore};
+  \item the store calls \code{trace-api.service.ts}, which uses Axios with \code{withCredentials: true};
+  \item the backend controller validates and routes the request to the appropriate service;
+  \item the domain service calls Azure DevOps through \code{AzureDevopsService};
+  \item the raw response is normalized into DTOs and returned to the UI.
+\end{enumerate}
+
+%% ── CURRENT UI FLOW ─────────────────────────────────────────────────────────
+\section{Current UI Flow}
+
+The three frontend screens map directly to backend capabilities:
+
+\begin{itemize}
+  \item \textbf{RelatedWorkItemTrace} - fetches one related-work-item graph via \code{GET /workitem/:id/related};
+  \item \textbf{BatchWorkItemTrace} - opens an SSE stream on \code{GET /workitem/tasks/stream} and lets the user progressively select work items;
+  \item \textbf{BatchRelatedWorkItemTrace} - reads selected IDs, calls the single related endpoint once per root, groups commits by repository, and enriches them via \code{GET /commits/tags/batch}.
+\end{itemize}
+
+\begin{infobox}[Known Gap]
+The backend already exposes \code{GET /workitem/related} for aggregated batch traversal, but the current UI batch results page still fans out per-root calls. This is a documented gap planned for a future alignment pass.
+\end{infobox}
+
+\section{Conclusion}
+
+The requirements led to a modular, contract-driven architecture where the backend
+is the single source of truth and the trace UI consumes stable DTOs on top of it.
+The next chapter details the most graph-oriented component: the Work Item module.
+
+%% ════════════════════════════════════════════════════════════════════════════
+\chapter{Work Item Module}
+
+\section{Introduction}
+
+The Work Item module is the core graph-navigation component of the backend. It
+handles direct work-item retrieval, recursive related-item traversal, task
+discovery, progressive SSE streaming, and the aggregated batch endpoint for
+multiple root IDs.
+
+%% ── ENDPOINTS ───────────────────────────────────────────────────────────────
+\section{Implemented Endpoints}
+
+\begin{table}[H]
+\centering
+\caption{Work Item module endpoints}
+\label{tab:work-item-endpoints}
+\rowcolors{2}{lightgray}{white}
+\begin{tabularx}{\textwidth}{|p{5cm}|p{1.8cm}|X|}
+\hline
+\rowcolor{primary}
+  \textcolor{white}{\textbf{Endpoint}} &
+  \textcolor{white}{\textbf{Method}} &
+  \textcolor{white}{\textbf{Purpose}} \\
+\hline
+\code{/workitem/tasks/stream} & GET & Stream task-like work items progressively over SSE \\
+\code{/workitem/:id}          & GET & Return one normalized work item \\
+\code{/workitem/:id/related}  & GET & Traverse related items for one root ID \\
+\code{/workitem/related}      & GET & Traverse multiple roots, return one aggregated response \\
+\hline
+\end{tabularx}
+\end{table}
+
+%% ── TASK DISCOVERY ──────────────────────────────────────────────────────────
+\section{Task Discovery and Streaming}
+
+The streaming flow starts with \code{WorkItemService.getTaskIds(project)}, which
+builds a WIQL query selecting work items of type \code{TASK}, \code{Bug}, or
+\code{User Story}, ordered by changed date descending.
+
+\medskip
+Once IDs are known, \code{StreamManagerService.handleStreamRequest(...)} does the
+following:
+
+\begin{enumerate}
+  \item sets SSE headers through \code{StreamService.setSseHeaders(...)};
+  \item registers the client response object;
+  \item reuses an active stream if one is already running;
+  \item fetches task IDs for the fixed project value;
+  \item starts batched work-item loading through \code{getWorkItems(ids, 200, onBatch)};
+  \item broadcasts each batch as \code{\{\ batch,\ batchNumber,\ totalLoaded\ \}};
+  \item broadcasts completion as \code{\{\ complete:\ true,\ totalTasks,\ batchesProcessed\ \}}.
+\end{enumerate}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{img/Batchtaskstreaming screen.png}
+  \caption{Batch task loading screen (\texttt{/cnerr-ui/trace/workitem-batch})}
+\end{figure}
+
+\noindent The UI consumes this stream through the browser's native \code{EventSource}
+API. The Pinia store annotates each received task with the stream batch number and
+reception timestamp before rendering it.
+
+%% ── BATCHED RETRIEVAL ───────────────────────────────────────────────────────
+\section{Batched Work-Item Retrieval}
+
+The generic fetcher \code{WorkItemService.getWorkItems(...)} has these main
+characteristics:
+
+\begin{itemize}
+  \item a default batch size of 200 IDs per request;
+  \item concurrent batch execution using \code{Promise.all};
+  \item one automatic retry per failing batch before throwing an internal error;
+  \item optional batch callback support, used by the SSE stream;
+  \item normalization of raw Azure DevOps fields into the local \code{WorkItem} DTO.
+\end{itemize}
+
+%% ── SINGLE RETRIEVAL ────────────────────────────────────────────────────────
+\section{Single Work-Item Retrieval}
+
+The method \code{getWorkItemById(...)} loads one work item and converts it into
+the local DTO structure. It uses an in-memory cache when allowed by the caller.
+The result includes: \code{id}, \code{title}, \code{type}, \code{state},
+\code{assignedTo}, and normalized \code{links}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{img/ui/Capture d'écran 2026-04-29 122558.png}
+  \caption{Single work-item trace screen (\texttt{/cnerr-ui/trace/workitem-related})}
+\end{figure}
+
+%% ── RELATION PARSING ────────────────────────────────────────────────────────
+\section{Relation Parsing}
+
+The shared helper \code{extractLinks(...)} parses Azure DevOps relations and
+transforms them into a stable internal structure. PR links are identified by
+checking whether the relation is an \code{ArtifactLink} whose URL contains
+\code{PullRequestId}, and the PR ID is extracted from the decoded relation URL.
+
+%% ── RECURSIVE TRAVERSAL ─────────────────────────────────────────────────────
+\section{Recursive Related-Item Traversal}
+
+The recursive graph traversal is the most important behavior of the module.
+The implemented algorithm:
+
+\begin{enumerate}
+  \item normalizes the root work-item IDs and removes duplicates;
+  \item loads the root items and fails early if one does not exist;
+  \item initializes a discovered-ID set, a fetched-work-item cache, a PR-to-work-item cache, and a visited-PR set;
+  \item traverses one level at a time through \code{traverseLevel(...)};
+  \item fetches only the IDs not already present in the fetched-work-item map;
+  \item extracts child work-item IDs from hierarchy links;
+  \item extracts PR IDs, marks them as visited, and expands them through the Pull Request module;
+  \item computes the next level of IDs while excluding already-discovered ones;
+  \item recurses until no new IDs remain;
+  \item aggregates commits after traversal is complete.
+\end{enumerate}
+
+%% ── PR EXPANSION ────────────────────────────────────────────────────────────
+\section{PR Expansion and Concurrency}
+
+Pull-request expansion is performed by \code{expandPullRequests(...)}. The
+implementation uses \code{p-limit(5)} to cap concurrent PR expansions. Each PR
+ID is resolved to work-item IDs through
+\code{PullRequestService.getWorkItemIdsByPR(...)}. Results are cached in a
+PR-to-work-item map and reused on later traversal steps.
+
+%% ── SINGLE VS BATCH ─────────────────────────────────────────────────────────
+\section{Single vs.\ Batch Related Endpoints}
+
+Both response shapes share the same core payload: \code{visitedPullRequestIds},
+\code{visitedPullRequests}, \code{commits}, and \code{commitCount}.
+
+\begin{itemize}
+  \item \code{GET /workitem/:id/related} returns one \code{RelatedWorkItemsResponseDto} with a single \code{workItemId};
+  \item \code{GET /workitem/related} returns one \code{RelatedWorkItemsBatchResponseDto} with \code{requestedWorkItemIds} and a deduplicated payload across all roots.
+\end{itemize}
+
+\screenshot[Batch related-results screen - work items grouped with commits and tag enrichment per repository]{Batch related results screen (\texttt{/cnerr-ui/trace/workitem-batch-related})}
+
+\section{Conclusion}
+
+The Work Item module is the backbone of the project. It provides the recursive
+traversal logic, task streaming behavior, and the graph-oriented contracts that
+drive the rest of the system.
+
+%% ════════════════════════════════════════════════════════════════════════════
+\chapter{Pull Request Module}
+
+\section{Introduction}
+
+This chapter explains how the Pull Request module resolves work items from
+Azure DevOps pull requests and enriches the work-item traversal with repository
+context.
+
+\section{Implemented Endpoint}
+
+\begin{center}
+\code{GET /pullrequests/:prId/workitems}
+\end{center}
+
+\section{Core Responsibilities}
+
+The Pull Request module fulfills two main responsibilities:
+
+\begin{itemize}
+  \item resolve the work items linked to a given pull request;
+  \item enrich PR IDs with repository names through \code{getPullRequestRepositorySummaries(...)}.
+\end{itemize}
+
+\section{PR Lookup Strategy}
+
+The helper \code{fetchPRById(...)} uses a fallback-aware lookup strategy:
+
+\begin{enumerate}
+  \item attempt \code{gitApi.getPullRequestById(...)} as the primary path;
+  \item extract the repository ID from the result;
+  \item if the primary call fails, fall back to \code{gitApi.getPullRequest(repoId, pullRequestId, project)};
+  \item log warnings when fallbacks fail rather than crashing the whole flow.
+\end{enumerate}
+
+\section{Resolving Work Items Linked to a PR}
+
+The workflow for \code{getWorkItemsByPR(...)} is:
+
+\begin{enumerate}
+  \item validate that the PR ID is numeric and positive;
+  \item resolve the repository and PR metadata;
+  \item retrieve raw work-item references using \code{getPullRequestWorkItemRefs(...)};
+  \item remove duplicates from the returned ID list;
+  \item fetch each work item with \code{WorkItemExpand.Relations};
+  \item map results into \code{WorkItemResultDto} objects containing ID, title, and normalized links.
+\end{enumerate}
+
+\screenshot[Swagger UI showing the Pull Request endpoint - \texttt{GET /pullrequests/:prId/workitems} with example response]{Swagger documentation for the Pull Request module}
+
+\section{Response Construction}
+
+The public builder \code{getWorkItemsResponseDataByPR(...)} wraps linked work
+items in a stable response that includes: the PR ID, the resolved project name,
+the work-item count, and the list of linked work items.
+
+\section{PR Repository Summaries}
+
+The method \code{getPullRequestRepositorySummaries(...)} enriches visited PR IDs
+with their repository names after traversal. The behavior is best-effort:
+
+\begin{itemize}
+  \item when the PR resolves, the real repository name is returned;
+  \item when the PR cannot be resolved, the backend returns \code{unknown-repository};
+  \item this allows the UI to display meaningful names when available and fall back to PR IDs when not.
+\end{itemize}
+
+\section{Conclusion}
+
+The Pull Request module bridges Git-based pull requests and work-item
+relationships, and provides the repository-summary enrichment now included in all
+related-item trace responses.
+
+%% ════════════════════════════════════════════════════════════════════════════
+\chapter{Commit Module}
+
+\section{Introduction}
+
+The Commit module completes the dependency-management story by linking work
+items and pull requests back to concrete code changes and repository references.
+
+\section{Implemented Endpoints}
+
+\begin{table}[H]
+\centering
+\caption{Commit module endpoints}
+\label{tab:commit-endpoints}
+\rowcolors{2}{lightgray}{white}
+\begin{tabularx}{\textwidth}{|p{5cm}|p{1.8cm}|X|}
+\hline
+\rowcolor{primary}
+  \textcolor{white}{\textbf{Endpoint}} &
+  \textcolor{white}{\textbf{Method}} &
+  \textcolor{white}{\textbf{Purpose}} \\
+\hline
+\code{/commits/workitems/:workItemId} & GET & Commits linked to a work item \\
+\code{/commits/pullrequests/:prId}    & GET & Commits linked to a pull request \\
+\code{/commits/branches}              & GET & Branches and tags for one repository \\
+\code{/commits/tags}                  & GET & Exact or surrounding tags for one commit \\
+\code{/commits/tags/batch}            & GET & Batch tag resolution for up to 100 commits \\
+\hline
+\end{tabularx}
+\end{table}
+
+\section{Service Decomposition}
+
+The module is split into focused services to keep each responsibility isolated:
+
+\begin{itemize}
+  \item \code{CommitService} - orchestration and input validation;
+  \item \code{CommitPRService} - PR-to-commit resolution;
+  \item \code{CommitWorkItemService} - work-item-to-commit aggregation;
+  \item \code{CommitHistoryService} - branch/tag discovery and tag resolution algorithms.
+\end{itemize}
+
+\section{Commits Linked to a Work Item}
+
+\code{CommitWorkItemService.getCommitsByWorkitem(...)} works in two phases:
+
+\begin{enumerate}
+  \item load the work item and inspect its normalized links;
+  \item collect direct commit links and pull-request IDs separately.
+\end{enumerate}
+
+For PR links, the service expands each PR through \code{CommitPRService} using
+\code{p-limit(5)} to cap concurrency. The final response is deduplicated through
+a \code{Map<string, CommitInfo>} keyed by commit SHA.
+
+\screenshot[Commit list view - commits associated with a work item, showing SHA, message, and linked PR]{Commits linked to a work item}
+
+\section{Commits Linked to a Pull Request}
+
+The endpoint \code{GET /commits/pullrequests/:prId} delegates to the PR commit
+service and returns a stable \code{CommitsByPRResponseDto}. It is used both
+directly by the UI for PR-centered traces and indirectly inside work-item commit
+aggregation.
+
+\section{Repository Branch and Tag Listing}
+
+The endpoint \code{GET /commits/branches} resolves the repository ID, fetches
+all references, separates branches from tags, strips the \code{refs/heads/} and
+\code{refs/tags/} prefixes, and returns a \code{RepoReferencesResponseDto}.
+
+\section{Single Commit Tag Resolution}
+
+The algorithm inside \code{CommitHistoryService.getBranchesAndTagsByCommit(...)}:
+
+\begin{enumerate}
+  \item resolve the repository ID and fetch all refs;
+  \item split refs into branches and tags;
+  \item verify the target commit exists in the repository;
+  \item resolve lightweight and annotated tag references to actual commit IDs;
+  \item build a commit-to-tag map;
+  \item scan the \code{main} branch first;
+  \item if the commit is on \code{main}, return exact or surrounding tags immediately;
+  \item otherwise, scan the remaining containing branches;
+  \item if no tags are found anywhere, return the containing branch names as a fallback.
+\end{enumerate}
+
+\section{Batch Commit Tag Resolution}
+
+The batch tag endpoint is one of the most impactful optimizations in the project.
+The algorithm:
+
+\begin{enumerate}
+  \item rejects empty requests and requests larger than 100 commit IDs;
+  \item resolves the repository ID and all branch and tag references;
+  \item resolves tag references to their actual commit targets;
+  \item builds a commit-to-tag map;
+  \item creates a branch scan order with \code{main} first;
+  \item scans branch histories recursively until all unresolved commits are found or all branches are exhausted;
+  \item builds a result for each commit with \code{exactTags}, \code{tagAfter}, \code{tagBefore}, and \code{foundInBranch}.
+\end{enumerate}
+
+\screenshot[Batch tag enrichment result - commits grouped by repository with exact tags, before/after tags, and branch context]{Batch tag resolution results in the trace UI}
+
+\section{Current UI Usage}
+
+The batch-related frontend page groups discovered commits by repository and calls
+\code{/commits/tags/batch} once per repository - not once per commit - giving
+significantly better performance and a cleaner user experience.
+
+\section{Conclusion}
+
+The Commit module connects work-item and pull-request relationships back to
+concrete code changes and repository references. It contains the most advanced
+reference-resolution logic in the project.
+
+%% ════════════════════════════════════════════════════════════════════════════
+\chapter{Decision Module}
+
+\section{Introduction}
+
+The Decision module is a post-processing layer that receives already-collected
+work-item and commit-tag data, then computes a decision-oriented aggregation
+payload. It does not query Azure DevOps directly; it classifies input data into
+stable result groups that can be consumed by upper layers.
+
+\section{Implemented Endpoint}
+
+\begin{center}
+\code{POST /decision/aggregate}
+\end{center}
+
+\section{Input Contract}
+
+The endpoint consumes \code{DecisionInputSetDto} with two arrays:
+
+\begin{itemize}
+  \item \code{workItems}: objects with \code{id} and optional \code{state};
+  \item \code{repositories}: objects with \code{repositoryName} and commit entries containing \code{commitId}, \code{tagBefore}, \code{tagAfter}, and \code{exactTags}.
+\end{itemize}
+
+\noindent Validation is enforced through class-validator decorators
+(\code{IsDefined}, \code{IsArray}, \code{ValidateNested}, \code{IsString}, and \code{IsNumber}).
+
+\section{Aggregation Rules}
+
+\code{DecisionAggregateService.aggregate(...)} applies deterministic rules:
+
+\begin{enumerate}
+  \item split work items into \code{doneWorkItems} and \code{otherWorkItems} using case-insensitive \code{state == "done"};
+  \item for each repository, inspect each commit's \code{tagBefore}, \code{tagAfter}, and \code{exactTags};
+  \item classify commits into three groups: before-and-after, only-before, and only-after;
+  \item set \code{considerForPR=true} for only-before commits when the same repository contains at least one commit with an after/exact tag;
+  \item emit repository-level arrays for each classification bucket.
+\end{enumerate}
+
+\section{Output Contract}
+
+The result \code{DecisionAggregateResultDto} contains five top-level arrays:
+
+\begin{itemize}
+  \item \code{doneWorkItems}
+  \item \code{otherWorkItems}
+  \item \code{reposWithBeforeAndAfter}
+  \item \code{reposWithOnlyBefore}
+  \item \code{reposWithOnlyAfter}
+\end{itemize}
+
+\noindent This shape gives consumers a direct decision-ready view without
+recomputing tag-position logic on the client side.
+
+\section{Controller and Error Handling}
+
+\code{DecisionController} is exposed under \code{/decision}, tagged in Swagger,
+and protected by \code{MesGenericErrorFilter}. The controller logs input size and
+result counts. Service failures are logged and converted to
+\code{InternalServerErrorException} with a stable error message.
+
+\screenshot[Decision aggregation flow - input work items and repository commit-tag references are classified into done/other work-item groups and before/after repository buckets]{Decision module aggregation flow}
+
+\section{Conclusion}
+
+The Decision module complements Work Item, Pull Request, and Commit modules by
+transforming technical trace data into a structured aggregation contract tailored
+for decision support.
+
+%% ════════════════════════════════════════════════════════════════════════════
+\chapter{Azure DevOps Integration and Configuration}
+
+\section{Introduction}
+
+This chapter describes how the backend connects to Azure DevOps, how secrets are
+loaded through Dapr, and how the application is configured at runtime.
+
+\section{AzureDevopsService}
+
+The central integration point is \code{AzureDevopsService}. It implements
+\code{OnModuleInit} so the Azure DevOps connection is established as soon as the
+Nest module graph is ready.
+
+\medskip
+Its initialization flow:
+
+\begin{enumerate}
+  \item read the organization name, base URL, secret store name, and PAT secret name from configuration;
+  \item create a \code{DaprClient};
+  \item call \code{secret.get(...)} on the Dapr secret store;
+  \item extract the PAT from the returned secret map;
+  \item build the organization URL;
+  \item create the \code{WebApi} connection using the PAT handler.
+\end{enumerate}
+
+\noindent Once connected, the service exposes typed accessors:
+\code{getWorkItemTrackingApi()}, \code{getGitApi()}, \code{getCoreApi()}, and
+\code{getBuildApi()}.
+
+\screenshot[Dapr components folder structure showing the secret-store configuration used for PAT retrieval]{Dapr secret-store configuration}
+
+\section{Configuration Modules}
+
+Configuration is isolated through dedicated modules. \code{ConfigModule.forRoot(...)}
+loads four separate configuration namespaces: application, URL, Azure DevOps, and
+logger.
+
+\section{Bootstrap Configuration}
+
+The application bootstrap in \code{main.ts} configures:
+
+\begin{itemize}
+  \item \code{rawBody: true} for CloudEvents-compatible JSON parsing;
+  \item a global validation pipe with \code{whitelist}, \code{forbidNonWhitelisted}, and \code{transform};
+  \item explicit CORS for \code{http://localhost:5173} and \code{https://mesx-dev.app.corp};
+  \item Swagger documentation at \code{/api};
+  \item the service listening on port \texttt{3000}.
+\end{itemize}
+
+\screenshot[Swagger UI at \texttt{/api} - full endpoint list for the MES-X Dependency Management backend]{Swagger API documentation}
+
+\section{Dapr Usage}
+
+Dapr is used exclusively for secret retrieval in the current implementation.
+The backend is future-ready for CloudEvents pub/sub, but no pub/sub routes are
+active yet. The local development script \code{npm run start:dapr} starts the
+service with the resources defined in \code{daprComponents/}.
+
+\section{Frontend Configuration Boundary}
+
+The frontend trace layer reads its backend base URL from
+\code{URL\_DEPENDENCY\_PROTO\_BACKEND}. The value is normalized before use, and
+the Axios client is configured with \code{withCredentials: true}. When the
+backend returns \code{401} with a \code{loginUrl}, the UI redirects automatically.
+
+\section{Conclusion}
+
+The configuration and integration layers are critical enablers of the domain
+modules. They keep sensitive values out of business services while maintaining a
+clean, testable architecture.
+
+%% ════════════════════════════════════════════════════════════════════════════
+\chapter{Performance, Caching, and Reliability}
+
+\section{Introduction}
+
+This chapter explains the design choices that keep the service responsive and
+predictable under realistic trace workloads.
+
+\section{Batching Strategy}
+
+Several operations are deliberately batched to reduce the number of API calls:
+
+\begin{itemize}
+  \item work-item fetching defaults to batches of 200 IDs;
+  \item commit tag batch resolution rejects requests above 100 commit IDs;
+  \item the frontend batch-related screen groups commit IDs by repository before calling the batch tag endpoint.
+\end{itemize}
+
+\section{Bounded Concurrency}
+
+The project uses \code{p-limit} wherever unbounded parallelism could overload
+Azure DevOps rate limits. Two clear examples:
+
+\begin{itemize}
+  \item PR expansion in the Work Item module with \code{p-limit(5)};
+  \item PR commit expansion in the Commit module with \code{p-limit(5)}.
+\end{itemize}
+
+\section{Caching Strategy}
+
+The backend contains two in-memory caches managed through \code{CacheManagerService}:
+
+\begin{itemize}
+  \item a work-item cache;
+  \item a PR-to-work-item cache.
+\end{itemize}
+
+Both caches use FIFO-style eviction through \code{evictIfNeeded(...)} and are
+capped at 1\,000 entries to prevent unbounded memory growth.
+
+\section{Deduplication Strategy}
+
+Deduplication is central to the correctness of every traversal. Maps and sets
+are used at several levels:
+
+\begin{itemize}
+  \item root work-item IDs are normalized and deduplicated before traversal begins;
+  \item discovered work items are tracked in a \code{Set<number>};
+  \item visited PRs are tracked in a \code{Set<number>};
+  \item fetched work items are stored in a map keyed by work-item ID;
+  \item commits are deduplicated in a map keyed by commit SHA.
+\end{itemize}
+
+\section{Retry and Failure Handling}
+
+The system includes several reliability measures:
+
+\begin{itemize}
+  \item each failed work-item batch is retried once before the request fails;
+  \item PR expansion failures are logged and converted to empty sub-results when appropriate;
+  \item missing work items produce explicit \code{NotFoundException} responses;
+  \item invalid numeric identifiers are rejected early through validation helpers;
+  \item the SSE stream broadcasts an error payload before closing clients when a failure occurs.
+\end{itemize}
+
+\section{SSE Stream Stability}
+
+The streaming layer includes additional stability controls:
+
+\begin{itemize}
+  \item only one active stream is maintained at a time;
+  \item new clients attach to the current stream if one already exists;
+  \item all connected clients receive the same batch and completion payloads;
+  \item the stream resets cleanly in both success and error cases.
+\end{itemize}
+
+\begin{infobox}[Current Architectural Gap]
+The backend already exposes an aggregated batch related-items endpoint, but the
+current UI batch results page still fans out single related-item requests per
+selected root. This does not break functionality, but there is clear optimization
+headroom for a future alignment pass.
+\end{infobox}
+
+\section{Conclusion}
+
+Batching, bounded concurrency, cache management, deduplication, and defensive
+error handling are the key reasons why the service remains usable even when the
+trace graph becomes large and complex.
+
+%% ════════════════════════════════════════════════════════════════════════════
+\chapter{Testing, Tooling, and Delivery}
+
+\section{Introduction}
+
+This chapter summarizes the validation work, project scripts, and
+delivery-related tooling surrounding both repositories.
+
+\section{Backend Testing}
+
+The backend uses Jest. The implemented tests cover the most critical parts of
+the work-item and commit logic:
+
+\begin{itemize}
+  \item \code{work-item.controller.spec.ts}
+  \item \code{work-item.service.spec.ts}
+  \item \code{commit-history.service.spec.ts}
+  \item \code{tag-selection.utils.spec.ts}
+\end{itemize}
+
+\noindent These tests validate success paths, error paths, deduplication behavior,
+and the main-first tag resolution strategy.
+
+\screenshot[Jest test output - all tests passing for work-item and commit history services]{Jest test results for the backend}
+
+\section{Tooling and Scripts}
+
+Table~\ref{tab:tooling-scripts} summarizes the most important scripts available
+in both repositories.
+
+\begin{table}[H]
+\centering
+\caption{Main tooling scripts}
+\label{tab:tooling-scripts}
+\rowcolors{2}{lightgray}{white}
+\begin{tabularx}{\textwidth}{|p{2.5cm}|p{4.2cm}|X|}
+\hline
+\rowcolor{primary}
+  \textcolor{white}{\textbf{Repo}} &
+  \textcolor{white}{\textbf{Script}} &
+  \textcolor{white}{\textbf{Purpose}} \\
+\hline
+Backend & \code{npm run build}       & Compile the NestJS service \\
+Backend & \code{npm run lint}        & Lint TypeScript sources \\
+Backend & \code{npm test}            & Run unit tests \\
+Backend & \code{npm run test:e2e}    & Run end-to-end tests \\
+Backend & \code{npm run start:dapr}  & Run backend with Dapr resources \\
+Backend & \code{npm run typeorm:*}   & Generate, run, show, or revert migrations \\
+UI      & \code{npm run dev}         & Start the Vite development server \\
+UI      & \code{npm run build}       & Build the Vue trace UI \\
+UI      & \code{npm run lint}        & Lint Vue and TypeScript sources \\
+UI      & \code{npm run lintSass}    & Lint CSS, SCSS, and Vue style blocks \\
+\hline
+\end{tabularx}
+\end{table}
+
+\section{Frontend Integration Details}
+
+The frontend already includes:
+
+\begin{itemize}
+  \item a router with the three trace routes;
+  \item a Pinia store named \code{traceStore};
+  \item a shared Axios API layer;
+  \item composables such as \code{useBatchRelatedResults} and \code{useBatchStream};
+  \item localized UI copy through \code{vue-i18n};
+  \item Quasar-based components for tables, selection, status, and result cards.
+\end{itemize}
+
+\medskip\noindent The current batch user journey unfolds in three steps:
+
+\begin{enumerate}
+  \item start the SSE task stream and let work items load progressively;
+  \item select the work items of interest from the loaded rows;
+  \item navigate to the batch related-results page, where commits are grouped by
+        repository and enriched with tag context through the batch tag endpoint.
+\end{enumerate}
+
+\screenshotwide[Full batch workflow - step 1: SSE task loading; step 2: work item selection; step 3: related results with tag enrichment]{Complete batch trace workflow (steps 1-3)}
+
+\section{Delivery Assets}
+
+Both repositories include delivery-oriented assets:
+
+\begin{itemize}
+  \item a \code{Dockerfile} for containerized deployment;
+  \item \code{azure-pipelines.yml} for CI/CD automation;
+  \item environment-variable support for runtime configuration;
+  \item documented API contracts through Swagger and project documentation.
+\end{itemize}
+
+\section{Validation Reality}
+
+The backend currently has the stronger automated validation surface. The frontend
+has build and lint tooling in place, but does not yet include dedicated
+trace-specific test coverage equivalent to the backend's Jest suite.
+
+\section{Conclusion}
+
+The project is not only implemented but also surrounded by practical tooling for
+building, linting, testing, running locally, and preparing for deployment.
+
+%% ════════════════════════════════════════════════════════════════════════════
+\chapter{Final Result and Conclusion}
+
+\section{Final Delivered Result}
+
+By the end of the internship, the MES-X Dependency Management solution
+comprises:
+
+\begin{itemize}
+  \item a NestJS backend exposing stable, read-only endpoints for work items,
+        pull requests, commits, branches, and tags;
+  \item a Vue\,3 trace UI with single-item trace, batch task streaming, and
+        batch related-results visualization;
+  \item shared contracts that include pull-request repository summaries through
+        \code{visitedPullRequests};
+  \item technical documentation aligned with the real implementation behavior.
+\end{itemize}
+
+\screenshotwide[Final application - all three trace screens: single item, batch stream, and batch results]{Overview of the delivered MES-X Dependency Management trace UI}
+
+\section{What I Learned}
+
+This internship strengthened several practical skills:
+
+\begin{itemize}
+  \item backend design with NestJS and TypeScript;
+  \item DTO design and response normalization;
+  \item integrating with Azure DevOps through specialized APIs;
+  \item secure secret retrieval with Dapr;
+  \item graph traversal, deduplication, and cache-aware recursion;
+  \item batch-oriented UI integration with Vue, Pinia, and Axios;
+  \item maintaining alignment between implementation, UI behavior, and documentation.
+\end{itemize}
+
+\section{Current Limitations and Future Improvements}
+
+The current implementation is complete and usable. The following improvements
+are planned for future iterations:
+
+\begin{itemize}
+  \item align the batch related-results UI with the existing backend batch endpoint,
+        eliminating the per-root fan-out and improving overall performance;
+  \item extend frontend automated test coverage around the three trace flows;
+  \item continue refining API documentation and operational examples for new consumers.
+\end{itemize}
+
+\section{Conclusion}
+
+This internship project was valuable because it addressed a real traceability
+problem with concrete engineering work. It delivered structured backend modules,
+a usable trace UI, and a set of algorithms that connect work-tracking artifacts
+back to pull requests, commits, branches, and tags.
+
+\medskip
+Beyond the technical implementation, the project reinforced an important lesson:
+keeping code, API contracts, UI behavior, and documentation in continuous
+alignment is as important as the implementation itself. That discipline is what
+makes a delivered solution maintainable by others long after the original
+developer moves on.
+
+%% ─── BIBLIOGRAPHY ────────────────────────────────────────────────────────────
+\newpage
+\addcontentsline{toc}{chapter}{Bibliography}
+\renewcommand{\bibname}{Bibliography}
+\begin{thebibliography}{99}
+
+\bibitem{nestjs}
+NestJS Team, \textit{NestJS Documentation}, 2024.
+Available at: \url{https://docs.nestjs.com}
+
+\bibitem{azdevops}
+Microsoft, \textit{Azure DevOps REST API Reference}, 2024.
+Available at: \url{https://learn.microsoft.com/en-us/rest/api/azure/devops}
+
+\bibitem{dapr}
+Dapr Authors, \textit{Dapr Documentation}, 2024.
+Available at: \url{https://docs.dapr.io}
+
+\bibitem{vue3}
+Vue.js Team, \textit{Vue 3 Documentation}, 2024.
+Available at: \url{https://vuejs.org/guide/introduction.html}
+
+\bibitem{pinia}
+Pinia Team, \textit{Pinia - The Vue Store that You Will Enjoy Using}, 2024.
+Available at: \url{https://pinia.vuejs.org}
+
+\end{thebibliography}
+
+\end{document}

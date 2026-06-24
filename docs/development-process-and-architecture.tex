@@ -1,0 +1,558 @@
+% ═══════════════════════════════════════════════════════════════════════════════
+\chapter{Implementation}
+% ═══════════════════════════════════════════════════════════════════════════════
+
+\section{Introduction}
+
+This chapter presents the technical implementation of the MES-X dependency
+traceability system. The goal of this implementation is to overcome the
+limitations of fragmented trace analysis by providing a unified system that
+connects work items, pull requests, commits, branches, and tags from Azure
+DevOps into a coherent dependency graph.
+
+The chapter is organized around the main system layers: backend services,
+frontend application, cloud and DevOps infrastructure, and development
+methodology. It follows a backend-first approach while ensuring that the
+frontend integration and deployment aspects are clearly covered.
+
+% ──────────────────────────────────────────────────────────────────────────────
+\section{Technology Stack and Architecture}
+
+The MES-X implementation is built on a modern full-stack architecture designed
+to support scalable dependency graph reconstruction and efficient traceability
+analysis over large datasets.
+
+\subsection{Web Application Layer (Frontend)}
+
+The frontend provides the operational interface used to launch and visualize
+traceability analyses. It is designed for responsiveness and clarity when
+handling complex dependency graphs.
+
+\textbf{Technical specifications:}
+\begin{itemize}
+  \item \textbf{Framework:} Vue 3 with TypeScript
+  \item \textbf{UI framework:} Quasar component system
+  \item \textbf{Build tool:} Vite
+  \item \textbf{Purpose:} trace execution, progressive visualization, and dependency navigation
+\end{itemize}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.45\linewidth]{img/logo/vuejs.png}
+  \caption{Frontend technology used: Vue 3 for building the user interface}
+  \label{fig:vue-logo}
+\end{figure}
+
+% ──────────────────────────────────────────────────────────────────────────────
+\subsection{Backend Service Layer}
+
+The backend is the core of the MES-X system. It is responsible for executing
+traceability logic and exposing structured APIs for both single and batch analysis.
+
+\textbf{Technical specifications:}
+\begin{itemize}
+  \item \textbf{Framework:} NestJS (TypeScript)
+  \item \textbf{API styles:} REST for queries and SSE for streaming
+  \item \textbf{Role:} orchestration of dependency graph construction
+\end{itemize}
+
+The backend is structured into domain-driven services responsible for
+processing and enriching traceability data.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.45\linewidth]{img/logo/nestjs.png}
+  \caption{Backend technology used: NestJS for scalable server-side architecture}
+  \label{fig:nestjs-logo}
+\end{figure}
+
+% ──────────────────────────────────────────────────────────────────────────────
+\subsection{Domain Service Layer}
+
+This layer contains the core business logic of the system.
+
+\begin{itemize}
+  \item Work item graph traversal and relationship resolution
+  \item Pull request linkage and analysis
+  \item Commit extraction and repository context resolution
+  \item Tag and branch contextual enrichment
+\end{itemize}
+
+\textbf{Key responsibilities:}
+\begin{itemize}
+  \item dependency graph construction
+  \item deduplication and cycle prevention
+  \item structured data enrichment for UI consumption
+\end{itemize}
+
+% ──────────────────────────────────────────────────────────────────────────────
+\subsection{Cloud Infrastructure and DevOps}
+
+This layer handles deployment, integration, and operational automation of the system.
+
+\begin{itemize}
+  \item \textbf{Source control:} Azure DevOps Git repositories
+  \item \textbf{CI/CD pipelines:} automated build, test, and deployment workflows
+  \item \textbf{Containerization:} Docker for consistent environment execution
+  \item \textbf{External APIs:} Azure DevOps Work Item and Git APIs
+\end{itemize}
+
+This layer ensures that the system remains reproducible, scalable, and
+deployable across environments with minimal configuration effort.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.5\linewidth]{img/logo/azuredevops.png}
+  \caption{Azure DevOps Platform}
+  \label{fig:azure-boards}
+\end{figure}
+
+% ──────────────────────────────────────────────────────────────────────────────
+
+% ──────────────────────────────────────────────────────────────────────────────
+\section{Development Methodology}
+
+\subsection{Agile Scrum Execution Model}
+
+The development process followed an Agile Scrum methodology adapted to the
+incremental nature of traceability system development.
+
+\begin{itemize}
+  \item \textbf{Sprint structure:} short iterations focused on incremental feature delivery
+  \item \textbf{Backlog management:} user stories prioritized by traceability value and complexity
+  \item \textbf{Rituals:} sprint planning, daily stand-ups, reviews, and retrospectives
+  \item \textbf{Tracking tool:} Azure DevOps Boards
+\end{itemize}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.45\linewidth]{img/logo/scrum.png}
+  \caption{Agile Scrum methodology applied during system development}
+  \label{fig:scrum-logo}
+\end{figure}
+
+% ──────────────────────────────────────────────────────────────────────────────
+\subsection{Implementation Phases}
+
+The implementation of MES-X followed a continuous development and integration
+strategy, where the system was progressively built module by module. Each
+module went through the full software lifecycle: design, implementation,
+testing, integration, and deployment.
+
+This incremental approach ensured early validation of core components and
+reduced integration risks by continuously aligning backend services, frontend
+interfaces, and DevOps pipelines.
+
+The development was organized into five major phases: Setup, Work Items,
+Pull Requests, Commits, and Final Release.
+
+\subsubsection{Phase 1: Setup and Infrastructure Foundation}
+
+The first phase focused on preparing the development environment and the core
+delivery pipeline of the system.
+
+\textbf{Main objectives:}
+\begin{itemize}
+  \item onboarding and environment preparation for developers;
+  \item setup of local development infrastructure and database connections;
+  \item initialization of CI/CD pipelines;
+  \item creation of the frontend project structure and build pipeline.
+\end{itemize}
+
+\textbf{Key outcomes:}
+\begin{itemize}
+  \item fully operational development environment;
+  \item automated build pipeline ready for integration;
+  \item initial frontend architecture and design system foundation.
+\end{itemize}
+
+\subsubsection{Phase 2: Work Items Module Development}
+
+This phase introduced the first core functional module of the system: Work
+Items management and traceability.
+
+\textbf{Backend implementation:}
+\begin{itemize}
+  \item design and implementation of Work Items data model;
+  \item implement service layer logic 
+  \item REST API endpoints for querying and filtering;
+  \item validation and schema enforcement.
+\end{itemize}
+
+\textbf{Frontend implementation:}
+\begin{itemize}
+  \item Work Items listing and filtering interface;
+  \item creation and editing forms;
+  \item detailed view with status tracking.
+\end{itemize}
+
+\textbf{Quality and delivery:}
+\begin{itemize}
+  \item unit testing of backend services;
+  \item end-to-end testing of UI workflows;
+  \item staging deployment and production release.
+\end{itemize}
+
+\subsubsection{Phase 3: Pull Requests Module}
+
+The second core module focused on linking development activities through Pull
+Requests, enabling traceability between code changes and work items.
+
+\textbf{Backend implementation:}
+\begin{itemize}
+  \item data model design for pull requests;
+  \item storage and filtering logic;
+  \item API endpoints for PR retrieval and aggregation;
+  \item statistical enrichment of PR data.
+\end{itemize}
+
+\textbf{Frontend implementation:}
+\begin{itemize}
+  \item PR dashboard and listing view;
+  \item diff viewer for code comparison;
+  \item review and approval workflow interface;
+  \item status indicators and activity timeline.
+\end{itemize}
+
+\textbf{Delivery process:}
+\begin{itemize}
+  \item documentation of API and data models;
+  \item unit and integration testing;
+  \item staging validation and production rollout.
+\end{itemize}
+
+\subsubsection{Phase 4: Commits and Graph Traceability Engine}
+
+This phase represents the core of the MES-X system, introducing deep graph
+traceability across commits, branches, and repository structure.
+
+\textbf{Backend implementation:}
+\begin{itemize}
+  \item commit data model and storage layer;
+  \item graph traversal algorithms for dependency exploration;
+  \item cycle detection mechanisms to avoid infinite traversal;
+  \item performance optimization for large repositories.
+\end{itemize}
+
+\textbf{Frontend implementation:}
+\begin{itemize}
+  \item commit history and pagination view;
+  \item interactive graph visualization of dependencies;
+  \item commit details and file-level diff inspection.
+\end{itemize}
+
+\textbf{Validation and testing:}
+\begin{itemize}
+  \item unit tests for traversal and API logic;
+  \item UI-based end-to-end graph testing;
+  \item performance validation under large datasets.
+\end{itemize}
+
+\subsubsection{Phase 5: System Release and Final Integration}
+
+The final phase focused on stabilizing the system and preparing it for full
+production deployment.
+
+\textbf{Activities included:}
+\begin{itemize}
+  \item integration of all modules into a unified system;
+  \item implementation of automated CI/CD validation stages;
+  \item production deployment pipeline configuration;
+  \item post-deployment monitoring and validation.
+\end{itemize}
+
+\textbf{Final outcome:}
+\begin{itemize}
+  \item fully integrated MES-X traceability platform;
+  \item stable production-ready deployment pipeline;
+  \item validated end-to-end dependency traceability workflow.
+\end{itemize}
+
+\subsection{Module-Level Architecture}
+
+The backend runtime is organized into domain-focused modules.
+
+\begin{itemize}
+  \item \textbf{Work Item module:} endpoints for single-root related traversal,
+  aggregated batch related traversal, and SSE task streaming.
+  \item \textbf{Pull Request module:} linked work item retrieval by PR and PR
+  summary enrichment.
+  \item \textbf{Commit module:} commit lookup by work item and PR, branch/tag
+  context retrieval, and batch tag resolution.
+  \item \textbf{Decision module:} aggregation service for decision-oriented
+  synthesis on top of traceability outputs.
+\end{itemize}
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1\linewidth]{img//archi/claassdiagram.png}
+
+\caption{Backend module-level class diagram}
+\label{fig:backend-modules-class-diagram}
+\end{figure}
+
+\subsection{API \textbf{Contract }Design}
+
+The backend exposes a set of RESTful endpoints designed to support both
+single and batch traceability analysis while maintaining a consistent
+response model.
+
+\begin{itemize}
+  \item \textbf{Single related endpoint:} \texttt{/workitem/:id/related}  
+  Returns a traceability graph centered on a single root work item.
+
+  \item \textbf{Batch related endpoint:} \texttt{/workitem/related}  
+  Returns an aggregated and deduplicated graph for multiple root items.
+
+  \item \textbf{Tasks stream endpoint:} \texttt{/workitem/tasks/stream}  
+  Uses Server-Sent Events (SSE) to stream processing results progressively.
+
+  \item \textbf{PR-to-work-items endpoint:} \texttt{/pullrequests/:prId/workitems}  
+  Retrieves work items linked to a given pull request.
+
+  \item \textbf{Commit tag batch endpoint:} \texttt{/commits/tags/batch}  
+  Enriches commit references with repository tag metadata.
+\end{itemize}
+
+
+The DTO strategy emphasizes:
+\begin{itemize}
+  \item stable response contracts between backend and service consumers;
+  \item best-effort metadata enrichment (e.g., repository names for visited PRs);
+  \item explicit counters and trace metadata for UI sorting and interpretation.
+\end{itemize}
+\subsection{Implementation Characteristics}
+\begin{itemize}
+  \item graph-oriented traversal with visited-state safeguards to avoid cycles;
+  \item request-scoped caching and batched retrieval to reduce external API load;
+  \item normalization of external payloads before service-to-service propagation;
+  \item structured logging strategy for diagnosability and operational support.
+\end{itemize}
+
+\subsection{Sequence and Processing Flows}
+
+The backend processing flow is centered on orchestration pipelines where each
+service enriches the output of the previous stage.
+
+\begin{itemize}
+  \item \textbf{Single-root flow:} resolve root work item, traverse related
+  nodes, enrich pull requests and commits, return normalized graph.
+  \item \textbf{Batch flow:} aggregate multi-root traversal with deduplication
+  and consolidated counters.
+  \item \textbf{Commit tag flow:} resolve tag context in batch by repository
+  grouping and latest-tag strategy.
+\end{itemize}
+
+\begin{figure}[H]
+\centering
+    \includegraphics[width=\linewidth]{img/archi/single-root related-work-item processing.png}
+
+\caption{Sequence diagram of single-root related-work-item processing}
+\label{fig:work-item-related-sequence}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+    \includegraphics[width=\linewidth]{img/archi/BatchRelatedWorkItem.png}
+
+\caption{Sequence diagram of batch related-work-item aggregation}
+\label{fig:work-item-batch-sequence}
+\end{figure}
+
+\section{UI Implementation}
+
+\subsection{UI Architecture and Main Surfaces}
+
+The UI layer provides the operational entry point to the traceability system.
+It is organized around route-driven views that correspond to the main analysis
+scenarios and relies on a shared state and API integration layer to coordinate
+requests, progressive loading, and result presentation.
+
+\begin{itemize}
+  \item \textbf{RelatedWorkItemTrace:} single-root analysis screen used to
+  launch the exploration of one work item and inspect its related artifacts.
+  \item \textbf{BatchWorkItemTrace:} task selection and loading screen used to
+  progressively collect candidate work items through SSE streaming.
+  \item \textbf{BatchRelatedWorkItemTrace:} aggregated result screen used to
+  visualize the consolidated outcome of multi-root analysis with commit and
+  repository context.
+\end{itemize}
+
+\begin{figure}[H]
+\centering
+    \includegraphics[width=\linewidth]{img//figures/uiroutes.png}
+
+\caption{UI route/component architecture for traceability workflows}
+\label{fig:ui-route-component-diagram}
+\end{figure}
+
+\subsection{UI Data Flow and Backend Integration}
+
+The UI communicates with the backend through a dedicated trace API layer and
+maps backend contracts to typed frontend models.
+
+\begin{itemize}
+  \item Single analysis flow uses \texttt{/workitem/:id/related}.
+  \item Batch task loading consumes \texttt{/workitem/tasks/stream} via SSE.
+  \item Batch result enrichment uses \texttt{/commits/tags/batch} grouped by
+  repository.
+  \item Authentication failures are handled through controlled redirect
+  behavior when backend returns unauthorized responses.
+\end{itemize}
+
+\begin{figure}[H]
+\centering
+  \includegraphics[width=\linewidth]{img//archi/backend_uiflow.png}
+\caption{Sequence diagram of UI and backend integration in trace workflows}
+\label{fig:ui-backend-integration-sequence}
+\end{figure}
+
+\subsection{UI Operational Considerations}
+
+\begin{itemize}
+  \item progressive loading to keep batch interactions responsive;
+  \item consistent result ordering based on traceability counters;
+  \item fallback rendering when enrichment metadata is partially unavailable.
+\end{itemize}
+
+\subsection{Screens and UI Walkthrough}
+
+\subsubsection{Batching Work Items}
+
+This screen is used to select multiple work items for batch processing and to
+start a batched traceability run. Selection is flexible (single, multiple,
+select-all) and the run progress is shown progressively using Server-Sent
+Events (SSE). The UI surface provides quick filters and the ability to
+prioritise candidates for downstream aggregation.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.8\linewidth]{img/screens/batching-wi.png}
+  \caption{Batching Work Items - selection and SSE-driven progress}
+  \label{fig:batching-wi}
+\end{figure}
+
+\subsubsection{Get Related}
+
+The "Get Related" flow has two complementary screens:
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.8\linewidth]{img/screens/related-workitem.png}
+  \caption{Related Work Item - single-root traceability graph view}
+  \label{fig:related-workitem}
+\end{figure}
+
+The Related Work Item view visualises a single root work item and its
+connected graph (pull requests, commits, branches, tags). It supports
+expanding nodes, inspecting details and drilling down to the commit or PR
+level.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.8\linewidth]{img/screens/discovered-commits.png}
+  \caption{Discovered Commits - commits discovered during traversal}
+  \label{fig:discovered-commits}
+\end{figure}
+
+The Discovered Commits screen lists commits found during traversal together
+with contextual metadata (branch, tags, and associated work items). This view
+is useful to verify commit-to-work-item linkage and to inspect tag context
+before any automated decisions are made.
+
+\subsubsection{Decision}
+
+The Decision section provides summarised outputs used to guide promotion
+actions. It contains two key screens:
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.8\linewidth]{img/screens/decision-wi-state.png}
+  \caption{Decision - work items grouped by state (Done vs Other)}
+  \label{fig:decision-wi-state}
+\end{figure}
+
+The first Decision view groups work items by state (for example, `Done` vs
+`Other`) so operators can quickly identify items that are ready for
+promotion or require further attention.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.8\linewidth]{img/screens/decision-repo-tags.png}
+  \caption{Decision - repository view with expected tags for promotion}
+  \label{fig:decision-repo-tags}
+\end{figure}
+
+The repository/tags screen shows, per repository, the commits and the
+expected tags (before/after/exact) that the system identified. From here an
+operator can select a candidate work item and trigger a promotion workflow
+(for example: move selected work item to production) after validating tag
+context.
+
+
+\section{Docker Orchestration and Deployment View}
+
+\subsection{Service Orchestration Model}
+
+The backend runtime is packaged as an isolated service with explicit outbound
+integration boundaries.
+
+\begin{itemize}
+  \item Backend container exposes REST/SSE APIs on the configured runtime port.
+  \item Runtime configuration and secrets are injected through environment
+  variables and externalized config.
+  \item Backend service accesses Azure DevOps Work Item and Git APIs over HTTPS.
+\end{itemize}
+
+\subsection{Operational Dependencies}
+
+\begin{itemize}
+  \item CI/CD pipeline for image build and deployment validation.
+  \item Optional caching layer support through internal cache services.
+  \item Secrets and environment values are injected at runtime.
+\end{itemize}
+
+\subsection{Deployment and Operations Objectives}
+
+\begin{itemize}
+  \item reproducible local and CI execution;
+  \item independent versioning and rollout of backend artifacts;
+  \item reduced deployment risk through clear component ownership.
+\end{itemize}
+
+\begin{figure}[H]
+\centering
+\fbox{\parbox{0.9\linewidth}{\centering
+Placeholder for Backend Docker Orchestration Diagram.\\
+Suggested artifact: \texttt{docs/figures/backend-docker-orchestration.(png|svg)}
+}}
+\caption{Backend Docker orchestration and runtime communication model}
+\label{fig:docker-runtime-orchestration}
+\end{figure}
+
+\section{Quality, Security, and Operational Considerations}
+
+\textbf{Quality controls:}
+\begin{itemize}
+  \item controller-level input validation and typed DTO contracts;
+  \item service-level tests for traversal, tag selection, and normalization;
+  \item regression-focused tests for traversal and data normalization behavior.
+\end{itemize}
+
+\textbf{Security and runtime controls:}
+\begin{itemize}
+  \item secure communication for backend inbound and outbound integrations;
+  \item managed external integration access to Azure DevOps;
+  \item structured logging to support incident analysis and diagnostics.
+\end{itemize}
+
+\section*{Conclusion}
+
+The implementation delivers a modular and extensible traceability platform that
+combines graph-oriented backend analysis with operational deployment readiness.
+By combining contract-first design, iterative Scrum delivery, and containerized
+runtime packaging, the project establishes a maintainable backend foundation
+for traceability reporting, dependency validation, and decision support.
+
+\addcontentsline{toc}{section}{Conclusion}

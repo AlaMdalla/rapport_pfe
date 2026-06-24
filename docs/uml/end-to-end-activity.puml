@@ -1,0 +1,15 @@
+@startuml
+start
+:Select analysis mode in Trace UI;
+:Validate auth and input parameters;
+:Call backend trace endpoints;
+:Resolve work item graph and PR links;
+:Resolve commit, branch, and tag context;
+:Optionally request commit LLM review;
+:Build review prompt with code snapshots and guidance docs;
+:Call Gemini provider and return findings;
+:Aggregate decision buckets in backend;
+:Render consolidated result and decision board in UI;
+:Optional SSE streaming for progressive task batches;
+stop
+@enduml

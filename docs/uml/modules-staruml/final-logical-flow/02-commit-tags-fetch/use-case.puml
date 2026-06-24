@@ -1,0 +1,25 @@
+@startuml
+title Part 2 - Commit Tags Fetch (Use Case)
+
+left to right direction
+actor Developer
+actor "Release Engineer" as ReleaseEngineer
+actor "Azure DevOps Git API" as GitAPI
+
+rectangle "Commit Tags Fetch" {
+  usecase "Collect Commits from Batch Result" as UC1
+  usecase "Request Batch Tag Resolution" as UC2
+  usecase "Resolve Branch/Tag Context" as UC3
+  usecase "Return Commit Tag Context" as UC4
+}
+
+Developer --> UC1
+Developer --> UC2
+ReleaseEngineer --> UC2
+
+UC2 .> UC3 : <<include>>
+UC3 .> UC4 : <<include>>
+
+GitAPI --> UC3
+
+@enduml

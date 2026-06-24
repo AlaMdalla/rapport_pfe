@@ -1,0 +1,22 @@
+@startuml
+hide footbox
+autonumber
+skinparam ParticipantPadding 16
+skinparam BoxPadding 8
+skinparam maxMessageSize 38
+skinparam sequenceMessageAlign center
+
+actor "Developer" as Dev
+participant "Trace UI" as UI
+participant "Work Item\nAnalysis" as WI
+participant "Azure DevOps\nWork Item API" as ADO
+
+Dev -> UI: Start work item dependency analysis
+UI -> WI: Request dependency exploration
+WI -> ADO: Read work item and links
+ADO --> WI: Work item relationship data
+WI -> ADO: Resolve related pull request links
+ADO --> WI: Additional related artifacts
+WI --> UI: Consolidated related dependency view
+UI --> Dev: Visualize dependency map
+@enduml

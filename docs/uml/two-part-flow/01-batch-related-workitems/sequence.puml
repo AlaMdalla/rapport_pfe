@@ -1,0 +1,20 @@
+@startuml
+title Part 1 - Batch Related WorkItems (Sequence)
+
+actor User
+participant "Trace UI" as UI
+participant "WorkItemController" as WIC
+participant "WorkItemService" as WIS
+participant "Azure DevOps APIs" as ADO
+
+User -> UI: Select user stories/work item IDs
+User -> UI: Click Batch Related Analysis
+UI -> WIC: GET /workitem/related?workItemIds=...
+WIC -> WIS: getRelatedWorkItemsBatch(ids, project)
+WIS -> ADO: Fetch work items and linked relations
+ADO --> WIS: Related hierarchy and links
+WIS --> WIC: RelatedWorkItemsBatchResponseDTO
+WIC --> UI: Consolidated related result
+UI --> User: Show batch related graph and counters
+
+@enduml

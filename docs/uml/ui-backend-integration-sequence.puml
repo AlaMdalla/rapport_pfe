@@ -1,0 +1,73 @@
+@startuml
+!theme plain
+
+title Traceability UI – Backend Integration (Current Flow)
+
+hide footbox
+autonumber
+
+' ═══════════════════════
+' SAFE A4 STYLE
+' ═══════════════════════
+skinparam shadowing false
+skinparam sequenceMessageAlign center
+skinparam maxMessageSize 45
+skinparam nodesep 80
+skinparam ranksep 12
+skinparam defaultFontSize 11
+
+' ═══════════════════════
+' PARTICIPANTS
+' ═══════════════════════
+actor "Developer" as Dev
+participant "Trace UI" as UI
+participant "UI API Layer\n(trace-api + decision-api)" as UIApi
+participant "Work Item\nController" as WI
+participant "Commit\nController" as Commit
+participant "Decision\nController" as Decision
+participant "Azure DevOps\nAPI" as ADO
+participant "LLM Service" as LLM
+
+' ═══════════════════════
+' FLOW
+' ═══════════════════════
+Dev -> UI: Select project and root work item IDs
+
+loop For each selected work item ID
+  UI -> UIApi: getRelatedWorkItems(workItemId, project)
+  UIApi -> WI: GET /workitem/{id}/related?project
+  WI -> ADO: Resolve related work items + linked commits
+  ADO --> WI: Related graph + commit references
+  WI --> UIApi: RelatedWorkItemsResponseDto
+end
+
+loop For each repository group
+  UI -> UIApi: getCommitTagsBatch(commitIds, project, repository)
+  UIApi -> Commit: GET /commits/tags/batch
+  Commit -> ADO: Resolve exact/before/after tags
+  ADO --> Commit: Tag and branch context
+  Commit --> UIApi: BatchTagsResponseDto
+end
+
+UI -> UIApi: aggregateDecision(payload)
+UIApi -> Decision: POST /decision/aggregate
+Decision --> UIApi: DecisionAggregateResultDto
+UIApi --> UI: Decision dashboard data
+
+opt Optional commit review from dashboard
+  UI -> UIApi: reviewCommitWithLlm(project, repository, commitId)
+  UIApi -> Commit: GET /commits/hf/review
+  Commit -> LLM: reviewCommit(...)
+  LLM --> Commit: Review text
+  Commit --> UIApi: CommitReviewResponseDto
+  UIApi --> UI: Show review output
+end
+
+alt Session expired (401 from Axios-based calls)
+  UIApi --> UI: loginUrl
+  UI --> Dev: Redirect to login
+else success
+  UI --> Dev: Render related results and decision summary
+end
+
+@enduml

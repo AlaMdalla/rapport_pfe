@@ -1,0 +1,26 @@
+@startuml
+title Part 1 - Batch Related WorkItems (Use Case)
+
+left to right direction
+actor Developer
+actor "Release Engineer" as ReleaseEngineer
+actor "Azure DevOps" as ADO
+
+rectangle "Batch Related WorkItems" {
+  usecase "Select User Stories / Work Items" as UC1
+  usecase "Launch Batch Related Analysis" as UC2
+  usecase "Traverse Dependencies" as UC3
+  usecase "Return Consolidated Related Graph" as UC4
+}
+
+Developer --> UC1
+Developer --> UC2
+ReleaseEngineer --> UC1
+ReleaseEngineer --> UC2
+
+UC2 .> UC3 : <<include>>
+UC3 .> UC4 : <<include>>
+
+ADO --> UC3
+
+@enduml

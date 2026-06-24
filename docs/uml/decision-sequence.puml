@@ -1,0 +1,18 @@
+@startuml
+hide footbox
+autonumber
+skinparam ParticipantPadding 16
+skinparam BoxPadding 8
+skinparam maxMessageSize 38
+skinparam sequenceMessageAlign center
+
+actor "Developer\nRelease Engineer" as Dev
+participant "Trace UI" as UI
+participant "Decision\nSynthesis" as DS
+
+Dev -> UI: Build decision overview
+UI -> DS: Request synthesis of dependency results
+DS -> DS: Classify work and repository contexts
+DS --> UI: Decision-oriented summary
+UI --> Dev: Support release decision
+@enduml

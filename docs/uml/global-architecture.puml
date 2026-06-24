@@ -1,0 +1,62 @@
+@startuml
+skinparam componentStyle rectangle
+left to right direction
+
+actor "Developer / Release Engineer" as User
+
+package "Trace UI (Vue 3 + Quasar)" {
+  [Vue Router + Auth Guard] as Router
+  [Trace Views\n(Single, Batch, Sprint, Batch Related)] as Views
+  [Pinia Trace Store] as Store
+  [Trace API Service] as TraceApi
+  [Decision API Service] as DecisionApi
+  [SSE Task Stream Client] as SseClient
+}
+
+rectangle "MES-X Dependency Management Backend" {
+  [Work Item Module] as WI
+  [Pull Request Module] as PR
+  [Commit Module] as CO
+  [Sprint Module] as SP
+  [Decision Module] as DE
+  [LLM Module] as LLM
+
+  WI --> PR
+  WI --> CO
+  PR --> CO
+  CO --> LLM
+}
+
+cloud "Azure DevOps" {
+  [Work Item Data]
+  [Iteration and Sprint Data]
+  [Pull Request Data]
+  [Repository, Commit, and Tag Data]
+}
+
+cloud "LLM Provider" {
+  [Gemini API]
+}
+
+User --> Router
+Router --> Views
+Views --> Store
+Store --> TraceApi
+Store --> DecisionApi
+Store --> SseClient
+
+TraceApi --> WI
+TraceApi --> PR
+TraceApi --> CO
+TraceApi --> SP
+DecisionApi --> DE
+DecisionApi --> CO
+SseClient --> WI
+
+WI --> "Work Item Data"
+SP --> "Iteration and Sprint Data"
+PR --> "Pull Request Data"
+CO --> "Repository, Commit, and Tag Data"
+LLM --> "Repository, Commit, and Tag Data"
+LLM --> "Gemini API"
+@enduml

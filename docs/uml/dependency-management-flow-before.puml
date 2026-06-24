@@ -1,0 +1,30 @@
+	@startuml
+	title Dependency Management Flow Before This Project
+	skinparam shadowing false
+	skinparam monochrome true
+
+	start
+	:Open Azure DevOps manually;
+	:Find the starting work item;
+
+	repeat
+		:Check related pull requests;
+		:Check linked work items and child work items;
+		:Open the next related result;
+		:Repeat the same navigation manually;
+	repeat while (More related items to inspect?) is (yes)
+
+	:Collect all related commits manually;
+	:Open each commit in its repository;
+	:Check branches or tags to guess the version;
+	:Compare the findings across repositories;
+	:Write the final conclusion manually;
+	stop
+
+	note right
+	Before this project, the developer had to trace the chain manually.
+	The same search was repeated until nothing new was found.
+	The final dependency conclusion depended on manual checking.
+	end note
+
+	@enduml

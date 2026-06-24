@@ -1,0 +1,68 @@
+@startuml
+hide footbox
+autonumber
+skinparam ParticipantPadding 16
+skinparam BoxPadding 8
+skinparam maxMessageSize 38
+skinparam sequenceMessageAlign center
+
+title Single-Root Related Work Item Processing
+
+actor "Trace UI" as UI
+participant "Work Item\nController" as Controller
+participant "Work Item\nService" as WIService
+participant "Azure DevOps\nWorkItem API" as WorkAPI
+participant "Pull Request\nService" as PRService
+participant "Azure DevOps\nGit API" as GitAPI
+participant "Commit\nAggregator" as CommitAgg
+
+UI -> Controller: GET /workitem/{id}/related?project=...
+Controller -> WIService: getRelatedWorkItems(rootId, project)
+WIService -> WIService: normalizeRootWorkItemIds([rootId])
+
+WIService -> WorkAPI: getWorkItemsBatch([rootId])
+WorkAPI --> WIService: root work item data
+
+loop traversal level by level
+  WIService -> WorkAPI: getWorkItemsBatch(idsToFetch)
+  WorkAPI --> WIService: level work items + links
+
+  WIService -> WIService: extractUniquePrIds(presentItems)
+
+  alt PR links found
+    loop for each PR id (bounded concurrency)
+      WIService -> PRService: getWorkItemIdsByPR(project, prId)
+      PRService -> GitAPI: getPullRequestById(prId, project)
+      GitAPI --> PRService: pull request metadata
+      PRService -> GitAPI: getPullRequestWorkItemRefs(repoId, prId, project)
+      GitAPI --> PRService: linked work item ids
+      PRService --> WIService: related work item ids
+    end
+  end
+
+  WIService -> WIService: computeNextLevelIds(...)
+end
+
+WIService -> CommitAgg: aggregateRelatedCommits(project, results, visitedPrIds)
+CommitAgg -> CommitAgg: collect commits from work item links
+
+alt visited PRs exist
+  loop for each visited PR (bounded concurrency)
+    CommitAgg -> GitAPI: getPullRequestById(prId, project)
+    GitAPI --> CommitAgg: repo metadata
+    CommitAgg -> GitAPI: getPullRequestCommits(repoId, prId, project)
+    GitAPI --> CommitAgg: commit list
+  end
+end
+
+CommitAgg --> WIService: deduplicated commits
+
+WIService -> PRService: getPullRequestRepositorySummaries(project, visitedPrIds)
+PRService -> GitAPI: getPullRequestById(...) x N
+GitAPI --> PRService: repository summaries
+PRService --> WIService: visited pull request summaries
+
+WIService --> Controller: {workItems, visitedPRs, commits}
+Controller --> UI: RelatedWorkItemsResponseDto
+
+@enduml

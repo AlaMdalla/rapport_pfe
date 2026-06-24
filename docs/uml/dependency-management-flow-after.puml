@@ -1,0 +1,30 @@
+@startuml
+title Dependency Management Flow With This Project
+skinparam shadowing false
+skinparam monochrome true
+
+start
+:Open the dependency management system;
+:Enter one or more root work item IDs;
+
+repeat
+	:System expands related work items, child items, and pull requests;
+	:System follows the next discovered relation automatically;
+	:System repeats the traversal;
+repeat while (New related items still exist?) is (yes)
+
+:System gathers the linked commits automatically;
+:System resolves version context from tags or branches;
+:System groups the results into one dependency view;
+:System aggregates the data for decision support;
+:Developer reviews one consolidated result;
+:Write the final conclusion faster with less manual search;
+stop
+
+note right
+This project automates the recursive traversal and commit lookup steps.
+It returns a consolidated view of work items, pull requests, commits, and version context.
+The developer reads one result instead of repeating the Azure DevOps search manually.
+end note
+
+@enduml

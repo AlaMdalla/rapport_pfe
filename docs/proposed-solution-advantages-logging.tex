@@ -1,0 +1,124 @@
+%% Proposed Solution --- revised benefits and observability sections
+
+%% ────────────────────────────────────────────────────────────────────────────
+\section{System Advantages}
+
+The proposed solution provides value beyond technical traceability. It improves
+how teams understand change impact, coordinate delivery decisions, and maintain
+confidence in the information used during development and release activities.
+
+\subsection{Centralized Traceability and Visibility}
+
+The system consolidates dependency information that is normally scattered across
+multiple Azure DevOps views into a single analytical entry point. Instead of
+manually navigating between work items, pull requests, branches, commits, and
+tags, users obtain a coherent representation of how these artifacts relate to
+one another.
+
+This centralization improves day-to-day operational visibility and reduces the
+risk of overlooking a critical link in the dependency chain.
+
+\subsection{Faster and Better-Informed Decision-Making}
+
+By reconstructing the dependency graph in a structured form, the system supports
+decisions that are often difficult to make with fragmented information alone.
+Teams can more quickly assess whether a change is isolated or part of a broader
+chain, whether a work item is fully represented in source control activity, and
+whether a release candidate contains the expected implementation elements.
+
+The result is not only better traceability, but also better decision support for
+integration, validation, and release preparation.
+
+\subsection{Scalability for Large Project Portfolios}
+
+The proposed architecture is designed to remain effective when the number of
+artifacts grows. Through batch-oriented retrieval and grouped processing, the
+system limits repetitive calls to external services and keeps the resolution
+process manageable even for large dependency sets.
+
+This makes the solution suitable not only for isolated analyses, but also for
+recurrent use in complex enterprise environments where many repositories and
+linked work items must be examined together.
+
+\subsection{Consistency and Reliability of Analysis Results}
+
+The normalization of external data into internal DTOs ensures that the system
+produces results in a uniform structure, regardless of differences in Azure
+DevOps response formats. This consistency improves the reliability of the final
+analysis and helps both backend and UI layers operate on stable, predictable
+information.
+
+From a user perspective, this means that dependency reports remain easier to
+interpret, compare, and reuse across different analysis scenarios.
+
+\subsection{Extensibility and Long-Term Maintainability}
+
+The modular decomposition of the solution allows new dependency dimensions to be
+introduced progressively without redesigning the entire system. Additional data
+sources such as pipeline executions, build artifacts, release records, or
+deployment environments can be integrated as complementary modules around the
+existing core.
+
+This architectural flexibility protects the solution from becoming tightly bound
+to its initial scope and supports gradual evolution as organizational needs grow.
+
+\subsection{Improved Collaboration Between Stakeholders}
+
+The solution creates a shared analytical view for developers, release managers,
+and technical leads. Because all of them rely on the same reconstructed
+dependency model, discussions about readiness, impact, and missing links can be
+based on a common factual reference rather than on manual interpretation.
+
+This contributes to smoother coordination and reduces ambiguity during critical
+project phases.
+
+%% ────────────────────────────────────────────────────────────────────────────
+\section{Operational Observability and Logging Strategy}
+
+Because the proposed solution reconstructs dependency chains from several linked
+artifacts, operational transparency is essential. For that reason, the system
+includes a structured logging strategy based on \textbf{AppLogger}, which is used
+as the standard application logging mechanism across the backend services.
+
+At the proposed-solution level, logging is not treated as a low-level technical
+detail, but as a reliability mechanism that helps teams understand how a request
+was processed, where a resolution path failed, and which step of the dependency
+pipeline produced a given result.
+
+\subsection{Role of Logging in the Solution}
+
+The logging strategy supports four practical objectives:
+
+\begin{itemize}
+  \item improving operational transparency during dependency analysis;
+  \item facilitating diagnosis when external Azure DevOps calls fail or return incomplete data;
+  \item making execution flows easier to follow across the main components;
+  \item strengthening confidence in the produced analytical output.
+\end{itemize}
+
+\subsection{Log Level Strategy}
+
+To keep the system observable without overwhelming users or operators with
+excessive detail, the solution relies on differentiated log levels.
+
+\begin{itemize}
+  \item \textbf{log}: records the main execution steps and important state transitions, such as the start and completion of major analysis operations;
+  \item \textbf{warn}: highlights recoverable anomalies, partial data situations, or unexpected states that do not fully block processing;
+  \item \textbf{error}: captures failures that prevent a dependency resolution step from being completed correctly;
+  \item \textbf{debug}: provides additional diagnostic detail useful during investigation and controlled troubleshooting sessions;
+  \item \textbf{verbose}: offers very fine-grained tracing reserved for advanced analysis or temporary deep inspection.
+\end{itemize}
+
+This level-based approach ensures that the system can remain readable in normal
+operation while still offering deeper visibility when investigation is required.
+
+\subsection{Architectural Value of the Logging Strategy}
+
+Within the proposed solution, structured logging plays an important support role
+for maintainability and trust. It helps confirm that the dependency pipeline is
+executing as expected, highlights where external dependencies affect the result,
+and provides a traceable operational narrative for each analysis request.
+
+In this sense, AppLogger contributes not only to technical monitoring, but also
+to the overall robustness of the solution by making the behavior of the system
+more understandable, auditable, and controllable over time.

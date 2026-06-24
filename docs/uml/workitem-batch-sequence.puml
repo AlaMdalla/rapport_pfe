@@ -1,0 +1,65 @@
+@startuml
+!theme plain
+
+title <size:20><b>Batch Related Work Item Aggregation</b></size>
+
+hide footbox
+autonumber
+
+' ═══════════════════════════════
+' CLEAN STYLE (CSS-LIKE)
+' ═══════════════════════════════
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam defaultFontSize 16
+skinparam sequenceMessageAlign center
+skinparam maxMessageSize 75
+
+' ═══════════════════════════════
+' PARTICIPANTS
+' ═══════════════════════════════
+actor "Trace UI" as UI
+participant "Controller" as Controller
+participant "Work Item Service" as WIService
+participant "Azure DevOps API" as WorkAPI
+participant "PR Service" as PRService
+participant "Git API" as GitAPI
+participant "Commit Aggregator" as CommitAgg
+
+' ═══════════════════════════════
+' FLOW (SIMPLIFIED)
+' ═══════════════════════════════
+UI -> Controller: Get batch related work items
+Controller -> WIService: resolveDependencies(rootIds)
+
+WIService -> WorkAPI: fetch work items batch
+WorkAPI --> WIService: work items
+
+loop traverse levels
+  WIService -> WorkAPI: fetch linked items
+  WorkAPI --> WIService: relations
+
+  WIService -> WIService: extract PR ids
+
+  alt PR links exist
+    WIService -> PRService: resolve PRs
+    PRService -> GitAPI: fetch PR data
+    GitAPI --> PRService: metadata
+    PRService --> WIService: linked items
+  end
+
+  WIService -> WIService: compute next level
+end
+
+WIService -> CommitAgg: aggregate commits
+CommitAgg -> GitAPI: fetch commits per PR
+GitAPI --> CommitAgg: commit list
+CommitAgg --> WIService: deduplicated commits
+
+WIService -> PRService: fetch PR summaries
+PRService --> WIService: repository data
+
+WIService --> Controller: final response
+Controller --> UI: batch result
+
+@enduml

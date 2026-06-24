@@ -1,0 +1,81 @@
+@startuml
+
+' ──────────────── STYLE ────────────────
+left to right direction
+skinparam packageStyle rectangle
+skinparam actorStyle awesome
+skinparam shadowing false
+skinparam linetype ortho
+skinparam nodesep 130
+skinparam ranksep 120
+
+' ──────────────── ACTORS ────────────────
+actor "Developer" as Dev
+actor "LLM Provider" as LLM
+
+' ──────────────── SYSTEM ────────────────
+rectangle "MES-X Dependency Management Backend" as System {
+    ' Left side - Analysis
+    package "Work Item Module" as WorkItem {
+        usecase "Trace Work Items" as UC1
+        usecase "Explore Related Work Items" as UC7
+    }
+
+    ' Middle - Planning & Integration
+    package "Sprint Module" as Sprint {
+        usecase "Inspect Sprint Scope" as UC4
+    }
+
+    package "Pull Request Module" as PR {
+        usecase "Get PR Linked Work Items" as UC2
+    }
+
+    ' Right side - Execution & Intelligence
+    package "Commit Module" as Commit {
+        usecase "Fetch Release Tags" as UC3
+        usecase "Analyze Release Changes" as UC8
+    }
+
+    package "LLM Module" as LlmMod {
+        usecase "Review Commit with LLM" as UC5
+    }
+
+    package "Decision Module" as Decision {
+        usecase "Generate Dependency Overview" as UC6
+    }
+}
+
+' ──────────────── POSITION DEVELOPER ABOVE CENTER ────────────────
+Dev -[hidden]down-> System
+
+' ──────────────── MAIN PIPELINE FLOW (Top to Bottom) ────────────────
+WorkItem -[hidden]down-> Sprint
+Sprint -[hidden]down-> PR
+PR -[hidden]down-> Commit
+Commit -[hidden]down-> Decision
+
+' ──────────────── USER INTERACTIONS ────────────────
+Dev --> UC4
+Dev --> UC1
+Dev --> UC5
+Dev --> UC6
+
+' ──────────────── LOGICAL DEPENDENCIES (Non-crossing) ────────────────
+UC4 ..> UC1 : <<extend>>
+UC1 ..> UC2 : <<include>>
+UC7 ..> UC2 : <<extend>>
+UC1 ..> UC8 : <<include>>
+UC8 ..> UC3 : <<include>>
+UC5 ..> UC8 : <<include>>
+UC8 ..> UC6 : <<extend>>
+UC3 ..> UC6 : <<extend>>
+
+' ──────────────── LLM CROSS-CUTTING ────────────────
+LLM -up-> UC5
+LLM -[hidden]up-> LlmMod
+LLM -[hidden]up-> System
+
+' Position LLM Module nicely
+LlmMod -[hidden]right-> Commit
+
+@enduml

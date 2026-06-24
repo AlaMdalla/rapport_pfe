@@ -1,0 +1,37 @@
+@startuml
+hide footbox
+autonumber
+skinparam ParticipantPadding 16
+skinparam BoxPadding 8
+skinparam maxMessageSize 38
+skinparam sequenceMessageAlign center
+
+actor "Developer" as Dev
+participant "Trace UI" as UI
+participant "Commit\nController" as Controller
+participant "LLM Service\n(LLM module)" as LlmService
+participant "Prompt\nBuilder" as PromptService
+participant "Guidance\nService" as GuidanceService
+participant "Azure DevOps" as ADO
+participant "Gemini\nAPI" as Gemini
+
+Dev -> UI: Request commit review
+UI -> Controller: GET /commits/hf/review?project&repositoryName&commitId
+
+Controller -> LlmService: reviewCommit(project, repositoryName, commitId)
+LlmService -> ADO: Resolve repository and commit metadata
+ADO --> LlmService: Repository references
+
+LlmService -> PromptService: buildCommitReviewPrompt(...)
+PromptService -> ADO: getCommit + getChanges + relevant file snapshots
+ADO --> PromptService: Commit data + code snapshots
+PromptService -> GuidanceService: buildReviewerGuidance(changedPaths)
+GuidanceService --> PromptService: Matching instructions and skills
+PromptService --> LlmService: Final review prompt
+
+LlmService -> Gemini: generateContent(prompt)
+Gemini --> LlmService: Review result
+LlmService --> Controller: Review text
+Controller --> UI: CommitReviewResponseDto
+UI --> Dev: Render LLM review findings
+@enduml

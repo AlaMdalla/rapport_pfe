@@ -1,0 +1,19 @@
+@startuml
+title Part 2 - Commit Tags Fetch (Sequence)
+
+actor User
+participant "Trace UI" as UI
+participant "CommitController" as CC
+participant "CommitService" as CS
+participant "Azure DevOps Git API" as GitAPI
+
+User -> UI: From batch result, request tag context
+UI -> CC: GET /commits/tags/batch?commitIds=...&repositoryName=...&project=...
+CC -> CS: getTagsByCommitBatch(query)
+CS -> GitAPI: Fetch branches/tags for each commit
+GitAPI --> CS: Tag and branch references
+CS --> CC: BatchTagsResponseDTO
+CC --> UI: Commit tag context payload
+UI --> User: Show before/after/exact tag positions
+
+@enduml

@@ -1,0 +1,169 @@
+classDiagram
+  direction TB
+
+  namespace Decision_DTOs {
+    class DecisionInputSetDto {
+      +workItems: DecisionInputWorkItemDto[]
+      +repositories: RepoReferenceWithNameDto[]
+    }
+
+    class RepoReferenceWithNameDto {
+      +repositoryName: string
+    }
+
+    class CommitInputDto {
+      +commitId: string
+      +tagBefore: string[]
+      +tagAfter: string[]
+      +exactTags: string[]
+    }
+
+    class DecisionInputWorkItemDto {
+      +id: number
+      +state: string?
+    }
+
+    class DecisionAggregateResultDto {
+      +doneWorkItems: DecisionInputWorkItemDto[]
+      +otherWorkItems: DecisionInputWorkItemDto[]
+    }
+
+    class RepoBeforeAfterDto {
+      +repositoryName: string
+    }
+
+    class CommitResultDto {
+      +commitId: string
+      +considerForPR: boolean?
+    }
+  }
+
+  namespace Sprint_DTOs {
+    class SprintDto {
+      +id: string
+      +name: string
+      +path: string
+      +url: string
+    }
+
+    class SprintAttributesDto {
+      +startDate: string?
+      +finishDate: string?
+      +timeFrame: string?
+    }
+
+    class SprintWorkItemDto {
+      +id: number
+      +url: string
+    }
+  }
+
+  namespace Work_Item_DTOs {
+    class RelatedWorkItemsDataDto {
+      +project: string
+      +workItemId: number
+      +relatedCount: number
+      +visitedPullRequestIds: number[]
+      +commitCount: number
+    }
+
+    class RelatedWorkItemsBatchDataDto {
+      +project: string
+      +requestedWorkItemIds: number[]
+      +relatedCount: number
+      +visitedPullRequestIds: number[]
+      +commitCount: number
+    }
+
+    class WorkItemDto {
+      +id: number?
+      +type: string?
+      +title: string?
+      +state: string?
+      +status: string?
+      +assignedTo: string?
+    }
+
+    class WorkItemLinkDto {
+      +type: string?
+      +targetId: string?
+      +url: string?
+      +isPR: boolean
+      +prId: number?
+    }
+  }
+
+  namespace Pull_Request_DTOs {
+    class PullRequestSummaryDto {
+      +prId: number
+      +repositoryName: string
+    }
+
+    class WorkItemsDataDto {
+      +prId: number
+      +project: string
+      +workItemCount: number
+    }
+
+    class WorkItemResultDto {
+      +id: number
+      +title: string?
+    }
+
+    class LinkInfoDto {
+      +prId: number?
+      +type: string?
+      +targetId: string?
+      +url: string?
+      +isPR: boolean
+    }
+  }
+
+  namespace Commit_DTOs {
+    class CommitTagContextDto {
+      +exactTags: string[]
+      +tagAfter: string[]
+      +tagBefore: string[]
+      +foundInBranch: boolean
+    }
+
+    class CommitsByPRDataDto {
+      +prId: number
+      +project: string
+      +commitCount: number
+    }
+
+    class CommitsByWorkItemDataDto {
+      +workItemId: number
+      +project: string
+      +commitCount: number
+    }
+
+    class CommitInfo {
+      +commitId: string
+      +repoName: string
+    }
+  }
+
+  Decision_DTOs.DecisionInputSetDto "1" --> "0..*" Decision_DTOs.RepoReferenceWithNameDto : repositories
+  Decision_DTOs.RepoReferenceWithNameDto "1" --> "0..*" Decision_DTOs.CommitInputDto : commits
+  Decision_DTOs.DecisionInputSetDto "1" --> "0..*" Decision_DTOs.DecisionInputWorkItemDto : workItems
+  Decision_DTOs.DecisionAggregateResultDto "1" --> "0..*" Decision_DTOs.RepoBeforeAfterDto : repositoryGroups
+  Decision_DTOs.RepoBeforeAfterDto "1" --> "0..*" Decision_DTOs.CommitResultDto : commits
+
+  Sprint_DTOs.SprintDto "1" --> "1" Sprint_DTOs.SprintAttributesDto : attributes
+
+  Work_Item_DTOs.RelatedWorkItemsDataDto "1" --> "0..*" Work_Item_DTOs.WorkItemDto : workItems
+  Work_Item_DTOs.RelatedWorkItemsBatchDataDto "1" --> "0..*" Work_Item_DTOs.WorkItemDto : workItems
+  Work_Item_DTOs.WorkItemDto "1" --> "0..*" Work_Item_DTOs.WorkItemLinkDto : links
+
+  Pull_Request_DTOs.WorkItemsDataDto "1" --> "0..*" Pull_Request_DTOs.WorkItemResultDto : workItems
+  Pull_Request_DTOs.WorkItemResultDto "1" --> "0..*" Pull_Request_DTOs.LinkInfoDto : links
+
+  Commit_DTOs.CommitsByPRDataDto "1" --> "0..*" Commit_DTOs.CommitInfo : commits
+  Commit_DTOs.CommitsByWorkItemDataDto "1" --> "0..*" Commit_DTOs.CommitInfo : commits
+
+  Work_Item_DTOs.RelatedWorkItemsDataDto "1" --> "0..*" Pull_Request_DTOs.PullRequestSummaryDto : visitedPullRequests
+  Work_Item_DTOs.RelatedWorkItemsBatchDataDto "1" --> "0..*" Pull_Request_DTOs.PullRequestSummaryDto : visitedPullRequests
+  Work_Item_DTOs.RelatedWorkItemsDataDto "1" --> "0..*" Commit_DTOs.CommitInfo : commits
+  Work_Item_DTOs.RelatedWorkItemsBatchDataDto "1" --> "0..*" Commit_DTOs.CommitInfo : commits

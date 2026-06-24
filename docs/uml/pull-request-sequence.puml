@@ -1,0 +1,20 @@
+@startuml
+hide footbox
+autonumber
+skinparam ParticipantPadding 16
+skinparam BoxPadding 8
+skinparam maxMessageSize 38
+skinparam sequenceMessageAlign center
+
+actor "Developer" as Dev
+participant "Trace UI" as UI
+participant "Pull Request\nAnalysis" as PR
+participant "Azure DevOps\nGit API" as ADO
+
+Dev -> UI: Analyze pull request links
+UI -> PR: Request PR dependency context
+PR -> ADO: Read pull request relations
+ADO --> PR: Linked work item references
+PR --> UI: Structured PR relationship result
+UI --> Dev: Display pull request dependency context
+@enduml
