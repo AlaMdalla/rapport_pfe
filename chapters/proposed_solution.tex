@@ -91,11 +91,51 @@ UI $\rightarrow$ Backend $\rightarrow$ Azure DevOps
 
 The Trace UI never calls Azure DevOps directly. All requests go through the backend first. This makes the system easier to test, easier to secure, and easier to maintain as APIs evolve.
 
+\subsection{Logical Architecture View}
+
+The logical architecture organizes the system into distinct functional modules, each encapsulating a specific responsibility within the traceability pipeline. Figure~\ref{fig:logical-architecture} illustrates the relationships between these modules and their interactions with external systems.
+
+At the presentation tier, the \textbf{Traceability UI} serves as the sole entry point for end users. It initiates processing requests and presents structured results, but delegates all business logic to the backend services.
+
+The backend services tier contains four core modules. The \textbf{Work Item Processing} module handles the retrieval and traversal of work item dependency graphs from Azure DevOps. It serves as the starting point for traceability analysis and orchestrates the flow of data to downstream modules. The \textbf{Pull Request \& Commit Analysis} module resolves pull requests linked to work items, retrieves associated commits, and enriches them with repository metadata such as branch positions and release tags. The \textbf{Traceability Engine} aggregates data from previous stages and applies business rules to determine release readiness. It produces structured decision outputs that indicate which artifacts are complete, which repositories are deployment-ready, and where gaps exist. The \textbf{AI Analysis} module provides optional commit-level review capabilities by interfacing with external language models.
+
+External systems include \textbf{Azure DevOps}, which provides all project artifacts through its REST APIs, and the \textbf{AI API (Gemini)}, which supports on-demand code review when requested by users. The Work Item Processing module communicates with Azure DevOps to fetch planning artifacts, while the AI Analysis module sends review requests to the Gemini API. These external dependencies are isolated to specific modules to limit the impact of changes in third-party services.
+
+Data flows sequentially through the processing chain. The UI triggers the Work Item Processing module, which in turn invokes the Pull Request \& Commit Analysis module. Results are forwarded to the Traceability Engine for aggregation and decision generation. The AI Analysis module operates independently and only executes when explicitly requested by the user, ensuring that core traceability logic remains deterministic and independent of external AI services.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{img/archi/logical.png}
+    \caption{Logical architecture showing the main functional modules and their dependencies}
+    \label{fig:logical-architecture}
+\end{figure}
+
+\subsection{Physical Deployment Architecture}
+
+The physical architecture defines how system components are deployed, hosted, and connected in the production environment. Figure~\ref{fig:physical-architecture} presents the deployment topology.
+
+The system follows a cloud-native deployment model hosted on \textbf{Microsoft Azure}. Users access the system through standard web browsers on client machines, communicating with cloud-hosted services over HTTPS.
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=0.7\textwidth]{img/archi/Physical.png}
+    \caption{Physical deployment architecture showing hosting infrastructure and external integrations}
+    \label{fig:physical-architecture}
+\end{figure}
+
+Within the Azure cloud environment, the \textbf{UI Server} hosts the Trace UI as a containerized application deployed using Docker. This container serves the frontend application to client browsers and forwards API requests to the application server. The \textbf{Application Server} hosts the backend services, deployed either as an Azure App Service or as a containerized instance. This server contains all backend processing logic, including work item analysis, pull request resolution, commit aggregation, and decision generation.
+
+The backend relies on an embedded \textbf{SQLite} database for local data persistence. SQLite was chosen for its simplicity and sufficient performance characteristics for this use case, eliminating the need for a separate database server. Sensitive credentials, including Azure DevOps personal access tokens and Gemini API keys, are stored securely in an \textbf{Azure Secrets Vault}, which the application server accesses at runtime.
+
+External integrations are established with two Software-as-a-Service platforms. The \textbf{Azure DevOps REST API} provides access to work items, pull requests, commits, branches, and tags. The \textbf{Google Cloud - Gemini API} offers language model capabilities for optional commit-level code review. Both external services are accessed over HTTPS, and authentication is managed through API keys retrieved from the secrets vault.
+
+All communication between components occurs over encrypted HTTPS channels. The client browser connects to the UI server, which forwards requests to the application server. The application server, in turn, initiates outbound requests to Azure DevOps and Gemini APIs as needed. This layered approach ensures that sensitive operations remain isolated within the cloud perimeter and that external dependencies are accessed through controlled, authenticated channels.
+
 \subsection{Connection Graph}
 
 Figure~\ref{fig:global-connection-graph} shows the full connection graph: which UI services invoke which backend modules, which modules access which Azure DevOps resources, and where the optional LLM path branches off.
 
-\begin{figure}[htbp]
+\begin{figure}[!htb]
     \centering
     \makebox[\textwidth]{%
         \includegraphics[width=1.35\textwidth]{img/archi/global-architecture.png}
