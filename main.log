@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026/Arch Linux) (preloaded format=pdflatex 2026.6.29)  6 JUL 2026 00:27
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026/Arch Linux) (preloaded format=pdflatex 2026.6.29)  8 JUL 2026 17:26
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -677,7 +677,7 @@ Package hyperref Info: Link coloring ON on input line 75.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-<img/cover/cover.jpg, id=400, 597.60106pt x 845.26315pt>
+<img/cover/cover.jpg, id=404, 597.60106pt x 845.26315pt>
 File: img/cover/cover.jpg Graphic file (type jpg)
 <use img/cover/cover.jpg>
 Package pdftex.def Info: img/cover/cover.jpg  used on input line 86.
@@ -686,12 +686,12 @@ Package pdftex.def Info: img/cover/cover.jpg  used on input line 86.
 
 
  <./img/cover/cover.jpg>]
-<pdf/validation.pdf, id=407, 597.73312pt x 845.40843pt>
+<pdf/validation.pdf, id=411, 597.73312pt x 845.40843pt>
 File: pdf/validation.pdf Graphic file (type pdf)
 <use pdf/validation.pdf>
 Package pdftex.def Info: pdf/validation.pdf  used on input line 94.
 (pdftex.def)             Requested size: 597.73166pt x 845.40636pt.
-<pdf/validation.pdf, id=409, page=1, 597.73312pt x 845.40843pt>
+<pdf/validation.pdf, id=413, page=1, 597.73312pt x 845.40843pt>
 File: pdf/validation.pdf Graphic file (type pdf)
 <use pdf/validation.pdf, page 1>
 Package pdftex.def Info: pdf/validation.pdf , page1 used on input line 94.
@@ -815,7 +815,7 @@ Chapter 1.
 
 
 ] [15]
-<img/overview/azure_board.png, id=681, 1436.36626pt x 658.71094pt>
+<img/overview/azure_board.png, id=688, 1436.36626pt x 658.71094pt>
 File: img/overview/azure_board.png Graphic file (type png)
 <use img/overview/azure_board.png>
 Package pdftex.def Info: img/overview/azure_board.png  used on input line 113.
@@ -825,7 +825,7 @@ LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 12
  (/usr/share/texmf-dist/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-<img/overview/version_json_example.png, id=688, 264.23718pt x 385.44pt>
+<img/overview/version_json_example.png, id=695, 264.23718pt x 385.44pt>
 File: img/overview/version_json_example.png Graphic file (type png)
 <use img/overview/version_json_example.png>
 Package pdftex.def Info: img/overview/version_json_example.png  used on input line 130.
@@ -839,48 +839,80 @@ File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 
  (./chapters/study_existing.tex
 Chapter 2.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <10.95> on input line 14.
+
+Underfull \hbox (badness 1348) in paragraph at lines 19--19
+[]|\T1/lmr/m/n/10.95 Azure De-vOps Na-
+ []
+
+
+Underfull \hbox (badness 4193) in paragraph at lines 21--22
+[]|\T1/lmr/m/n/10.95 Shallow de-pen-dency anal-y-
+ []
+
+
+Underfull \hbox (badness 3138) in paragraph at lines 21--22
+\T1/lmr/m/n/10.95 mit/tag ex-trac-tion, lim-ited
+ []
+
+
+Underfull \hbox (badness 7576) in paragraph at lines 25--26
+[]|\T1/lmr/m/n/10.95 Manual anal-y-sis logic re-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 27--27
+[]|\T1/lmr/m/n/10.95 Custom Script-ing
+ []
+
+
+Underfull \hbox (badness 1320) in paragraph at lines 28--28
+[]|\T1/lmr/m/n/10.95 Fully cus-tomiz-able, tai-lored
+ []
+
 [25
 
 
 
 
 ]
-<img/existing/dependency_before_process.png, id=743, 349.305pt x 636.87938pt>
+<img/existing/dependency_before_process.png, id=747, 349.305pt x 636.87938pt>
 File: img/existing/dependency_before_process.png Graphic file (type png)
 <use img/existing/dependency_before_process.png>
-Package pdftex.def Info: img/existing/dependency_before_process.png  used on input line 46.
+Package pdftex.def Info: img/existing/dependency_before_process.png  used on input line 79.
 (pdftex.def)             Requested size: 396.91325pt x 723.72745pt.
 
 
-LaTeX Warning: Float too large for page by 59.94435pt on input line 49.
+LaTeX Warning: Float too large for page by 59.94435pt on input line 82.
 
-[26] [27 <./img/existing/dependency_before_process.png>]) [28]
+[26] [27 <./img/existing/dependency_before_process.png>] [28]) [29]
 \openout2 = `chapters/requirements.aux'.
 
  (./chapters/requirements.tex
 Chapter 3.
-[29
+[30
 
 
 
 
-] [30]
+] [31]
 Underfull \hbox (badness 2245) in paragraph at lines 87--89
 []\T1/lmr/bx/n/12 NFR-PE-04 Pro-gres-sive Feed-back\T1/lmr/m/n/12 : Long-running op-er-a-tions pro-vide
  []
 
-[31] [32] [33] [34]
+[32] [33] [34] [35]
 Underfull \hbox (badness 1210) in paragraph at lines 206--207
 []\T1/lmr/m/n/12 This re-quire-ment was ver-i-fied through the ar-chi-tec-ture, the im-ple-mented
  []
 
-[35] [36]
-<img/archi/use_case.png, id=801, 665.48625pt x 894.34125pt>
+[36] [37]
+<img/archi/use_case.png, id=813, 665.48625pt x 894.34125pt>
 File: img/archi/use_case.png Graphic file (type png)
 <use img/archi/use_case.png>
 Package pdftex.def Info: img/archi/use_case.png  used on input line 314.
 (pdftex.def)             Requested size: 418.36496pt x 562.23708pt.
- [37] [38 <./img/archi/use_case.png>]
+ [38] [39 <./img/archi/use_case.png>]
 Underfull \hbox (badness 10000) in paragraph at lines 347--347
 []|\T1/lmr/bx/n/12 Requirement
  []
@@ -895,57 +927,57 @@ Underfull \hbox (badness 7944) in paragraph at lines 357--357
 []|\T1/lmr/m/n/12 End-to-End Read-Only
  []
 
-[39]) [40]
+[40]) [41]
 \openout2 = `chapters/proposed_solution.aux'.
 
  (./chapters/proposed_solution.tex
 Chapter 4.
-[41
+[42
 
 
 
 
-] [42] [43] [44{/usr/share/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}]
-<img/archi/logical.png, id=841, 366.36874pt x 620.3175pt>
+] [43] [44] [45{/usr/share/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}]
+<img/archi/logical.png, id=853, 366.36874pt x 620.3175pt>
 File: img/archi/logical.png Graphic file (type png)
 <use img/archi/logical.png>
 Package pdftex.def Info: img/archi/logical.png  used on input line 108.
 (pdftex.def)             Requested size: 220.50887pt x 373.3576pt.
- [45 <./img/archi/logical.png>]
-<img/archi/Physical.png, id=848, 922.44624pt x 666.49pt>
+ [46 <./img/archi/logical.png>]
+<img/archi/Physical.png, id=860, 922.44624pt x 666.49pt>
 File: img/archi/Physical.png Graphic file (type png)
 <use img/archi/Physical.png>
 Package pdftex.def Info: img/archi/Physical.png  used on input line 121.
 (pdftex.def)             Requested size: 308.71106pt x 223.04416pt.
- [46 <./img/archi/Physical.png>]
-<img/archi/global-architecture.png, id=855, 1431.3475pt x 514.92375pt>
+ [47 <./img/archi/Physical.png>]
+<img/archi/global-architecture.png, id=868, 1622.06pt x 546.04pt>
 File: img/archi/global-architecture.png Graphic file (type png)
 <use img/archi/global-architecture.png>
 Package pdftex.def Info: img/archi/global-architecture.png  used on input line 142.
-(pdftex.def)             Requested size: 595.37662pt x 214.18436pt.
- [47 <./img/archi/global-architecture.png>] [48] [49] [50] [51]) [52]
+(pdftex.def)             Requested size: 595.37662pt x 200.42358pt.
+ [48 <./img/archi/global-architecture.png>] [49] [50] [51] [52]) [53]
 \openout2 = `chapters/implementation.aux'.
 
  (./chapters/implementation.tex
 Chapter 5.
-<img/logo/vuejs.png, id=891, 475.7775pt x 475.7775pt>
+<img/logo/vuejs.png, id=904, 475.7775pt x 475.7775pt>
 File: img/logo/vuejs.png Graphic file (type png)
 <use img/logo/vuejs.png>
 Package pdftex.def Info: img/logo/vuejs.png  used on input line 38.
 (pdftex.def)             Requested size: 154.35889pt x 154.35724pt.
-[53
+[54
 
 
 
 
 ]
-<img/logo/nestjs.png, id=897, 513.92pt x 513.92pt>
+<img/logo/nestjs.png, id=909, 513.92pt x 513.92pt>
 File: img/logo/nestjs.png Graphic file (type png)
 <use img/logo/nestjs.png>
 Package pdftex.def Info: img/logo/nestjs.png  used on input line 59.
 (pdftex.def)             Requested size: 154.35889pt x 154.35754pt.
- [54 <./img/logo/vuejs.png (PNG copy)> <./img/logo/nestjs.png>]
-<img/logo/azuredevops.png, id=903, 301.125pt x 168.63pt>
+ [55 <./img/logo/vuejs.png (PNG copy)> <./img/logo/nestjs.png>]
+<img/logo/azuredevops.png, id=915, 301.125pt x 168.63pt>
 File: img/logo/azuredevops.png Graphic file (type png)
 <use img/logo/azuredevops.png>
 Package pdftex.def Info: img/logo/azuredevops.png  used on input line 91.
@@ -955,88 +987,91 @@ Underfull \hbox (badness 5189) in paragraph at lines 97--97
 []\T1/lmr/bx/n/17.28 Methodology Ex-e-cu-tion Through De-liv-ery
  []
 
-[55 <./img/logo/azuredevops.png>] [56]
-<img/overview/agile-scrum.jpg, id=913, 825.0825pt x 532.99126pt>
+[56 <./img/logo/azuredevops.png>] [57]
+<img/overview/agile-scrum.jpg, id=925, 825.0825pt x 532.99126pt>
 File: img/overview/agile-scrum.jpg Graphic file (type jpg)
 <use img/overview/agile-scrum.jpg>
 Package pdftex.def Info: img/overview/agile-scrum.jpg  used on input line 170.
 (pdftex.def)             Requested size: 388.09775pt x 250.70924pt.
- [57 <./img/overview/agile-scrum.jpg>] [58] [59]
-<img/overview/deployment.png, id=935, 504.38437pt x 258.9675pt>
+ [58 <./img/overview/agile-scrum.jpg>] [59] [60]
+<img/overview/deployment.png, id=947, 504.38437pt x 258.9675pt>
 File: img/overview/deployment.png Graphic file (type png)
 <use img/overview/deployment.png>
 Package pdftex.def Info: img/overview/deployment.png  used on input line 289.
 (pdftex.def)             Requested size: 418.96548pt x 215.11285pt.
-<img/archi/workitems_pr_commit_class_diag.png, id=936, 828.09375pt x 321.45094pt>
+<img/archi/workitems_pr_commit_class_diag.png, id=948, 1343.0175pt x 688.07062pt>
 File: img/archi/workitems_pr_commit_class_diag.png Graphic file (type png)
 <use img/archi/workitems_pr_commit_class_diag.png>
-Package pdftex.def Info: img/archi/workitems_pr_commit_class_diag.png  used on input line 321.
-(pdftex.def)             Requested size: 441.01773pt x 171.19711pt.
- [60 <./img/overview/deployment.png>]
-<img/archi/sprint_decision_class_diag.png, id=942, 719.68875pt x 422.32782pt>
+Package pdftex.def Info: img/archi/workitems_pr_commit_class_diag.png  used on input line 322.
+(pdftex.def)             Requested size: 597.50787pt x 306.12222pt.
+ [61 <./img/overview/deployment.png>]
+<img/archi/sprint_decision_class_diag.png, id=954, 1051.67906pt x 697.8572pt>
 File: img/archi/sprint_decision_class_diag.png Graphic file (type png)
 <use img/archi/sprint_decision_class_diag.png>
-Package pdftex.def Info: img/archi/sprint_decision_class_diag.png  used on input line 328.
-(pdftex.def)             Requested size: 441.01773pt x 258.80531pt.
+Package pdftex.def Info: img/archi/sprint_decision_class_diag.png  used on input line 330.
+(pdftex.def)             Requested size: 597.50787pt x 396.49426pt.
+ [62 <./img/archi/workitems_pr_commit_class_diag.png>] [63 <./img/archi/sprint_decision_class_diag.png>]
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <12> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 340.
- [61 <./img/archi/workitems_pr_commit_class_diag.png> <./img/archi/sprint_decision_class_diag.png>]
-Underfull \hbox (badness 5274) in paragraph at lines 356--357
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 343.
+
+Underfull \hbox (badness 5274) in paragraph at lines 359--360
 []\T1/lmr/m/n/12 Returns work items for a
  []
 
-<img/archi/single-root related-work-item processing.png, id=950, 1218.5525pt x 1084.05pt>
+[64
+
+]
+<img/archi/single-root related-work-item processing.png, id=971, 1218.5525pt x 1084.05pt>
 File: img/archi/single-root related-work-item processing.png Graphic file (type png)
 <use img/archi/single-root related-work-item processing.png>
-Package pdftex.def Info: img/archi/single-root related-work-item processing.png  used on input line 391.
+Package pdftex.def Info: img/archi/single-root related-work-item processing.png  used on input line 394.
 (pdftex.def)             Requested size: 597.5236pt x 531.56961pt.
-<img/archi/BatchRelatedWorkItem.png, id=951, 1004.75375pt x 1194.4625pt>
+<img/archi/BatchRelatedWorkItem.png, id=972, 1004.75375pt x 1194.4625pt>
 File: img/archi/BatchRelatedWorkItem.png Graphic file (type png)
 <use img/archi/BatchRelatedWorkItem.png>
-Package pdftex.def Info: img/archi/BatchRelatedWorkItem.png  used on input line 400.
+Package pdftex.def Info: img/archi/BatchRelatedWorkItem.png  used on input line 403.
 (pdftex.def)             Requested size: 555.69788pt x 660.61983pt.
-[62] [63 <./img/archi/single-root related-work-item processing.png>] [64 <./img/archi/BatchRelatedWorkItem.png (PNG copy)>]
-<img/figures/uiroutes.png, id=965, 627.09282pt x 383.18156pt>
+<img/figures/uiroutes.png, id=973, 627.09282pt x 383.18156pt>
 File: img/figures/uiroutes.png Graphic file (type png)
 <use img/figures/uiroutes.png>
-Package pdftex.def Info: img/figures/uiroutes.png  used on input line 429.
+Package pdftex.def Info: img/figures/uiroutes.png  used on input line 432.
 (pdftex.def)             Requested size: 597.50787pt x 365.11963pt.
-<img/archi/backend_uiflow.png, id=966, 1071.00125pt x 1406.25375pt>
+<img/archi/backend_uiflow.png, id=974, 1071.00125pt x 1406.25375pt>
 File: img/archi/backend_uiflow.png Graphic file (type png)
 <use img/archi/backend_uiflow.png>
-Package pdftex.def Info: img/archi/backend_uiflow.png  used on input line 454.
+Package pdftex.def Info: img/archi/backend_uiflow.png  used on input line 457.
 (pdftex.def)             Requested size: 481.70097pt x 632.48648pt.
-<img/figures/ui-batch-task-screen.png, id=967, 1440.88312pt x 727.21687pt>
+ [65] [66 <./img/archi/single-root related-work-item processing.png>] [67 <./img/archi/BatchRelatedWorkItem.png (PNG copy)>] [68 <./img/figures/uiroutes.png>] [69 <./img/archi/backend_uiflow.png (PNG copy)>]
+<img/figures/ui-batch-task-screen.png, id=998, 1440.88312pt x 727.21687pt>
 File: img/figures/ui-batch-task-screen.png Graphic file (type png)
 <use img/figures/ui-batch-task-screen.png>
-Package pdftex.def Info: img/figures/ui-batch-task-screen.png  used on input line 472.
+Package pdftex.def Info: img/figures/ui-batch-task-screen.png  used on input line 475.
 (pdftex.def)             Requested size: 597.50787pt x 301.55635pt.
- [65] [66 <./img/figures/uiroutes.png>] [67 <./img/archi/backend_uiflow.png (PNG copy)>]
-<img/figures/related-workitem1.png, id=983, 1422.0628pt x 725.71124pt>
+<img/figures/related-workitem1.png, id=999, 1422.0628pt x 725.71124pt>
 File: img/figures/related-workitem1.png Graphic file (type png)
 <use img/figures/related-workitem1.png>
-Package pdftex.def Info: img/figures/related-workitem1.png  used on input line 482.
+Package pdftex.def Info: img/figures/related-workitem1.png  used on input line 485.
 (pdftex.def)             Requested size: 597.50787pt x 304.92952pt.
-<img/figures/discovered-commits.png, id=984, 1415.2875pt x 706.89093pt>
+<img/figures/discovered-commits.png, id=1000, 1415.2875pt x 706.89093pt>
 File: img/figures/discovered-commits.png Graphic file (type png)
 <use img/figures/discovered-commits.png>
-Package pdftex.def Info: img/figures/discovered-commits.png  used on input line 494.
+Package pdftex.def Info: img/figures/discovered-commits.png  used on input line 497.
 (pdftex.def)             Requested size: 597.50787pt x 298.4346pt.
- [68 <./img/figures/ui-batch-task-screen.png>] [69 <./img/figures/related-workitem1.png> <./img/figures/discovered-commits.png>]
-<img/figures/decision-wi-state.png.png, id=998, 1412.27625pt x 301.125pt>
+ [70 <./img/figures/ui-batch-task-screen.png>] [71 <./img/figures/related-workitem1.png> <./img/figures/discovered-commits.png>]
+<img/figures/decision-wi-state.png.png, id=1015, 1412.27625pt x 301.125pt>
 File: img/figures/decision-wi-state.png.png Graphic file (type png)
 <use img/figures/decision-wi-state.png.png>
-Package pdftex.def Info: img/figures/decision-wi-state.png.png  used on input line 515.
+Package pdftex.def Info: img/figures/decision-wi-state.png.png  used on input line 518.
 (pdftex.def)             Requested size: 597.50787pt x 127.39978pt.
-<img/figures/decision-repo-tags.jpg, id=999, 602.25pt x 263.48438pt>
+<img/figures/decision-repo-tags.jpg, id=1016, 602.25pt x 263.48438pt>
 File: img/figures/decision-repo-tags.jpg Graphic file (type jpg)
 <use img/figures/decision-repo-tags.jpg>
-Package pdftex.def Info: img/figures/decision-repo-tags.jpg  used on input line 527.
+Package pdftex.def Info: img/figures/decision-repo-tags.jpg  used on input line 530.
 (pdftex.def)             Requested size: 597.50787pt x 261.43329pt.
- [70 <./img/figures/decision-wi-state.png.png> <./img/figures/decision-repo-tags.jpg>] [71] [72]) [73]
+ [72 <./img/figures/decision-wi-state.png.png> <./img/figures/decision-repo-tags.jpg>] [73] [74]) [75]
 \openout2 = `chapters/conclusion.aux'.
 
- (./chapters/conclusion.tex) [74
+ (./chapters/conclusion.tex) [76
 
 
 
@@ -1047,21 +1082,21 @@ LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
  ***********
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: F8E4E435FCBA1A62C66890E88ACB45F5;16070.
+(rerunfilecheck)             Checksum: F02F8563949E4301BC982E20806DA0DB;16375.
  ) 
 Here is how much of TeX's memory you used:
- 24056 strings out of 467525
- 451001 string characters out of 5425861
- 853297 words of memory out of 5000000
- 52249 multiletter control sequences out of 15000+600000
- 675086 words of font info for 66 fonts, out of 8000000 for 9000
+ 24069 strings out of 467525
+ 451191 string characters out of 5425861
+ 853468 words of memory out of 5000000
+ 52256 multiletter control sequences out of 15000+600000
+ 678691 words of font info for 69 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  84i,17n,94p,1016b,671s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmri12.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmtk10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmtt12.pfb>
-Output written on main.pdf (76 pages, 2133152 bytes).
+Output written on main.pdf (78 pages, 2360681 bytes).
 PDF statistics:
- 1122 PDF objects out of 1200 (max. 8388607)
- 951 compressed objects within 10 object streams
- 242 named destinations out of 1000 (max. 500000)
- 932 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1138 PDF objects out of 1200 (max. 8388607)
+ 965 compressed objects within 10 object streams
+ 246 named destinations out of 1000 (max. 500000)
+ 940 words of extra memory for PDF output out of 10000 (max. 10000000)
 

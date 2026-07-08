@@ -1,6 +1,39 @@
 \chapter{Study of Existing Solutions}
 \label{chap:existing}
 
+\section{Existing Traceability Solutions in Azure DevOps}
+\label{sec:existing-traceability}
+
+Before developing a custom solution, it is worth examining what traceability options already exist within the Azure DevOps ecosystem. Table~\ref{tab:existing-solutions} presents a comparison of three commonly used approaches.
+
+\begin{table}[htbp]
+\centering
+\caption{Comparison of existing traceability solutions in Azure DevOps}
+\label{tab:existing-solutions}
+\small
+\begin{tabular}{|p{3.5cm}|p{5cm}|p{5cm}|}
+\hline
+\textbf{Solution} & \textbf{Advantages} & \textbf{Limitations} \\
+\hline
+\hline
+Azure DevOps Native Features & 
+No additional setup required, basic visualization of relationships, Microsoft-maintained &
+Shallow dependency analysis only, no automated commit/tag extraction, limited programmatic access \\
+\hline
+Azure DevOps MCP Server &
+Structured API access, external tool integration, standardized query interface &
+Manual analysis logic required, no built-in tag extraction, limited scalability \\
+\hline
+Custom Scripting Solutions &
+Fully customizable, tailored data extraction &
+High development effort, lack of standardization, difficult to scale and reuse \\
+\hline
+\end{tabular}
+\end{table}
+
+\vspace{0.3cm}
+While these existing solutions provide some level of traceability support, they fall short in automation depth and scalability for microservice architectures. None of them addresses the core problem of efficiently mapping dependencies across multiple repositories and services, which is the primary motivation for developing the system described in this report.
+
 \section{Current Dependency Tracking Process}
 
 This chapter analyzes the manual workflow used prior to the introduction of the

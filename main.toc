@@ -30,96 +30,97 @@
 \contentsline {subsection}{\numberline {1.4.3}Project Activities}{23}{subsection.1.4.3}%
 \contentsline {section}{\numberline {1.5}Conclusion}{24}{section.1.5}%
 \contentsline {chapter}{\numberline {2}Study of Existing Solutions}{25}{chapter.2}%
-\contentsline {section}{\numberline {2.1}Current Dependency Tracking Process}{25}{section.2.1}%
-\contentsline {section}{\numberline {2.2}Illustrative Example}{26}{section.2.2}%
-\contentsline {section}{\numberline {2.3}Limitations and Their Impact}{26}{section.2.3}%
-\contentsline {chapter}{\numberline {3}Requirements Specification}{29}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Introduction}{29}{section.3.1}%
-\contentsline {section}{\numberline {3.2}Functional Requirements}{29}{section.3.2}%
-\contentsline {section}{\numberline {3.3}Non-Functional Requirements}{30}{section.3.3}%
-\contentsline {subsection}{\numberline {3.3.1}Performance}{31}{subsection.3.3.1}%
-\contentsline {subsection}{\numberline {3.3.2}Scalability}{32}{subsection.3.3.2}%
-\contentsline {subsection}{\numberline {3.3.3}Reliability}{32}{subsection.3.3.3}%
-\contentsline {subsection}{\numberline {3.3.4}Maintainability}{33}{subsection.3.3.4}%
-\contentsline {subsection}{\numberline {3.3.5}Security and Data Integrity}{34}{subsection.3.3.5}%
-\contentsline {subsection}{\numberline {3.3.6}Verification Scope}{35}{subsection.3.3.6}%
-\contentsline {section}{\numberline {3.4}Use Case Model}{35}{section.3.4}%
-\contentsline {subsection}{\numberline {3.4.1}Actors}{35}{subsection.3.4.1}%
-\contentsline {subsubsection}{Developer and Release Engineer}{35}{section*.21}%
-\contentsline {subsubsection}{LLM Provider}{36}{section*.22}%
-\contentsline {subsubsection}{Additional Actors}{36}{section*.23}%
-\contentsline {subsection}{\numberline {3.4.2}Use Case Descriptions}{36}{subsection.3.4.2}%
-\contentsline {subsubsection}{Work Item Use Cases}{36}{section*.24}%
-\contentsline {subsubsection}{Pull Request Use Cases}{36}{section*.25}%
-\contentsline {subsubsection}{Commit Use Cases}{37}{section*.26}%
-\contentsline {subsubsection}{Aggregation and Decision Use Cases}{37}{section*.27}%
-\contentsline {subsection}{\numberline {3.4.3}Use Case Diagram}{37}{subsection.3.4.3}%
-\contentsline {subsection}{\numberline {3.4.4}Scope Boundaries}{38}{subsection.3.4.4}%
-\contentsline {section}{\numberline {3.5}Requirements Traceability Summary}{39}{section.3.5}%
-\contentsline {section}{\numberline {3.6}Conclusion}{39}{section.3.6}%
-\contentsline {chapter}{\numberline {4}Proposed Solution}{41}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Introduction}{41}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Global System Architecture}{42}{section.4.2}%
-\contentsline {subsection}{\numberline {4.2.1}Presentation Layer: Trace UI}{42}{subsection.4.2.1}%
-\contentsline {subsection}{\numberline {4.2.2}Application Layer: Backend Services}{43}{subsection.4.2.2}%
-\contentsline {subsection}{\numberline {4.2.3}Integration Layer: Azure DevOps APIs}{43}{subsection.4.2.3}%
-\contentsline {subsection}{\numberline {4.2.4}Layer Interaction}{44}{subsection.4.2.4}%
-\contentsline {subsection}{\numberline {4.2.5}Logical Architecture View}{44}{subsection.4.2.5}%
-\contentsline {subsection}{\numberline {4.2.6}Physical Deployment Architecture}{45}{subsection.4.2.6}%
-\contentsline {subsection}{\numberline {4.2.7}Connection Graph}{47}{subsection.4.2.7}%
-\contentsline {section}{\numberline {4.3}Design Principles}{47}{section.4.3}%
-\contentsline {subsection}{\numberline {4.3.1}Modularity}{47}{subsection.4.3.1}%
-\contentsline {subsection}{\numberline {4.3.2}Separation of Concerns}{48}{subsection.4.3.2}%
-\contentsline {subsection}{\numberline {4.3.3}Data Normalization}{48}{subsection.4.3.3}%
-\contentsline {subsection}{\numberline {4.3.4}Batch Processing}{48}{subsection.4.3.4}%
-\contentsline {subsection}{\numberline {4.3.5}Assisted Decision Support}{48}{subsection.4.3.5}%
-\contentsline {section}{\numberline {4.4}Core Components}{48}{section.4.4}%
-\contentsline {subsection}{\numberline {4.4.1}Sprint Exploration Component}{49}{subsection.4.4.1}%
-\contentsline {subsection}{\numberline {4.4.2}Work Item Management Component}{49}{subsection.4.4.2}%
-\contentsline {subsection}{\numberline {4.4.3}Pull Request Resolution Component}{49}{subsection.4.4.3}%
-\contentsline {subsection}{\numberline {4.4.4}Commit Aggregation Component}{49}{subsection.4.4.4}%
-\contentsline {subsection}{\numberline {4.4.5}Decision Aggregation Component}{50}{subsection.4.4.5}%
-\contentsline {subsection}{\numberline {4.4.6}LLM-Assisted Review Component}{50}{subsection.4.4.6}%
-\contentsline {section}{\numberline {4.5}End-to-End Data Flow}{50}{section.4.5}%
-\contentsline {section}{\numberline {4.6}User Interface and Interaction}{51}{section.4.6}%
-\contentsline {section}{\numberline {4.7}Observability and Logging}{51}{section.4.7}%
-\contentsline {chapter}{\numberline {5}Implementation}{53}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Introduction}{53}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Technology Stack}{53}{section.5.2}%
-\contentsline {subsection}{\numberline {5.2.1}Frontend Layer}{53}{subsection.5.2.1}%
-\contentsline {subsection}{\numberline {5.2.2}Backend Layer}{54}{subsection.5.2.2}%
-\contentsline {subsection}{\numberline {5.2.3}Domain Service Layer}{54}{subsection.5.2.3}%
-\contentsline {subsection}{\numberline {5.2.4}Cloud Infrastructure and DevOps}{55}{subsection.5.2.4}%
-\contentsline {section}{\numberline {5.3}Methodology Execution Through Delivery Phases}{55}{section.5.3}%
-\contentsline {subsection}{\numberline {5.3.1}Methodology Selection}{55}{subsection.5.3.1}%
-\contentsline {subsection}{\numberline {5.3.2}Selection Rationale}{56}{subsection.5.3.2}%
-\contentsline {subsection}{\numberline {5.3.3}Application to Delivery Phases}{57}{subsection.5.3.3}%
-\contentsline {subsubsection}{Phase 1 -- Setup and Infrastructure}{57}{section*.38}%
-\contentsline {subsubsection}{Phase 2 -- Work Items Module}{58}{section*.39}%
-\contentsline {subsubsection}{Phase 3 -- Pull Requests Module}{58}{section*.40}%
-\contentsline {subsubsection}{Phase 4 -- Commits and Graph Traceability Engine}{58}{section*.41}%
-\contentsline {subsubsection}{Phase 5 -- Sprint Module}{59}{section*.42}%
-\contentsline {subsubsection}{Phase 6 -- LLM-Assisted Review}{59}{section*.43}%
-\contentsline {subsubsection}{Phase 7 -- System Release}{59}{section*.44}%
-\contentsline {section}{\numberline {5.4}Validation and Deployment}{59}{section.5.4}%
-\contentsline {section}{\numberline {5.5}Backend Design}{60}{section.5.5}%
-\contentsline {subsection}{\numberline {5.5.1}Module Architecture}{60}{subsection.5.5.1}%
-\contentsline {subsection}{\numberline {5.5.2}API Design}{61}{subsection.5.5.2}%
-\contentsline {subsection}{\numberline {5.5.3}Processing Flows}{62}{subsection.5.5.3}%
+\contentsline {section}{\numberline {2.1}Existing Traceability Solutions in Azure DevOps}{25}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Current Dependency Tracking Process}{26}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Illustrative Example}{28}{section.2.3}%
+\contentsline {section}{\numberline {2.4}Limitations and Their Impact}{28}{section.2.4}%
+\contentsline {chapter}{\numberline {3}Requirements Specification}{30}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Introduction}{30}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Functional Requirements}{30}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Non-Functional Requirements}{31}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}Performance}{32}{subsection.3.3.1}%
+\contentsline {subsection}{\numberline {3.3.2}Scalability}{33}{subsection.3.3.2}%
+\contentsline {subsection}{\numberline {3.3.3}Reliability}{33}{subsection.3.3.3}%
+\contentsline {subsection}{\numberline {3.3.4}Maintainability}{34}{subsection.3.3.4}%
+\contentsline {subsection}{\numberline {3.3.5}Security and Data Integrity}{35}{subsection.3.3.5}%
+\contentsline {subsection}{\numberline {3.3.6}Verification Scope}{36}{subsection.3.3.6}%
+\contentsline {section}{\numberline {3.4}Use Case Model}{36}{section.3.4}%
+\contentsline {subsection}{\numberline {3.4.1}Actors}{36}{subsection.3.4.1}%
+\contentsline {subsubsection}{Developer and Release Engineer}{36}{section*.22}%
+\contentsline {subsubsection}{LLM Provider}{37}{section*.23}%
+\contentsline {subsubsection}{Additional Actors}{37}{section*.24}%
+\contentsline {subsection}{\numberline {3.4.2}Use Case Descriptions}{37}{subsection.3.4.2}%
+\contentsline {subsubsection}{Work Item Use Cases}{37}{section*.25}%
+\contentsline {subsubsection}{Pull Request Use Cases}{37}{section*.26}%
+\contentsline {subsubsection}{Commit Use Cases}{38}{section*.27}%
+\contentsline {subsubsection}{Aggregation and Decision Use Cases}{38}{section*.28}%
+\contentsline {subsection}{\numberline {3.4.3}Use Case Diagram}{38}{subsection.3.4.3}%
+\contentsline {subsection}{\numberline {3.4.4}Scope Boundaries}{39}{subsection.3.4.4}%
+\contentsline {section}{\numberline {3.5}Requirements Traceability Summary}{40}{section.3.5}%
+\contentsline {section}{\numberline {3.6}Conclusion}{40}{section.3.6}%
+\contentsline {chapter}{\numberline {4}Proposed Solution}{42}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Introduction}{42}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Global System Architecture}{43}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Presentation Layer: Trace UI}{43}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Application Layer: Backend Services}{44}{subsection.4.2.2}%
+\contentsline {subsection}{\numberline {4.2.3}Integration Layer: Azure DevOps APIs}{44}{subsection.4.2.3}%
+\contentsline {subsection}{\numberline {4.2.4}Layer Interaction}{45}{subsection.4.2.4}%
+\contentsline {subsection}{\numberline {4.2.5}Logical Architecture View}{45}{subsection.4.2.5}%
+\contentsline {subsection}{\numberline {4.2.6}Physical Deployment Architecture}{46}{subsection.4.2.6}%
+\contentsline {subsection}{\numberline {4.2.7}Connection Graph}{48}{subsection.4.2.7}%
+\contentsline {section}{\numberline {4.3}Design Principles}{48}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}Modularity}{48}{subsection.4.3.1}%
+\contentsline {subsection}{\numberline {4.3.2}Separation of Concerns}{49}{subsection.4.3.2}%
+\contentsline {subsection}{\numberline {4.3.3}Data Normalization}{49}{subsection.4.3.3}%
+\contentsline {subsection}{\numberline {4.3.4}Batch Processing}{49}{subsection.4.3.4}%
+\contentsline {subsection}{\numberline {4.3.5}Assisted Decision Support}{49}{subsection.4.3.5}%
+\contentsline {section}{\numberline {4.4}Core Components}{49}{section.4.4}%
+\contentsline {subsection}{\numberline {4.4.1}Sprint Exploration Component}{50}{subsection.4.4.1}%
+\contentsline {subsection}{\numberline {4.4.2}Work Item Management Component}{50}{subsection.4.4.2}%
+\contentsline {subsection}{\numberline {4.4.3}Pull Request Resolution Component}{50}{subsection.4.4.3}%
+\contentsline {subsection}{\numberline {4.4.4}Commit Aggregation Component}{50}{subsection.4.4.4}%
+\contentsline {subsection}{\numberline {4.4.5}Decision Aggregation Component}{51}{subsection.4.4.5}%
+\contentsline {subsection}{\numberline {4.4.6}LLM-Assisted Review Component}{51}{subsection.4.4.6}%
+\contentsline {section}{\numberline {4.5}End-to-End Data Flow}{51}{section.4.5}%
+\contentsline {section}{\numberline {4.6}User Interface and Interaction}{52}{section.4.6}%
+\contentsline {section}{\numberline {4.7}Observability and Logging}{52}{section.4.7}%
+\contentsline {chapter}{\numberline {5}Implementation}{54}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Introduction}{54}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Technology Stack}{54}{section.5.2}%
+\contentsline {subsection}{\numberline {5.2.1}Frontend Layer}{54}{subsection.5.2.1}%
+\contentsline {subsection}{\numberline {5.2.2}Backend Layer}{55}{subsection.5.2.2}%
+\contentsline {subsection}{\numberline {5.2.3}Domain Service Layer}{55}{subsection.5.2.3}%
+\contentsline {subsection}{\numberline {5.2.4}Cloud Infrastructure and DevOps}{56}{subsection.5.2.4}%
+\contentsline {section}{\numberline {5.3}Methodology Execution Through Delivery Phases}{56}{section.5.3}%
+\contentsline {subsection}{\numberline {5.3.1}Methodology Selection}{56}{subsection.5.3.1}%
+\contentsline {subsection}{\numberline {5.3.2}Selection Rationale}{57}{subsection.5.3.2}%
+\contentsline {subsection}{\numberline {5.3.3}Application to Delivery Phases}{58}{subsection.5.3.3}%
+\contentsline {subsubsection}{Phase 1 -- Setup and Infrastructure}{58}{section*.39}%
+\contentsline {subsubsection}{Phase 2 -- Work Items Module}{59}{section*.40}%
+\contentsline {subsubsection}{Phase 3 -- Pull Requests Module}{59}{section*.41}%
+\contentsline {subsubsection}{Phase 4 -- Commits and Graph Traceability Engine}{59}{section*.42}%
+\contentsline {subsubsection}{Phase 5 -- Sprint Module}{60}{section*.43}%
+\contentsline {subsubsection}{Phase 6 -- LLM-Assisted Review}{60}{section*.44}%
+\contentsline {subsubsection}{Phase 7 -- System Release}{60}{section*.45}%
+\contentsline {section}{\numberline {5.4}Validation and Deployment}{60}{section.5.4}%
+\contentsline {section}{\numberline {5.5}Backend Design}{61}{section.5.5}%
+\contentsline {subsection}{\numberline {5.5.1}Module Architecture}{61}{subsection.5.5.1}%
+\contentsline {subsection}{\numberline {5.5.2}API Design}{64}{subsection.5.5.2}%
+\contentsline {subsection}{\numberline {5.5.3}Processing Flows}{64}{subsection.5.5.3}%
 \contentsline {section}{\numberline {5.6}Frontend Implementation}{65}{section.5.6}%
 \contentsline {subsection}{\numberline {5.6.1}Route and View Structure}{65}{subsection.5.6.1}%
 \contentsline {subsection}{\numberline {5.6.2}Backend Integration}{65}{subsection.5.6.2}%
-\contentsline {subsection}{\numberline {5.6.3}UI Walkthrough}{68}{subsection.5.6.3}%
-\contentsline {subsubsection}{Batch Work Items}{68}{section*.52}%
-\contentsline {subsubsection}{Related Work Item}{68}{section*.54}%
-\contentsline {subsubsection}{Sprint Work Items}{70}{section*.57}%
-\contentsline {subsubsection}{Decision Dashboard}{70}{section*.58}%
-\contentsline {section}{\numberline {5.7}Deployment}{71}{section.5.7}%
-\contentsline {subsection}{\numberline {5.7.1}Container Model}{71}{subsection.5.7.1}%
-\contentsline {subsection}{\numberline {5.7.2}Deployment Objectives}{71}{subsection.5.7.2}%
-\contentsline {section}{\numberline {5.8}Quality and Security}{71}{section.5.8}%
-\contentsline {subsection}{\numberline {5.8.1}Testing}{71}{subsection.5.8.1}%
-\contentsline {subsection}{\numberline {5.8.2}Security Controls}{72}{subsection.5.8.2}%
-\contentsline {section}{\numberline {5.9}AI-Assisted Development}{72}{section.5.9}%
-\contentsline {section}{\numberline {5.10}Conclusion}{73}{section.5.10}%
-\contentsline {chapter}{General Conclusion}{74}{chapter*.61}%
+\contentsline {subsection}{\numberline {5.6.3}UI Walkthrough}{70}{subsection.5.6.3}%
+\contentsline {subsubsection}{Batch Work Items}{70}{section*.53}%
+\contentsline {subsubsection}{Related Work Item}{70}{section*.55}%
+\contentsline {subsubsection}{Sprint Work Items}{72}{section*.58}%
+\contentsline {subsubsection}{Decision Dashboard}{72}{section*.59}%
+\contentsline {section}{\numberline {5.7}Deployment}{73}{section.5.7}%
+\contentsline {subsection}{\numberline {5.7.1}Container Model}{73}{subsection.5.7.1}%
+\contentsline {subsection}{\numberline {5.7.2}Deployment Objectives}{73}{subsection.5.7.2}%
+\contentsline {section}{\numberline {5.8}Quality and Security}{73}{section.5.8}%
+\contentsline {subsection}{\numberline {5.8.1}Testing}{73}{subsection.5.8.1}%
+\contentsline {subsection}{\numberline {5.8.2}Security Controls}{74}{subsection.5.8.2}%
+\contentsline {section}{\numberline {5.9}AI-Assisted Development}{74}{section.5.9}%
+\contentsline {section}{\numberline {5.10}Conclusion}{75}{section.5.10}%
+\contentsline {chapter}{General Conclusion}{76}{chapter*.62}%

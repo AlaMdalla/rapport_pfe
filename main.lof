@@ -2,27 +2,27 @@
 \contentsline {figure}{\numberline {1.1}{\ignorespaces Azure DevOps environment used within the MES X.0 division, showing work item tracking and development workflow management}}{16}{figure.caption.9}%
 \contentsline {figure}{\numberline {1.2}{\ignorespaces Excerpt from the version.json file showing microservice versions across DEV, QUA, PREPROD, and PROD environments}}{18}{figure.caption.10}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {2.1}{\ignorespaces Manual dependency tracking workflow before the MES-X Dependency Management system}}{27}{figure.caption.20}%
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Manual dependency tracking workflow before the MES-X Dependency Management system}}{27}{figure.caption.21}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Use Case Diagram of the MES-X Dependency Management System.}}{38}{figure.caption.28}%
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Use Case Diagram of the MES-X Dependency Management System.}}{39}{figure.caption.29}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {4.1}{\ignorespaces Logical architecture showing the main functional modules and their dependencies}}{45}{figure.caption.30}%
-\contentsline {figure}{\numberline {4.2}{\ignorespaces Physical deployment architecture showing hosting infrastructure and external integrations}}{46}{figure.caption.31}%
-\contentsline {figure}{\numberline {4.3}{\ignorespaces Global connection graph of the Trace UI and backend modules}}{47}{figure.caption.32}%
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Logical architecture showing the main functional modules and their dependencies}}{46}{figure.caption.31}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Physical deployment architecture showing hosting infrastructure and external integrations}}{47}{figure.caption.32}%
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Global connection graph of the Trace UI and backend modules}}{48}{figure.caption.33}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {5.1}{\ignorespaces Vue~3 -- frontend framework}}{54}{figure.caption.33}%
-\contentsline {figure}{\numberline {5.2}{\ignorespaces NestJS -- backend framework}}{54}{figure.caption.34}%
-\contentsline {figure}{\numberline {5.3}{\ignorespaces Azure DevOps -- source control and CI/CD platform}}{55}{figure.caption.35}%
-\contentsline {figure}{\numberline {5.4}{\ignorespaces Agile iterative cycle applied to delivery phase planning}}{57}{figure.caption.37}%
-\contentsline {figure}{\numberline {5.5}{\ignorespaces Azure DevOps pipeline -- Build and Dev stages after deployment}}{60}{figure.caption.45}%
-\contentsline {figure}{\numberline {5.6}{\ignorespaces Class diagram -- Work Item, Pull Request, and Commit modules}}{61}{figure.caption.46}%
-\contentsline {figure}{\numberline {5.7}{\ignorespaces Class diagram -- Sprint and Decision modules}}{61}{figure.caption.47}%
-\contentsline {figure}{\numberline {5.8}{\ignorespaces Sequence diagram -- single-root work item processing}}{63}{figure.caption.48}%
-\contentsline {figure}{\numberline {5.9}{\ignorespaces Sequence diagram -- batch work item aggregation}}{64}{figure.caption.49}%
-\contentsline {figure}{\numberline {5.10}{\ignorespaces UI route and component architecture}}{66}{figure.caption.50}%
-\contentsline {figure}{\numberline {5.11}{\ignorespaces Sequence diagram -- UI and backend integration}}{67}{figure.caption.51}%
-\contentsline {figure}{\numberline {5.12}{\ignorespaces Batch work items -- selection and SSE-driven progress}}{68}{figure.caption.53}%
-\contentsline {figure}{\numberline {5.13}{\ignorespaces Related work item -- single-root traceability graph}}{69}{figure.caption.55}%
-\contentsline {figure}{\numberline {5.14}{\ignorespaces Discovered commits -- commits found during graph traversal}}{69}{figure.caption.56}%
-\contentsline {figure}{\numberline {5.15}{\ignorespaces Decision -- work items grouped by state}}{70}{figure.caption.59}%
-\contentsline {figure}{\numberline {5.16}{\ignorespaces Decision -- repository view with expected tags for promotion}}{70}{figure.caption.60}%
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Vue~3 -- frontend framework}}{55}{figure.caption.34}%
+\contentsline {figure}{\numberline {5.2}{\ignorespaces NestJS -- backend framework}}{55}{figure.caption.35}%
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Azure DevOps -- source control and CI/CD platform}}{56}{figure.caption.36}%
+\contentsline {figure}{\numberline {5.4}{\ignorespaces Agile iterative cycle applied to delivery phase planning}}{58}{figure.caption.38}%
+\contentsline {figure}{\numberline {5.5}{\ignorespaces Azure DevOps pipeline -- Build and Dev stages after deployment}}{61}{figure.caption.46}%
+\contentsline {figure}{\numberline {5.6}{\ignorespaces Class diagram -- Work Item, Pull Request, and Commit modules}}{62}{figure.caption.47}%
+\contentsline {figure}{\numberline {5.7}{\ignorespaces Class diagram -- Sprint and Decision modules}}{63}{figure.caption.48}%
+\contentsline {figure}{\numberline {5.8}{\ignorespaces Sequence diagram -- single-root work item processing}}{66}{figure.caption.49}%
+\contentsline {figure}{\numberline {5.9}{\ignorespaces Sequence diagram -- batch work item aggregation}}{67}{figure.caption.50}%
+\contentsline {figure}{\numberline {5.10}{\ignorespaces UI route and component architecture}}{68}{figure.caption.51}%
+\contentsline {figure}{\numberline {5.11}{\ignorespaces Sequence diagram -- UI and backend integration}}{69}{figure.caption.52}%
+\contentsline {figure}{\numberline {5.12}{\ignorespaces Batch work items -- selection and SSE-driven progress}}{70}{figure.caption.54}%
+\contentsline {figure}{\numberline {5.13}{\ignorespaces Related work item -- single-root traceability graph}}{71}{figure.caption.56}%
+\contentsline {figure}{\numberline {5.14}{\ignorespaces Discovered commits -- commits found during graph traversal}}{71}{figure.caption.57}%
+\contentsline {figure}{\numberline {5.15}{\ignorespaces Decision -- work items grouped by state}}{72}{figure.caption.60}%
+\contentsline {figure}{\numberline {5.16}{\ignorespaces Decision -- repository view with expected tags for promotion}}{72}{figure.caption.61}%

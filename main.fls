@@ -410,6 +410,9 @@ OUTPUT chapters/study_existing.aux
 INPUT ./chapters/study_existing.tex
 INPUT ./chapters/study_existing.tex
 INPUT chapters/study_existing.tex
+INPUT /usr/share/texmf-dist/fonts/tfm/public/lm/rm-lmr10.tfm
+INPUT /usr/share/texmf-dist/fonts/tfm/public/lm/lmmi10.tfm
+INPUT /usr/share/texmf-dist/fonts/tfm/public/lm/lmsy10.tfm
 INPUT ./img/existing/dependency_before_process.png
 INPUT ./img/existing/dependency_before_process.png
 INPUT ./img/existing/dependency_before_process.png

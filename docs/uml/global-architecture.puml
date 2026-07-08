@@ -4,7 +4,7 @@ left to right direction
 
 actor "Developer / Release Engineer" as User
 
-package "Trace UI (Vue 3 + Quasar)" {
+package "Dependency Management ui" {
   [Vue Router + Auth Guard] as Router
   [Trace Views\n(Single, Batch, Sprint, Batch Related)] as Views
   [Pinia Trace Store] as Store
